@@ -108,7 +108,7 @@ const AppSidebar = () => {
               {menuItems.map((item) => (
                 <SidebarMenuItem key={item.path}>
                   {item.submenu ? (
-                    <SidebarGroup collapsible>
+                    <SidebarGroup>
                       <SidebarGroupLabel className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-sidebar-accent/50 hover:text-sidebar-accent-foreground">
                         <item.icon size={18} className="animate-float" />
                         <span>{item.label}</span>
