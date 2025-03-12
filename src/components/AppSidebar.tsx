@@ -21,7 +21,11 @@ import {
   FileSpreadsheet, 
   TreeDeciduous, 
   HelpCircle,
-  FileText
+  FileText,
+  Home,
+  Briefcase,
+  Building,
+  Camera
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "./theme-toggle";
@@ -41,6 +45,16 @@ const menuItems = [
     label: "Map View",
     path: "/map",
     icon: Map
+  },
+  {
+    label: "My Properties",
+    path: "/my-properties",
+    icon: Building
+  },
+  {
+    label: "My Tasks",
+    path: "/tasks/current",
+    icon: Briefcase
   },
   {
     label: "Community",

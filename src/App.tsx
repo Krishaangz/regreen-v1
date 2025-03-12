@@ -13,6 +13,9 @@ import Register from "./pages/Register";
 import NotFound from "./pages/NotFound";
 import Layout from "./components/Layout";
 import Settings from "./pages/Settings";
+import MapView from "./pages/MapView";
+import LandownerProjects from "./pages/LandownerProjects";
+import TaskView from "./pages/TaskView";
 
 // Placeholder components for routes we need to add
 const Community = () => <div className="animate-fade-in"><h1 className="text-3xl font-bold">Community</h1></div>;
@@ -50,6 +53,10 @@ const App = () => (
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/projects" element={<Projects />} />
                 <Route path="/settings" element={<Settings />} />
+                <Route path="/map" element={<MapView />} />
+                <Route path="/my-properties" element={<LandownerProjects />} />
+                <Route path="/tasks/:taskId" element={<TaskView />} />
+                <Route path="/tasks/current" element={<TaskView />} />
                 
                 {/* Community routes */}
                 <Route path="/community" element={<Community />} />
