@@ -1,17 +1,11 @@
 
 import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, ChevronRight, Home, LayoutDashboard, Settings, Users, FileText, HelpCircle, MapPin, LogOut } from "lucide-react";
+import { Menu, X, ChevronRight, Home, LayoutDashboard, Settings, Users, FileText, HelpCircle, MapPin, LogOut, Briefcase, Building, TreeDeciduous, FileSpreadsheet } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { useIsMobile } from "@/hooks/use-mobile";
 
 const mainMenuItems = [
-  {
-    label: "Home",
-    path: "/",
-    icon: Home
-  },
   {
     label: "Dashboard",
     path: "/dashboard",
@@ -20,7 +14,22 @@ const mainMenuItems = [
   {
     label: "Projects",
     path: "/projects",
+    icon: TreeDeciduous
+  },
+  {
+    label: "Map View",
+    path: "/map",
     icon: MapPin
+  },
+  {
+    label: "My Properties",
+    path: "/my-properties",
+    icon: Building
+  },
+  {
+    label: "My Tasks",
+    path: "/tasks/current",
+    icon: Briefcase
   },
   {
     label: "Community",
@@ -41,6 +50,11 @@ const mainMenuItems = [
       { label: "Landowner Services", path: "/services/landowner" },
       { label: "Worker Programs", path: "/services/worker" }
     ]
+  },
+  {
+    label: "Reports",
+    path: "/reports",
+    icon: FileSpreadsheet
   },
   {
     label: "Help Center",
@@ -64,7 +78,6 @@ const MobileNavbar = () => {
   const [expandedSubmenu, setExpandedSubmenu] = useState<string | null>(null);
   const location = useLocation();
   const menuRef = useRef<HTMLDivElement>(null);
-  const isMobile = useIsMobile();
   
   // Close the menu when clicking outside of it
   useEffect(() => {
@@ -128,7 +141,7 @@ const MobileNavbar = () => {
               <img 
                 src="/lovable-uploads/1319075d-dc28-4353-964e-51a8fbbe3522.png" 
                 alt="ReGreen Logo" 
-                className="w-7 h-7 animate-float" 
+                className="w-7 h-7" 
               />
               <span className="text-lg font-semibold text-regreen-800 dark:text-regreen-100">ReGreen</span>
             </Link>
@@ -206,7 +219,7 @@ const MobileNavbar = () => {
                     )}
                   >
                     <div className="flex items-center gap-3">
-                      <item.icon className="h-5 w-5 text-regreen-600 dark:text-regreen-400 animate-float" />
+                      <item.icon className="h-5 w-5 text-regreen-600 dark:text-regreen-400" />
                       <span className="text-regreen-800 dark:text-regreen-100">{item.label}</span>
                     </div>
                     <ChevronRight className={cn(
@@ -241,7 +254,7 @@ const MobileNavbar = () => {
                     location.pathname === item.path ? "bg-regreen-50 dark:bg-regreen-800/50 font-medium" : ""
                   )}
                 >
-                  <item.icon className="h-5 w-5 text-regreen-600 dark:text-regreen-400 animate-float" />
+                  <item.icon className="h-5 w-5 text-regreen-600 dark:text-regreen-400" />
                   <span className="text-regreen-800 dark:text-regreen-100">{item.label}</span>
                 </Link>
               )}

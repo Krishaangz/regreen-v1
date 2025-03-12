@@ -108,7 +108,7 @@ const AppSidebar = () => {
           <img 
             src="/lovable-uploads/1319075d-dc28-4353-964e-51a8fbbe3522.png" 
             alt="ReGreen Logo" 
-            className="w-8 h-8 animate-float" 
+            className="w-8 h-8" 
           />
           <span className="text-xl font-semibold">ReGreen</span>
         </Link>
@@ -124,7 +124,7 @@ const AppSidebar = () => {
                   {item.submenu ? (
                     <SidebarGroup>
                       <SidebarGroupLabel className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-sidebar-accent/50 hover:text-sidebar-accent-foreground">
-                        <item.icon size={18} className="animate-float" />
+                        <item.icon size={18} />
                         <span>{item.label}</span>
                       </SidebarGroupLabel>
                       <SidebarGroupContent>
@@ -160,7 +160,7 @@ const AppSidebar = () => {
                             "hover:bg-sidebar-accent/50 hover:text-sidebar-accent-foreground"
                         )}
                       >
-                        <item.icon size={18} className="animate-float" />
+                        <item.icon size={18} />
                         <span>{item.label}</span>
                       </Link>
                     </SidebarMenuButton>

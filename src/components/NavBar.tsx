@@ -77,7 +77,7 @@ const NavBar = () => {
           <img 
             src="/lovable-uploads/1319075d-dc28-4353-964e-51a8fbbe3522.png" 
             alt="ReGreen Logo" 
-            className="w-8 h-8 animate-float" 
+            className="w-8 h-8" 
           />
           <span className="text-xl font-semibold text-regreen-800 dark:text-regreen-100">ReGreen</span>
         </Link>
