@@ -19,19 +19,19 @@ import TaskView from "./pages/TaskView";
 import Reports from "./pages/Reports";
 
 // Services pages
-import Services from "./pages/Services";
+import Services from "./pages/services";
 import Restoration from "./pages/services/Restoration";
 import Landowner from "./pages/services/Landowner";
 import Worker from "./pages/services/Worker";
 
 // Community pages
-import Community from "./pages/Community";
+import Community from "./pages/community";
 import Forums from "./pages/community/Forums";
 import Events from "./pages/community/Events";
 import Stories from "./pages/community/Stories";
 
 // Help pages
-import Help from "./pages/Help";
+import Help from "./pages/help";
 import FAQ from "./pages/help/FAQ";
 import Contact from "./pages/help/Contact";
 import Support from "./pages/help/Support";
