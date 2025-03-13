@@ -18,25 +18,23 @@ import LandownerProjects from "./pages/LandownerProjects";
 import TaskView from "./pages/TaskView";
 import Reports from "./pages/Reports";
 
-// Placeholder components for routes we need to add
-const Community = () => <div className="animate-fade-in"><h1 className="text-3xl font-bold">Community</h1></div>;
-const Services = () => <div className="animate-fade-in"><h1 className="text-3xl font-bold">Services</h1></div>;
-const Help = () => <div className="animate-fade-in"><h1 className="text-3xl font-bold">Help Center</h1></div>;
+// Services pages
+import Services from "./pages/Services";
+import Restoration from "./pages/services/Restoration";
+import Landowner from "./pages/services/Landowner";
+import Worker from "./pages/services/Worker";
 
-// Community sub-pages
-const Forums = () => <div className="animate-fade-in"><h1 className="text-3xl font-bold">Community Forums</h1></div>;
-const Events = () => <div className="animate-fade-in"><h1 className="text-3xl font-bold">Community Events</h1></div>;
-const Stories = () => <div className="animate-fade-in"><h1 className="text-3xl font-bold">Success Stories</h1></div>;
+// Community pages
+import Community from "./pages/Community";
+import Forums from "./pages/community/Forums";
+import Events from "./pages/community/Events";
+import Stories from "./pages/community/Stories";
 
-// Services sub-pages
-const Restoration = () => <div className="animate-fade-in"><h1 className="text-3xl font-bold">Eco-Restoration Services</h1></div>;
-const LandownerServices = () => <div className="animate-fade-in"><h1 className="text-3xl font-bold">Landowner Services</h1></div>;
-const WorkerPrograms = () => <div className="animate-fade-in"><h1 className="text-3xl font-bold">Worker Programs</h1></div>;
-
-// Help sub-pages
-const FAQ = () => <div className="animate-fade-in"><h1 className="text-3xl font-bold">Frequently Asked Questions</h1></div>;
-const Contact = () => <div className="animate-fade-in"><h1 className="text-3xl font-bold">Contact Us</h1></div>;
-const Support = () => <div className="animate-fade-in"><h1 className="text-3xl font-bold">Support</h1></div>;
+// Help pages
+import Help from "./pages/Help";
+import FAQ from "./pages/help/FAQ";
+import Contact from "./pages/help/Contact";
+import Support from "./pages/help/Support";
 
 const queryClient = new QueryClient();
 
@@ -69,8 +67,8 @@ const App = () => (
                 {/* Services routes */}
                 <Route path="/services" element={<Services />} />
                 <Route path="/services/restoration" element={<Restoration />} />
-                <Route path="/services/landowner" element={<LandownerServices />} />
-                <Route path="/services/worker" element={<WorkerPrograms />} />
+                <Route path="/services/landowner" element={<Landowner />} />
+                <Route path="/services/worker" element={<Worker />} />
                 
                 {/* Help routes */}
                 <Route path="/help" element={<Help />} />
