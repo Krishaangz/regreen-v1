@@ -1,7 +1,10 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { HelpCircle, Leaf, Users, Droplets, Home, Briefcase } from "lucide-react";
+import { HelpCircle, Leaf, User2, Droplets, HomeIcon, Briefcase } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const FAQ = () => {
   const faqs = [
@@ -25,7 +28,7 @@ const FAQ = () => {
     },
     {
       category: "For Landowners",
-      icon: <Home className="h-5 w-5 text-regreen-600" />,
+      icon: <HomeIcon className="h-5 w-5 text-regreen-600" />,
       questions: [
         {
           question: "How do I register my property with ReGreen?",
@@ -79,7 +82,7 @@ const FAQ = () => {
     },
     {
       category: "Community Engagement",
-      icon: <Users className="h-5 w-5 text-regreen-600" />,
+      icon: <User2 className="h-5 w-5 text-regreen-600" />,
       questions: [
         {
           question: "How can community members get involved with ReGreen?",

@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Separator } from "@/components/ui/separator";
 import { Link } from "react-router-dom";
-import { MessageSquare, Users, Leaf, Droplets, Calendar, Clock, ArrowUp, MessageCircle, Eye, Pin } from "lucide-react";
+import { MessageSquare, User2, Leaf, Droplets, Calendar, Clock, ArrowUp, MessageCircle, Eye, Pin, Briefcase as BriefcaseIcon, Search as SearchIcon } from "lucide-react";
 
 const Forums = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -106,10 +106,10 @@ const Forums = () => {
   const categories = [
     { name: "Land Restoration", icon: <Leaf className="h-4 w-4" />, count: 156 },
     { name: "Waterbody Restoration", icon: <Droplets className="h-4 w-4" />, count: 123 },
-    { name: "Community Engagement", icon: <Users className="h-4 w-4" />, count: 98 },
+    { name: "Community Engagement", icon: <User2 className="h-4 w-4" />, count: 98 },
     { name: "Success Stories", icon: <MessageSquare className="h-4 w-4" />, count: 87 },
     { name: "Events & Workshops", icon: <Calendar className="h-4 w-4" />, count: 64 },
-    { name: "Worker Resources", icon: <Briefcase className="h-4 w-4" />, count: 52 }
+    { name: "Worker Resources", icon: <BriefcaseIcon className="h-4 w-4" />, count: 52 }
   ];
   
   const topContributors = [
@@ -143,14 +143,14 @@ const Forums = () => {
       <div className="flex flex-col md:flex-row gap-8">
         <div className="md:w-3/4">
           <div className="flex flex-col sm:flex-row justify-between gap-4 mb-6">
-            <div className="flex-1">
+            <div className="flex-1 relative">
               <Input
                 placeholder="Search topics, categories, or tags..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full"
-                icon={<Search className="h-4 w-4 text-muted-foreground" />}
               />
+              <SearchIcon className="h-4 w-4 text-muted-foreground absolute right-3 top-3" />
             </div>
             <Button className="bg-regreen-600 hover:bg-regreen-700">Create New Topic</Button>
           </div>

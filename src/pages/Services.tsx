@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -5,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "react-router-dom";
-import { Leaf, Droplets, TreeDeciduous, Home, ShieldCheck, Users, ArrowRight, CheckCircle, HelpCircle, BarChart3 } from "lucide-react";
+import { Leaf, Droplets, TreeDeciduous, HomeIcon, ShieldCheck, User2, ArrowRight, CheckCircle, HelpCircle, BarChart3, MapPin } from "lucide-react";
 
 const Services = () => {
   const { toast } = useToast();
@@ -387,7 +388,7 @@ const Services = () => {
               <Card className="group hover:shadow-lg transition-shadow">
                 <CardHeader className="text-center pb-3">
                   <div className="w-14 h-14 rounded-full bg-regreen-100 dark:bg-regreen-900/30 flex items-center justify-center mx-auto mb-4">
-                    <Users className="h-7 w-7 text-regreen-600 dark:text-regreen-400" />
+                    <User2 className="h-7 w-7 text-regreen-600 dark:text-regreen-400" />
                   </div>
                   <CardTitle>Community Engagement</CardTitle>
                   <CardDescription>Connect with like-minded eco-enthusiasts</CardDescription>
@@ -424,7 +425,7 @@ const Services = () => {
               <Card className="group hover:shadow-lg transition-shadow">
                 <CardHeader className="text-center pb-3">
                   <div className="w-14 h-14 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center mx-auto mb-4">
-                    <Park className="h-7 w-7 text-orange-600 dark:text-orange-400" />
+                    <MapPin className="h-7 w-7 text-orange-600 dark:text-orange-400" />
                   </div>
                   <CardTitle>Events & Workshops</CardTitle>
                   <CardDescription>Participate in eco-restoration activities</CardDescription>
@@ -461,7 +462,7 @@ const Services = () => {
               <Card className="group hover:shadow-lg transition-shadow">
                 <CardHeader className="text-center pb-3">
                   <div className="w-14 h-14 rounded-full bg-teal-100 dark:bg-teal-900/30 flex items-center justify-center mx-auto mb-4">
-                    <Home className="h-7 w-7 text-teal-600 dark:text-teal-400" />
+                    <HomeIcon className="h-7 w-7 text-teal-600 dark:text-teal-400" />
                   </div>
                   <CardTitle>Success Stories</CardTitle>
                   <CardDescription>Explore completed transformation projects</CardDescription>
@@ -514,7 +515,7 @@ const Services = () => {
                   
                   <div className="flex gap-4 items-start">
                     <div className="bg-regreen-100 dark:bg-regreen-800/50 p-2 rounded-full">
-                      <Users className="h-5 w-5 text-regreen-600 dark:text-regreen-400" />
+                      <User2 className="h-5 w-5 text-regreen-600 dark:text-regreen-400" />
                     </div>
                     <div>
                       <h4 className="font-medium">Social Cohesion</h4>
@@ -536,7 +537,7 @@ const Services = () => {
                   
                   <div className="flex gap-4 items-start">
                     <div className="bg-regreen-100 dark:bg-regreen-800/50 p-2 rounded-full">
-                      <Park className="h-5 w-5 text-regreen-600 dark:text-regreen-400" />
+                      <MapPin className="h-5 w-5 text-regreen-600 dark:text-regreen-400" />
                     </div>
                     <div>
                       <h4 className="font-medium">Recreational Spaces</h4>
