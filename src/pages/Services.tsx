@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -6,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "react-router-dom";
-import { Leaf, Droplets, Park, Home, ShieldCheck, Users, ArrowRight, CheckCircle, HelpCircle } from "lucide-react";
+import { Leaf, Droplets, TreeDeciduous, Home, ShieldCheck, Users, ArrowRight, CheckCircle, HelpCircle, BarChart3 } from "lucide-react";
 
 const Services = () => {
   const { toast } = useToast();
@@ -142,7 +141,7 @@ const Services = () => {
               <Card className="group hover:shadow-lg transition-shadow">
                 <CardHeader className="text-center pb-3">
                   <div className="w-14 h-14 rounded-full bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center mx-auto mb-4">
-                    <Park className="h-7 w-7 text-amber-600 dark:text-amber-400" />
+                    <TreeDeciduous className="h-7 w-7 text-amber-600 dark:text-amber-400" />
                   </div>
                   <CardTitle>Urban Green Spaces</CardTitle>
                   <CardDescription>Create community parks and gathering areas</CardDescription>
@@ -527,7 +526,7 @@ const Services = () => {
                 <div className="space-y-4">
                   <div className="flex gap-4 items-start">
                     <div className="bg-regreen-100 dark:bg-regreen-800/50 p-2 rounded-full">
-                      <LineChart className="h-5 w-5 text-regreen-600 dark:text-regreen-400" />
+                      <BarChart3 className="h-5 w-5 text-regreen-600 dark:text-regreen-400" />
                     </div>
                     <div>
                       <h4 className="font-medium">Economic Development</h4>
