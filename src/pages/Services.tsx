@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -321,7 +320,7 @@ const Services = () => {
               <Card className="group hover:shadow-lg transition-shadow">
                 <CardHeader className="text-center pb-3">
                   <div className="w-14 h-14 rounded-full bg-pink-100 dark:bg-pink-900/30 flex items-center justify-center mx-auto mb-4">
-                    <Users className="h-7 w-7 text-pink-600 dark:text-pink-400" />
+                    <User2 className="h-7 w-7 text-pink-600 dark:text-pink-400" />
                   </div>
                   <CardTitle>Temporary Group Formation</CardTitle>
                   <CardDescription>Join project-specific worker groups</CardDescription>
