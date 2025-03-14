@@ -4,164 +4,186 @@ import ProjectBase from '@/components/projects/ProjectBase';
 import { CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { BriefcaseMedical, Check, Clock, Eye, MessageSquare, Star } from 'lucide-react';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { useNavigate } from 'react-router-dom';
+import { Clock, MapPin, DollarSign, Calendar, Eye } from 'lucide-react';
+import { Progress } from '@/components/ui/progress';
+import { useToast } from '@/hooks/use-toast';
 
 const WorkerProjects = () => {
-  const navigate = useNavigate();
-  
-  const assignedProjects = [
-    {
-      id: 1,
-      name: 'Oak Valley Tree Planting',
-      location: 'Oak Valley',
-      deadline: 'May 25, 2023',
-      compensation: '$180',
-      status: 'In Progress',
-      teamMembers: 4,
-      hoursRemaining: 6
-    },
-    {
-      id: 2,
-      name: 'Meadow Ridge Irrigation',
-      location: 'Meadow Ridge',
-      deadline: 'June 3, 2023',
-      compensation: '$220',
-      status: 'Not Started',
-      teamMembers: 3,
-      hoursRemaining: 12
-    }
-  ];
+  const { toast } = useToast();
   
   const availableProjects = [
-    {
-      id: 3,
-      name: 'Green Acres Soil Preparation',
-      location: 'Green Acres',
+    { 
+      id: 1, 
+      name: 'Oak Valley Restoration', 
+      type: 'Tree Planting',
+      location: 'Oak Valley', 
+      distance: '2.4 miles',
+      deadline: 'May 25, 2023',
+      compensation: '$180',
+      difficulty: 'Medium',
+      status: 'Available'
+    },
+    { 
+      id: 2, 
+      name: 'Meadow Ridge Revival', 
+      type: 'Irrigation Setup',
+      location: 'Meadow Ridge', 
+      distance: '5.7 miles',
+      deadline: 'May 30, 2023',
+      compensation: '$220',
+      difficulty: 'Hard',
+      status: 'Available'
+    },
+  ];
+  
+  const assignedProjects = [
+    { 
+      id: 3, 
+      name: 'Green Acres Development', 
+      type: 'Soil Preparation',
+      location: 'Green Acres', 
+      distance: '3.2 miles',
       deadline: 'June 5, 2023',
       compensation: '$150',
-      status: 'Open',
-      skillLevel: 'Beginner',
-      distance: '3.2 miles'
+      progress: 20,
+      status: 'In Progress'
     },
-    {
-      id: 4,
-      name: 'Riverside Park Planting',
-      location: 'Riverside Park',
-      deadline: 'June 10, 2023',
-      compensation: '$175',
-      status: 'Open',
-      skillLevel: 'Intermediate',
-      distance: '5.8 miles'
-    }
+    { 
+      id: 4, 
+      name: 'Riverside Wetland', 
+      type: 'Wetland Planting',
+      location: 'Riverside Park', 
+      distance: '4.1 miles',
+      deadline: 'June 12, 2023',
+      compensation: '$210',
+      progress: 45,
+      status: 'In Progress'
+    },
   ];
   
   const completedProjects = [
-    {
-      id: 5,
-      name: 'Downtown Community Garden',
-      location: 'City Center',
-      completedDate: 'May 10, 2023',
-      compensation: '$165',
-      status: 'Completed',
-      rating: 4.8
+    { 
+      id: 5, 
+      name: 'Hamilton Gardens', 
+      type: 'Composting',
+      location: 'Hamilton Park', 
+      distance: '1.8 miles',
+      completedDate: 'April 30, 2023',
+      compensation: '$175',
+      rating: 4.8,
+      status: 'Completed'
     },
-    {
-      id: 6,
-      name: 'Highland Park Cleanup',
-      location: 'Highland Park',
-      completedDate: 'Apr 28, 2023',
-      compensation: '$140',
-      status: 'Completed',
-      rating: 5.0
-    }
   ];
   
-  const assignedProjectCard = (project: any) => (
-    <div key={project.id} className="border rounded-lg p-4 hover:border-blue-600 transition-colors">
-      <div className="flex justify-between">
-        <h3 className="font-semibold">{project.name}</h3>
-        <Badge variant="outline" className="bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300">
-          {project.status}
-        </Badge>
-      </div>
-      <div className="text-sm text-muted-foreground mt-1">
-        {project.location}
-      </div>
-      
-      <div className="flex justify-between mt-3">
-        <div className="space-y-1">
-          <div className="text-sm text-muted-foreground">Team Size</div>
-          <div className="flex -space-x-2">
-            {Array(project.teamMembers).fill(0).map((_, i) => (
-              <Avatar key={i} className="h-7 w-7 border-2 border-background">
-                <AvatarFallback>T{i+1}</AvatarFallback>
-              </Avatar>
-            ))}
-          </div>
-        </div>
-        <div className="space-y-1 text-right">
-          <div className="text-sm text-muted-foreground">Compensation</div>
-          <div className="font-semibold text-blue-600 dark:text-blue-400">{project.compensation}</div>
-        </div>
-      </div>
-      
-      <div className="flex items-center mt-3 text-sm">
-        <Clock className="h-4 w-4 mr-1 text-muted-foreground" />
-        <span className="text-muted-foreground mr-1">Hours remaining:</span>
-        <span>{project.hoursRemaining}</span>
-        <span className="mx-2">•</span>
-        <span className="text-muted-foreground mr-1">Due:</span>
-        <span>{project.deadline}</span>
-      </div>
-      
-      <div className="flex gap-2 mt-3">
-        <Button variant="outline" size="sm" className="flex-1">
-          <Eye className="h-3 w-3 mr-1" />
-          View
-        </Button>
-        <Button variant="outline" size="sm" className="flex-1">
-          <MessageSquare className="h-3 w-3 mr-1" />
-          Team Chat
-        </Button>
-      </div>
-    </div>
-  );
+  const scheduledProjects = [
+    { 
+      id: 6, 
+      name: 'Lakeside Park Clean-up', 
+      type: 'Waste Removal',
+      location: 'Lakeside Park', 
+      distance: '6.3 miles',
+      startDate: 'June 20, 2023',
+      duration: '3 days',
+      compensation: '$240',
+      status: 'Scheduled'
+    },
+  ];
+  
+  const handleApplyForTask = () => {
+    toast({
+      title: "Search Tasks",
+      description: "The search and filter interface for available tasks would open here.",
+    });
+  };
+  
+  const getDifficultyColor = (difficulty: string) => {
+    switch(difficulty) {
+      case 'Easy': return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300';
+      case 'Medium': return 'bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-300';
+      case 'Hard': return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300';
+      default: return 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300';
+    }
+  };
+  
+  const getStatusColor = (status: string) => {
+    switch(status) {
+      case 'Available': return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300';
+      case 'In Progress': return 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300';
+      case 'Completed': return 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-300';
+      case 'Scheduled': return 'bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-300';
+      default: return 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300';
+    }
+  };
   
   const availableProjectCard = (project: any) => (
     <div key={project.id} className="border rounded-lg p-4 hover:border-blue-600 transition-colors">
       <div className="flex justify-between">
         <h3 className="font-semibold">{project.name}</h3>
-        <Badge variant="outline" className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300">
+        <Badge variant="outline" className={getStatusColor(project.status)}>
           {project.status}
         </Badge>
       </div>
-      <div className="text-sm text-muted-foreground mt-1">
+      <div className="text-sm text-muted-foreground flex items-center mt-1">
+        <MapPin className="h-3 w-3 mr-1" />
         {project.location} • {project.distance} away
       </div>
       
-      <div className="flex justify-between items-center mt-3">
-        <Badge variant="outline">{project.skillLevel}</Badge>
-        <div className="font-semibold text-blue-600 dark:text-blue-400">{project.compensation}</div>
+      <div className="flex justify-between items-center mt-2 text-sm">
+        <span>{project.type}</span>
+        <Badge variant="outline" className={getDifficultyColor(project.difficulty)}>
+          {project.difficulty}
+        </Badge>
       </div>
       
-      <div className="flex items-center mt-3 text-sm">
-        <Clock className="h-4 w-4 mr-1 text-muted-foreground" />
-        <span className="text-muted-foreground mr-1">Deadline:</span>
-        <span>{project.deadline}</span>
+      <div className="flex justify-between items-center mt-2">
+        <div className="text-sm flex items-center">
+          <Clock className="h-3 w-3 mr-1 text-muted-foreground" />
+          <span className="text-muted-foreground mr-1">Due:</span>
+          <span>{project.deadline}</span>
+        </div>
+        <span className="font-semibold text-blue-600 dark:text-blue-400">{project.compensation}</span>
       </div>
       
-      <div className="flex gap-2 mt-3">
-        <Button size="sm" className="flex-1 bg-blue-600 hover:bg-blue-700 text-white">
-          <BriefcaseMedical className="h-3 w-3 mr-1" />
-          Apply
-        </Button>
-        <Button variant="outline" size="sm" className="flex-1">
-          <Eye className="h-3 w-3 mr-1" />
-          Details
-        </Button>
+      <Button variant="outline" size="sm" className="mt-3 w-full">
+        <Eye className="mr-1 h-4 w-4" />
+        View Details
+      </Button>
+    </div>
+  );
+  
+  const assignedProjectCard = (project: any) => (
+    <div key={project.id} className="border rounded-lg p-4 hover:border-blue-600 transition-colors">
+      <div className="flex justify-between">
+        <h3 className="font-semibold">{project.name}</h3>
+        <Badge variant="outline" className={getStatusColor(project.status)}>
+          {project.status}
+        </Badge>
       </div>
+      <div className="text-sm text-muted-foreground flex items-center mt-1">
+        <MapPin className="h-3 w-3 mr-1" />
+        {project.location} • {project.distance} away
+      </div>
+      
+      <div className="mt-2 space-y-1">
+        <div className="flex justify-between text-sm">
+          <span>Progress</span>
+          <span>{project.progress}%</span>
+        </div>
+        <Progress value={project.progress} className="h-2" />
+      </div>
+      
+      <div className="flex justify-between items-center mt-2">
+        <div className="text-sm flex items-center">
+          <Clock className="h-3 w-3 mr-1 text-muted-foreground" />
+          <span className="text-muted-foreground mr-1">Due:</span>
+          <span>{project.deadline}</span>
+        </div>
+        <span className="font-semibold text-blue-600 dark:text-blue-400">{project.compensation}</span>
+      </div>
+      
+      <Button className="mt-3 w-full bg-blue-600 hover:bg-blue-700 text-white">
+        Continue Work
+      </Button>
     </div>
   );
   
@@ -169,39 +191,95 @@ const WorkerProjects = () => {
     <div key={project.id} className="border rounded-lg p-4 hover:border-blue-600 transition-colors">
       <div className="flex justify-between">
         <h3 className="font-semibold">{project.name}</h3>
-        <Badge variant="outline" className="bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300">
+        <Badge variant="outline" className={getStatusColor(project.status)}>
           {project.status}
         </Badge>
       </div>
-      <div className="text-sm text-muted-foreground mt-1">
-        {project.location}
+      <div className="text-sm text-muted-foreground flex items-center mt-1">
+        <MapPin className="h-3 w-3 mr-1" />
+        {project.location} • {project.distance} away
       </div>
       
-      <div className="flex justify-between items-center mt-3">
-        <div className="flex items-center">
-          <Star className="h-4 w-4 text-yellow-500 mr-1" />
-          <span className="font-medium">{project.rating}</span>
-        </div>
-        <div className="font-semibold text-blue-600 dark:text-blue-400">{project.compensation}</div>
-      </div>
-      
-      <div className="flex items-center mt-3 text-sm">
-        <Check className="h-4 w-4 mr-1 text-green-500" />
-        <span className="text-muted-foreground mr-1">Completed:</span>
+      <div className="text-sm mt-2">
+        <span className="text-muted-foreground">Completed: </span>
         <span>{project.completedDate}</span>
       </div>
       
-      <Button variant="outline" size="sm" className="w-full mt-3">
-        <Eye className="h-3 w-3 mr-1" />
-        View Details
+      <div className="flex justify-between items-center mt-2">
+        <div className="text-sm">
+          <span className="text-muted-foreground">Rating: </span>
+          <span className="font-medium">{project.rating}/5.0</span>
+        </div>
+        <span className="font-semibold text-blue-600 dark:text-blue-400">{project.compensation}</span>
+      </div>
+      
+      <Button variant="outline" size="sm" className="mt-3 w-full">
+        View Certificate
       </Button>
+    </div>
+  );
+  
+  const scheduledProjectCard = (project: any) => (
+    <div key={project.id} className="border rounded-lg p-4 hover:border-blue-600 transition-colors">
+      <div className="flex justify-between">
+        <h3 className="font-semibold">{project.name}</h3>
+        <Badge variant="outline" className={getStatusColor(project.status)}>
+          {project.status}
+        </Badge>
+      </div>
+      <div className="text-sm text-muted-foreground flex items-center mt-1">
+        <MapPin className="h-3 w-3 mr-1" />
+        {project.location} • {project.distance} away
+      </div>
+      
+      <div className="flex justify-between items-center mt-2 text-sm">
+        <div className="flex items-center">
+          <Calendar className="h-3 w-3 mr-1 text-muted-foreground" />
+          <span className="text-muted-foreground mr-1">Starts:</span>
+          <span>{project.startDate}</span>
+        </div>
+        <div>
+          <span className="text-muted-foreground mr-1">Duration:</span>
+          <span>{project.duration}</span>
+        </div>
+      </div>
+      
+      <div className="flex justify-between items-center mt-2">
+        <div className="text-sm">
+          <span className="text-muted-foreground">Type: </span>
+          <span>{project.type}</span>
+        </div>
+        <span className="font-semibold text-blue-600 dark:text-blue-400">{project.compensation}</span>
+      </div>
+      
+      <div className="flex gap-2 mt-3">
+        <Button variant="outline" size="sm" className="flex-1">
+          <Eye className="mr-1 h-4 w-4" />
+          Details
+        </Button>
+        <Button variant="outline" size="sm" className="flex-1">
+          <Calendar className="mr-1 h-4 w-4" />
+          Calendar
+        </Button>
+      </div>
     </div>
   );
   
   const tabs = [
     {
+      value: "available",
+      label: "Available",
+      content: (
+        <CardContent className="p-6">
+          <div className="grid gap-4 md:grid-cols-2">
+            {availableProjects.map(availableProjectCard)}
+          </div>
+        </CardContent>
+      )
+    },
+    {
       value: "assigned",
-      label: "Assigned",
+      label: "In Progress",
       content: (
         <CardContent className="p-6">
           <div className="grid gap-4 md:grid-cols-2">
@@ -211,12 +289,12 @@ const WorkerProjects = () => {
       )
     },
     {
-      value: "available",
-      label: "Available",
+      value: "scheduled",
+      label: "Scheduled",
       content: (
         <CardContent className="p-6">
           <div className="grid gap-4 md:grid-cols-2">
-            {availableProjects.map(availableProjectCard)}
+            {scheduledProjects.map(scheduledProjectCard)}
           </div>
         </CardContent>
       )
@@ -231,26 +309,17 @@ const WorkerProjects = () => {
           </div>
         </CardContent>
       )
-    },
-    {
-      value: "saved",
-      label: "Saved",
-      content: (
-        <CardContent className="p-6">
-          <div className="text-center py-12 text-muted-foreground">
-            No saved projects yet
-          </div>
-        </CardContent>
-      )
     }
   ];
   
   return (
     <ProjectBase
-      title="Available Projects"
-      description="Find work opportunities and track your assigned tasks"
+      title="Worker Projects"
+      description="Find and manage restoration jobs"
       tabs={tabs}
       defaultTab="assigned"
+      actionLabel="Find Tasks"
+      onAction={handleApplyForTask}
     />
   );
 };

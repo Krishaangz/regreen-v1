@@ -1,4 +1,3 @@
 
-export * from '../chart';
-export { LineChart } from '../charts/LineChart';
-export { PieChart } from '../charts/PieChart';
+export { default as LineChart } from '../charts/LineChart';
+export { default as PieChart } from '../charts/PieChart';
