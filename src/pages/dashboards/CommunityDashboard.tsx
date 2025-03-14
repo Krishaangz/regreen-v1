@@ -1,80 +1,62 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
+import { LineChart } from '@/components/ui/chart/index';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { LineChart } from '@/components/ui/chart/index';
 import { Calendar, Users, MapPin, TrendingUp, MessageSquare, Heart } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 const CommunityDashboard = () => {
   const communityStats = [
-    { title: "Community Members", value: "186", icon: Users, change: "+12", trend: "up" },
-    { title: "Local Projects", value: "7", icon: MapPin, change: "+2", trend: "up" },
-    { title: "Forum Posts", value: "124", icon: MessageSquare, change: "+18", trend: "up" },
-    { title: "Volunteer Hours", value: "420", icon: Heart, change: "+45", trend: "up" },
+    { title: "Active Members", value: "124", icon: Users, change: "+12", trend: "up" },
+    { title: "Local Projects", value: "8", icon: MapPin, change: "+2", trend: "up" },
+    { title: "Forum Posts", value: "342", icon: MessageSquare, change: "+28", trend: "up" },
+    { title: "Community Impact", value: "85%", icon: Heart, change: "+5%", trend: "up" },
   ];
 
   const upcomingEvents = [
-    { 
-      date: "May 28", 
-      title: "Community Planting Day", 
-      location: "Riverside Park",
-      attendees: 24,
-      category: "volunteer"
-    },
-    { 
-      date: "June 5", 
-      title: "Ecological Workshop", 
-      location: "Community Center",
-      attendees: 18,
-      category: "education"
-    },
-    { 
-      date: "June 12", 
-      title: "Fundraising Event", 
-      location: "Town Square",
-      attendees: 42,
-      category: "fundraising"
-    },
+    { date: "May 28", title: "Community Tree Planting", location: "Riverside Park", attendees: 28 },
+    { date: "June 5", title: "Eco Workshop", location: "Community Center", attendees: 15 },
+    { date: "June 18", title: "Local Stream Cleanup", location: "Crystal Creek", attendees: 34 },
   ];
 
   const engagementData = [
     { name: 'Jan', value: 250 },
     { name: 'Feb', value: 320 },
     { name: 'Mar', value: 280 },
-    { name: 'Apr', value: 390 },
-    { name: 'May', value: 480 }
+    { name: 'Apr', value: 420 },
+    { name: 'May', value: 380 }
   ];
 
-  const recentForumPosts = [
-    {
-      title: "Best native plants for pollinators?",
-      author: "Emily Chen",
-      avatar: "EC",
-      responses: 8,
-      time: "2 hours ago",
-      category: "gardening"
+  const recentDiscussions = [
+    { 
+      id: 1, 
+      title: "Proposed New Bike Path",
+      author: "Jamie Wilson",
+      avatar: "/placeholder.svg",
+      replies: 24,
+      lastActivity: "2 hours ago"
     },
-    {
-      title: "Volunteer opportunity this weekend",
-      author: "Marcus Johnson",
-      avatar: "MJ",
-      responses: 12,
-      time: "5 hours ago",
-      category: "volunteer"
+    { 
+      id: 2, 
+      title: "Local School Garden Initiative",
+      author: "Robin Taylor",
+      avatar: "/placeholder.svg",
+      replies: 18,
+      lastActivity: "5 hours ago"
     },
-    {
-      title: "Water conservation techniques",
-      author: "Sarah Williams",
-      avatar: "SW",
-      responses: 6,
-      time: "yesterday",
-      category: "conservation"
+    { 
+      id: 3, 
+      title: "Renewable Energy Cooperative",
+      author: "Casey Morgan",
+      avatar: "/placeholder.svg",
+      replies: 32,
+      lastActivity: "Yesterday"
     }
   ];
-  
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -97,17 +79,6 @@ const CommunityDashboard = () => {
     }
   };
 
-  const getCategoryColor = (category: string) => {
-    switch(category) {
-      case 'volunteer': return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300';
-      case 'education': return 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300';
-      case 'fundraising': return 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-300';
-      case 'gardening': return 'bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-300';
-      case 'conservation': return 'bg-cyan-100 text-cyan-800 dark:bg-cyan-900 dark:text-cyan-300';
-      default: return 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300';
-    }
-  };
-
   return (
     <motion.div
       variants={containerVariants}
@@ -117,7 +88,7 @@ const CommunityDashboard = () => {
     >
       <motion.div variants={itemVariants}>
         <h1 className="text-3xl md:text-4xl font-bold">Community Dashboard</h1>
-        <p className="text-muted-foreground mt-2">Connect with local initiatives and events</p>
+        <p className="text-muted-foreground mt-2">Stay connected with local restoration projects and community initiatives</p>
       </motion.div>
 
       <motion.div 
@@ -142,60 +113,12 @@ const CommunityDashboard = () => {
         ))}
       </motion.div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <motion.div variants={itemVariants}>
-          <Card>
-            <CardHeader>
-              <div className="flex items-center justify-between">
-                <div>
-                  <CardTitle>Upcoming Events</CardTitle>
-                  <CardDescription>Community gatherings in your area</CardDescription>
-                </div>
-                <Button variant="outline" size="sm" className="gap-1">
-                  <Calendar className="h-4 w-4" />
-                  <span>Calendar</span>
-                </Button>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {upcomingEvents.map((event, index) => (
-                  <div key={index} className="flex items-start gap-4 border-b pb-4 last:border-0">
-                    <div className="h-12 w-12 rounded-md bg-amber-100 dark:bg-amber-900 flex items-center justify-center">
-                      <Calendar className="h-6 w-6 text-amber-600 dark:text-amber-400" />
-                    </div>
-                    <div className="flex-1">
-                      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start">
-                        <div>
-                          <div className="font-medium">{event.title}</div>
-                          <div className="text-sm text-muted-foreground">{event.location} • {event.date}</div>
-                        </div>
-                        <div className="text-sm font-medium flex items-center gap-1 mt-1 sm:mt-0">
-                          <Users className="h-3 w-3" />
-                          <span>{event.attendees}</span>
-                        </div>
-                      </div>
-                      <div className="flex flex-wrap gap-2 mt-2">
-                        <Badge variant="outline" className={getCategoryColor(event.category)}>
-                          {event.category.charAt(0).toUpperCase() + event.category.slice(1)}
-                        </Badge>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-            <CardFooter>
-              <Button variant="outline" className="w-full">View All Events</Button>
-            </CardFooter>
-          </Card>
-        </motion.div>
-
-        <motion.div variants={itemVariants}>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <motion.div variants={itemVariants} className="lg:col-span-2">
           <Card>
             <CardHeader>
               <CardTitle>Community Engagement</CardTitle>
-              <CardDescription>Monthly participation trend</CardDescription>
+              <CardDescription>Monthly participation in local initiatives</CardDescription>
             </CardHeader>
             <CardContent>
               <LineChart 
@@ -207,41 +130,68 @@ const CommunityDashboard = () => {
             </CardContent>
           </Card>
         </motion.div>
+
+        <motion.div variants={itemVariants}>
+          <Card>
+            <CardHeader>
+              <CardTitle>Upcoming Events</CardTitle>
+              <CardDescription>Community gatherings and activities</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {upcomingEvents.map((event, index) => (
+                  <div key={index} className="flex justify-between items-center border-b pb-3 last:border-0 last:pb-0">
+                    <div>
+                      <div className="font-medium">{event.title}</div>
+                      <div className="text-sm text-muted-foreground">{event.location} • {event.date}</div>
+                    </div>
+                    <Badge variant="outline" className="bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-300">
+                      {event.attendees} Attending
+                    </Badge>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-4 flex justify-center">
+                <Button variant="outline" size="sm" className="w-full">
+                  <Calendar className="h-4 w-4 mr-2" />
+                  View Calendar
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </motion.div>
       </div>
 
       <motion.div variants={itemVariants}>
         <Card>
           <CardHeader>
-            <CardTitle>Recent Forum Discussions</CardTitle>
-            <CardDescription>Join the conversation with your community</CardDescription>
+            <div className="flex items-center justify-between">
+              <div>
+                <CardTitle>Recent Forum Discussions</CardTitle>
+                <CardDescription>Stay updated with community conversations</CardDescription>
+              </div>
+              <Button variant="outline" size="sm">View All</Button>
+            </div>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              {recentForumPosts.map((post, index) => (
-                <div key={index} className="flex items-start gap-4 border-b pb-4 last:border-0">
+              {recentDiscussions.map((discussion) => (
+                <div key={discussion.id} className="flex items-start gap-4 border-b pb-4 last:border-0">
                   <Avatar>
-                    <AvatarImage src="" />
-                    <AvatarFallback className="bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-200">
-                      {post.avatar}
-                    </AvatarFallback>
+                    <AvatarImage src={discussion.avatar} alt={discussion.author} />
+                    <AvatarFallback>{discussion.author.split(' ').map(n => n[0]).join('')}</AvatarFallback>
                   </Avatar>
                   <div className="flex-1">
-                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start">
-                      <div>
-                        <div className="font-medium">{post.title}</div>
-                        <div className="text-sm text-muted-foreground">
-                          {post.author} • {post.time}
-                        </div>
-                      </div>
-                      <div className="text-sm font-medium flex items-center gap-1 mt-1 sm:mt-0">
-                        <MessageSquare className="h-3 w-3" />
-                        <span>{post.responses}</span>
-                      </div>
+                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center">
+                      <div className="font-medium">{discussion.title}</div>
+                      <div className="text-xs text-muted-foreground">{discussion.lastActivity}</div>
                     </div>
-                    <div className="flex flex-wrap gap-2 mt-2">
-                      <Badge variant="outline" className={getCategoryColor(post.category)}>
-                        {post.category.charAt(0).toUpperCase() + post.category.slice(1)}
-                      </Badge>
+                    <div className="text-sm mt-1">
+                      <span className="text-muted-foreground">by </span>
+                      <span className="font-medium">{discussion.author}</span>
+                      <span className="ml-2 text-xs text-muted-foreground">
+                        {discussion.replies} replies
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -249,7 +199,7 @@ const CommunityDashboard = () => {
             </div>
           </CardContent>
           <CardFooter>
-            <Button variant="outline" className="w-full">Visit Community Forums</Button>
+            <Button variant="outline" className="w-full">View All Discussions</Button>
           </CardFooter>
         </Card>
       </motion.div>

@@ -6,16 +6,23 @@ type UserRole = 'landowner' | 'worker' | 'community' | null;
 interface RoleContextType {
   role: UserRole;
   setRole: (role: UserRole) => void;
+  isRoleLoading: boolean;
 }
 
 const RoleContext = createContext<RoleContextType | undefined>(undefined);
 
 export function RoleProvider({ children }: { children: React.ReactNode }) {
-  const [role, setRoleState] = useState<UserRole>(() => {
-    // Initialize from localStorage if available
+  const [isRoleLoading, setIsRoleLoading] = useState(true);
+  const [role, setRoleState] = useState<UserRole>(null);
+
+  // Initialize from localStorage if available
+  useEffect(() => {
     const savedRole = localStorage.getItem('userRole');
-    return (savedRole as UserRole) || null;
-  });
+    if (savedRole && (savedRole === 'landowner' || savedRole === 'worker' || savedRole === 'community')) {
+      setRoleState(savedRole as UserRole);
+    }
+    setIsRoleLoading(false);
+  }, []);
 
   // Persist role to localStorage when it changes
   const setRole = (newRole: UserRole) => {
@@ -28,7 +35,7 @@ export function RoleProvider({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <RoleContext.Provider value={{ role, setRole }}>
+    <RoleContext.Provider value={{ role, setRole, isRoleLoading }}>
       {children}
     </RoleContext.Provider>
   );

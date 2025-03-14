@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -18,10 +19,11 @@ import LandownerDashboard from "./pages/dashboards/LandownerDashboard";
 import WorkerDashboard from "./pages/dashboards/WorkerDashboard";
 import CommunityDashboard from "./pages/dashboards/CommunityDashboard";
 
-// Other pages
-import Settings from "./pages/Settings";
+// Role-specific map views
 import MapView from "./pages/MapView";
-import LandownerProjects from "./pages/LandownerProjects";
+
+// Project pages
+import Projects from "./pages/Projects";
 import TaskView from "./pages/TaskView";
 import Reports from "./pages/Reports";
 
@@ -43,6 +45,9 @@ import FAQ from "./pages/help/FAQ";
 import Contact from "./pages/help/Contact";
 import Support from "./pages/help/Support";
 
+// Settings
+import Settings from "./pages/Settings";
+
 // RouteGuard component
 import RouteGuard from "./components/RouteGuard";
 
@@ -61,8 +66,10 @@ const App = () => (
                 <Route path="/" element={<Index />} />
                 <Route path="/register" element={<Register />} />
                 
-                {/* Role-specific dashboard redirects */}
-                <Route path="/dashboard" element={<RouteGuard><Navigate to="/dashboard/landowner" replace /></RouteGuard>} />
+                {/* Dynamic dashboard redirect based on role */}
+                <Route path="/dashboard" element={<RouteGuard>
+                  <Navigate to="/dashboard/landowner" replace />
+                </RouteGuard>} />
                 
                 {/* Layout with authenticated routes */}
                 <Route element={<Layout />}>
@@ -71,14 +78,13 @@ const App = () => (
                   <Route path="/dashboard/worker" element={<RouteGuard roleRequired="worker"><WorkerDashboard /></RouteGuard>} />
                   <Route path="/dashboard/community" element={<RouteGuard roleRequired="community"><CommunityDashboard /></RouteGuard>} />
                   
-                  {/* Common routes */}
-                  <Route path="/projects" element={<RouteGuard><LandownerProjects /></RouteGuard>} />
-                  <Route path="/settings" element={<RouteGuard><Settings /></RouteGuard>} />
+                  {/* Common routes available to all authenticated users */}
+                  <Route path="/projects" element={<RouteGuard><Projects /></RouteGuard>} />
                   <Route path="/map" element={<RouteGuard><MapView /></RouteGuard>} />
-                  <Route path="/my-properties" element={<RouteGuard roleRequired="landowner"><LandownerProjects /></RouteGuard>} />
                   <Route path="/tasks/:taskId" element={<RouteGuard><TaskView /></RouteGuard>} />
                   <Route path="/tasks/current" element={<RouteGuard><TaskView /></RouteGuard>} />
                   <Route path="/reports" element={<RouteGuard><Reports /></RouteGuard>} />
+                  <Route path="/settings" element={<RouteGuard><Settings /></RouteGuard>} />
                   
                   {/* Community routes */}
                   <Route path="/community" element={<RouteGuard><Community /></RouteGuard>} />
@@ -86,7 +92,7 @@ const App = () => (
                   <Route path="/community/events" element={<RouteGuard><Events /></RouteGuard>} />
                   <Route path="/community/stories" element={<RouteGuard><Stories /></RouteGuard>} />
                   
-                  {/* Services routes */}
+                  {/* Services routes - with dynamic content based on role */}
                   <Route path="/services" element={<RouteGuard><Services /></RouteGuard>} />
                   <Route path="/services/restoration" element={<RouteGuard><Restoration /></RouteGuard>} />
                   <Route path="/services/landowner" element={<RouteGuard><Landowner /></RouteGuard>} />

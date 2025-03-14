@@ -1,5 +1,6 @@
+
 import { ReactNode, useEffect } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate, useLocation } from 'react-router-dom';
 import { useRole } from '@/contexts/RoleContext';
 import { useToast } from '@/hooks/use-toast';
 
@@ -11,6 +12,7 @@ interface RouteGuardProps {
 const RouteGuard = ({ children, roleRequired }: RouteGuardProps) => {
   const { role } = useRole();
   const navigate = useNavigate();
+  const location = useLocation();
   const { toast } = useToast();
 
   useEffect(() => {
@@ -21,20 +23,24 @@ const RouteGuard = ({ children, roleRequired }: RouteGuardProps) => {
         description: "Please register or sign in to access this page.",
         variant: "destructive",
       });
+      return;
     }
     
     // If a specific role is required and user doesn't have it
-    if (roleRequired && role && role !== roleRequired) {
+    if (roleRequired && role !== roleRequired) {
+      const roleName = roleRequired.charAt(0).toUpperCase() + roleRequired.slice(1);
       toast({
         title: "Access restricted",
-        description: `This page is only available to ${roleRequired}s.`,
+        description: `This page is only available to ${roleName}s.`,
         variant: "destructive",
       });
     }
-  }, [role, roleRequired, toast]);
+  }, [role, roleRequired, toast, location.pathname]);
 
   // If no role is set, redirect to register page
   if (!role) {
+    // Save the current path for redirect after login
+    sessionStorage.setItem('redirectAfterLogin', location.pathname);
     return <Navigate to="/register" replace />;
   }
 

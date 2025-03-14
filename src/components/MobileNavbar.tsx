@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
@@ -40,6 +41,7 @@ interface MenuItem {
   path: string;
   icon: LucideIcon;
   submenu?: SubMenuItem[];
+  external?: boolean;
 }
 
 const MobileNavbar = () => {
@@ -182,7 +184,8 @@ const MobileNavbar = () => {
     {
       label: "Home",
       path: "/",
-      icon: Home
+      icon: Home,
+      external: true
     }
   ];
   
