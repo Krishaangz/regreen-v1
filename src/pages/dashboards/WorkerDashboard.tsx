@@ -3,7 +3,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { LineChart } from '@/components/ui/chart';
+import { LineChart } from '@/components/ui/chart/index';
 import { Calendar, Clock, Shovel, TrendingUp, MapPin, CheckCircle, AlertTriangle, Award } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
