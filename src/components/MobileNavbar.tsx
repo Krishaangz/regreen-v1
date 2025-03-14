@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
@@ -28,6 +27,20 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "./theme-toggle";
 import { useRole } from "@/contexts/RoleContext";
+import { LucideIcon } from "lucide-react";
+
+// Define types for menu items
+interface SubMenuItem {
+  label: string;
+  path: string;
+}
+
+interface MenuItem {
+  label: string;
+  path: string;
+  icon: LucideIcon;
+  submenu?: SubMenuItem[];
+}
 
 const MobileNavbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -85,7 +98,7 @@ const MobileNavbar = () => {
   };
   
   // Get role-specific menu items
-  const getRoleMenuItems = () => {
+  const getRoleMenuItems = (): MenuItem[] => {
     switch(role) {
       case 'landowner':
         return [
@@ -165,7 +178,7 @@ const MobileNavbar = () => {
   };
   
   // Base menu items that all users will see
-  const baseMenuItems = [
+  const baseMenuItems: MenuItem[] = [
     {
       label: "Home",
       path: "/",
@@ -174,7 +187,7 @@ const MobileNavbar = () => {
   ];
   
   // Common menu items for all authenticated users
-  const commonMenuItems = [
+  const commonMenuItems: MenuItem[] = [
     {
       label: "Map View",
       path: "/map",
@@ -219,7 +232,7 @@ const MobileNavbar = () => {
   
   // Combine the menu items
   const roleMenuItems = getRoleMenuItems();
-  const allMenuItems = [...baseMenuItems, ...roleMenuItems, ...commonMenuItems];
+  const allMenuItems: MenuItem[] = [...baseMenuItems, ...roleMenuItems, ...commonMenuItems];
   
   // Get theme based on user role
   const getRoleColors = () => {
