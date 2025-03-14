@@ -1,17 +1,24 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { ThemeProvider } from "@/components/theme-provider";
+import { RoleProvider } from "@/contexts/RoleContext";
+
+// Base pages
 import Index from "./pages/Index";
-import Dashboard from "./pages/Dashboard";
-import Projects from "./pages/Projects";
 import Register from "./pages/Register";
 import NotFound from "./pages/NotFound";
 import Layout from "./components/Layout";
+
+// Role-specific dashboards
+import LandownerDashboard from "./pages/dashboards/LandownerDashboard";
+import WorkerDashboard from "./pages/dashboards/WorkerDashboard";
+import CommunityDashboard from "./pages/dashboards/CommunityDashboard";
+
+// Other pages
 import Settings from "./pages/Settings";
 import MapView from "./pages/MapView";
 import LandownerProjects from "./pages/LandownerProjects";
@@ -36,6 +43,9 @@ import FAQ from "./pages/help/FAQ";
 import Contact from "./pages/help/Contact";
 import Support from "./pages/help/Support";
 
+// RouteGuard component
+import RouteGuard from "./components/RouteGuard";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -45,41 +55,54 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
-          <SidebarProvider>
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route element={<Layout />}>
-                <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/projects" element={<Projects />} />
-                <Route path="/settings" element={<Settings />} />
-                <Route path="/map" element={<MapView />} />
-                <Route path="/my-properties" element={<LandownerProjects />} />
-                <Route path="/tasks/:taskId" element={<TaskView />} />
-                <Route path="/tasks/current" element={<TaskView />} />
-                <Route path="/reports" element={<Reports />} />
+          <RoleProvider>
+            <SidebarProvider>
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/register" element={<Register />} />
                 
-                {/* Community routes */}
-                <Route path="/community" element={<Community />} />
-                <Route path="/community/forums" element={<Forums />} />
-                <Route path="/community/events" element={<Events />} />
-                <Route path="/community/stories" element={<Stories />} />
+                {/* Role-specific dashboard redirects */}
+                <Route path="/dashboard" element={<RouteGuard><Navigate to="/dashboard/landowner" replace /></RouteGuard>} />
                 
-                {/* Services routes */}
-                <Route path="/services" element={<Services />} />
-                <Route path="/services/restoration" element={<Restoration />} />
-                <Route path="/services/landowner" element={<Landowner />} />
-                <Route path="/services/worker" element={<Worker />} />
+                {/* Layout with authenticated routes */}
+                <Route element={<Layout />}>
+                  {/* Role-specific dashboards */}
+                  <Route path="/dashboard/landowner" element={<RouteGuard roleRequired="landowner"><LandownerDashboard /></RouteGuard>} />
+                  <Route path="/dashboard/worker" element={<RouteGuard roleRequired="worker"><WorkerDashboard /></RouteGuard>} />
+                  <Route path="/dashboard/community" element={<RouteGuard roleRequired="community"><CommunityDashboard /></RouteGuard>} />
+                  
+                  {/* Common routes */}
+                  <Route path="/projects" element={<RouteGuard><LandownerProjects /></RouteGuard>} />
+                  <Route path="/settings" element={<RouteGuard><Settings /></RouteGuard>} />
+                  <Route path="/map" element={<RouteGuard><MapView /></RouteGuard>} />
+                  <Route path="/my-properties" element={<RouteGuard roleRequired="landowner"><LandownerProjects /></RouteGuard>} />
+                  <Route path="/tasks/:taskId" element={<RouteGuard><TaskView /></RouteGuard>} />
+                  <Route path="/tasks/current" element={<RouteGuard><TaskView /></RouteGuard>} />
+                  <Route path="/reports" element={<RouteGuard><Reports /></RouteGuard>} />
+                  
+                  {/* Community routes */}
+                  <Route path="/community" element={<RouteGuard><Community /></RouteGuard>} />
+                  <Route path="/community/forums" element={<RouteGuard><Forums /></RouteGuard>} />
+                  <Route path="/community/events" element={<RouteGuard><Events /></RouteGuard>} />
+                  <Route path="/community/stories" element={<RouteGuard><Stories /></RouteGuard>} />
+                  
+                  {/* Services routes */}
+                  <Route path="/services" element={<RouteGuard><Services /></RouteGuard>} />
+                  <Route path="/services/restoration" element={<RouteGuard><Restoration /></RouteGuard>} />
+                  <Route path="/services/landowner" element={<RouteGuard><Landowner /></RouteGuard>} />
+                  <Route path="/services/worker" element={<RouteGuard><Worker /></RouteGuard>} />
+                  
+                  {/* Help routes */}
+                  <Route path="/help" element={<RouteGuard><Help /></RouteGuard>} />
+                  <Route path="/help/faq" element={<RouteGuard><FAQ /></RouteGuard>} />
+                  <Route path="/help/contact" element={<RouteGuard><Contact /></RouteGuard>} />
+                  <Route path="/help/support" element={<RouteGuard><Support /></RouteGuard>} />
+                </Route>
                 
-                {/* Help routes */}
-                <Route path="/help" element={<Help />} />
-                <Route path="/help/faq" element={<FAQ />} />
-                <Route path="/help/contact" element={<Contact />} />
-                <Route path="/help/support" element={<Support />} />
-              </Route>
-              <Route path="/register" element={<Register />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </SidebarProvider>
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </SidebarProvider>
+          </RoleProvider>
         </BrowserRouter>
       </TooltipProvider>
     </ThemeProvider>

@@ -1,83 +1,48 @@
 
 import { useState, useEffect, useRef } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { Menu, X, ChevronRight, Home, LayoutDashboard, Settings, Users, FileText, HelpCircle, MapPin, LogOut, Briefcase, Building, TreeDeciduous, FileSpreadsheet } from "lucide-react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
+import { 
+  Menu, 
+  X, 
+  ChevronRight, 
+  Home, 
+  LayoutDashboard, 
+  Settings, 
+  Users, 
+  FileText, 
+  HelpCircle, 
+  MapPin, 
+  LogOut, 
+  Briefcase, 
+  Building, 
+  TreeDeciduous, 
+  FileSpreadsheet,
+  Globe,
+  Hand,
+  Calendar,
+  MessageSquare,
+  BookOpen
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-
-const mainMenuItems = [
-  {
-    label: "Dashboard",
-    path: "/dashboard",
-    icon: LayoutDashboard
-  },
-  {
-    label: "Projects",
-    path: "/projects",
-    icon: TreeDeciduous
-  },
-  {
-    label: "Map View",
-    path: "/map",
-    icon: MapPin
-  },
-  {
-    label: "My Properties",
-    path: "/my-properties",
-    icon: Building
-  },
-  {
-    label: "My Tasks",
-    path: "/tasks/current",
-    icon: Briefcase
-  },
-  {
-    label: "Community",
-    path: "/community",
-    icon: Users,
-    submenu: [
-      { label: "Forums", path: "/community/forums" },
-      { label: "Events", path: "/community/events" },
-      { label: "Success Stories", path: "/community/stories" }
-    ]
-  },
-  {
-    label: "Services",
-    path: "/services",
-    icon: FileText,
-    submenu: [
-      { label: "Eco-Restoration", path: "/services/restoration" },
-      { label: "Landowner Services", path: "/services/landowner" },
-      { label: "Worker Programs", path: "/services/worker" }
-    ]
-  },
-  {
-    label: "Reports",
-    path: "/reports",
-    icon: FileSpreadsheet
-  },
-  {
-    label: "Help Center",
-    path: "/help",
-    icon: HelpCircle,
-    submenu: [
-      { label: "FAQ", path: "/help/faq" },
-      { label: "Contact Us", path: "/help/contact" },
-      { label: "Support", path: "/help/support" }
-    ]
-  },
-  {
-    label: "Settings",
-    path: "/settings",
-    icon: Settings
-  }
-];
+import { ThemeToggle } from "./theme-toggle";
+import { useRole } from "@/contexts/RoleContext";
 
 const MobileNavbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [expandedSubmenu, setExpandedSubmenu] = useState<string | null>(null);
   const location = useLocation();
   const menuRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
+  const { role, setRole } = useRole();
+  
+  // Handle logout
+  const handleLogout = () => {
+    setIsMenuOpen(false);
+    setRole(null);
+    navigate('/');
+  };
   
   // Close the menu when clicking outside of it
   useEffect(() => {
@@ -118,6 +83,192 @@ const MobileNavbar = () => {
   const toggleSubmenu = (label: string) => {
     setExpandedSubmenu(expandedSubmenu === label ? null : label);
   };
+  
+  // Get role-specific menu items
+  const getRoleMenuItems = () => {
+    switch(role) {
+      case 'landowner':
+        return [
+          {
+            label: "Landowner Dashboard",
+            path: "/dashboard/landowner",
+            icon: LayoutDashboard
+          },
+          {
+            label: "My Properties",
+            path: "/my-properties",
+            icon: Building
+          },
+          {
+            label: "Projects",
+            path: "/projects",
+            icon: TreeDeciduous
+          },
+          {
+            label: "Reports",
+            path: "/reports",
+            icon: FileSpreadsheet
+          }
+        ];
+        
+      case 'worker':
+        return [
+          {
+            label: "Worker Dashboard",
+            path: "/dashboard/worker",
+            icon: LayoutDashboard
+          },
+          {
+            label: "My Tasks",
+            path: "/tasks/current",
+            icon: Briefcase
+          },
+          {
+            label: "Available Projects",
+            path: "/projects",
+            icon: TreeDeciduous
+          },
+          {
+            label: "Work Schedule",
+            path: "/reports", // Reusing existing page for now
+            icon: Calendar
+          }
+        ];
+        
+      case 'community':
+        return [
+          {
+            label: "Community Dashboard",
+            path: "/dashboard/community",
+            icon: LayoutDashboard
+          },
+          {
+            label: "Local Projects",
+            path: "/projects",
+            icon: TreeDeciduous
+          },
+          {
+            label: "Discussion Forums",
+            path: "/community/forums",
+            icon: MessageSquare
+          },
+          {
+            label: "Success Stories",
+            path: "/community/stories",
+            icon: BookOpen
+          }
+        ];
+        
+      default:
+        return [];
+    }
+  };
+  
+  // Base menu items that all users will see
+  const baseMenuItems = [
+    {
+      label: "Home",
+      path: "/",
+      icon: Home
+    }
+  ];
+  
+  // Common menu items for all authenticated users
+  const commonMenuItems = [
+    {
+      label: "Map View",
+      path: "/map",
+      icon: MapPin
+    },
+    {
+      label: "Community",
+      path: "/community",
+      icon: Users,
+      submenu: [
+        { label: "Forums", path: "/community/forums" },
+        { label: "Events", path: "/community/events" },
+        { label: "Success Stories", path: "/community/stories" }
+      ]
+    },
+    {
+      label: "Services",
+      path: "/services",
+      icon: FileText,
+      submenu: [
+        { label: "Eco-Restoration", path: "/services/restoration" },
+        { label: "Landowner Services", path: "/services/landowner" },
+        { label: "Worker Programs", path: "/services/worker" }
+      ]
+    },
+    {
+      label: "Help Center",
+      path: "/help",
+      icon: HelpCircle,
+      submenu: [
+        { label: "FAQ", path: "/help/faq" },
+        { label: "Contact Us", path: "/help/contact" },
+        { label: "Support", path: "/help/support" }
+      ]
+    },
+    {
+      label: "Settings",
+      path: "/settings",
+      icon: Settings
+    }
+  ];
+  
+  // Combine the menu items
+  const roleMenuItems = getRoleMenuItems();
+  const allMenuItems = [...baseMenuItems, ...roleMenuItems, ...commonMenuItems];
+  
+  // Get theme based on user role
+  const getRoleColors = () => {
+    switch(role) {
+      case 'landowner':
+        return {
+          gradient: "bg-gradient-to-b from-regreen-700 to-regreen-800",
+          accent: "bg-regreen-600",
+          hover: "hover:bg-regreen-600/20 dark:hover:bg-regreen-600/30",
+          activeBg: "bg-regreen-600/20 dark:bg-regreen-600/30"
+        };
+      case 'worker':
+        return {
+          gradient: "bg-gradient-to-b from-blue-700 to-blue-800",
+          accent: "bg-blue-600",
+          hover: "hover:bg-blue-600/20 dark:hover:bg-blue-600/30",
+          activeBg: "bg-blue-600/20 dark:bg-blue-600/30"
+        };
+      case 'community':
+        return {
+          gradient: "bg-gradient-to-b from-amber-700 to-amber-800",
+          accent: "bg-amber-600",
+          hover: "hover:bg-amber-600/20 dark:hover:bg-amber-600/30",
+          activeBg: "bg-amber-600/20 dark:bg-amber-600/30"
+        };
+      default:
+        return {
+          gradient: "bg-gradient-to-b from-regreen-700 to-regreen-800",
+          accent: "bg-regreen-600",
+          hover: "hover:bg-regreen-600/20 dark:hover:bg-regreen-600/30",
+          activeBg: "bg-regreen-600/20 dark:bg-regreen-600/30"
+        };
+    }
+  };
+  
+  const colors = getRoleColors();
+  
+  const getRoleIcon = () => {
+    switch(role) {
+      case 'landowner':
+        return <Globe className="h-5 w-5 text-regreen-500 dark:text-regreen-400" />;
+      case 'worker':
+        return <Hand className="h-5 w-5 text-blue-500 dark:text-blue-400" />;
+      case 'community':
+        return <Users className="h-5 w-5 text-amber-500 dark:text-amber-400" />;
+      default:
+        return null;
+    }
+  };
 
   return (
     <>
@@ -133,7 +284,7 @@ const MobileNavbar = () => {
             >
               <Menu className={cn("h-5 w-5 transition-opacity duration-300", 
                 isMenuOpen ? "opacity-0" : "opacity-100")} />
-              <X className={cn("h-5 w-5 absolute transition-opacity duration-300", 
+              <X className={cn("h-5 w-5 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-opacity duration-300", 
                 isMenuOpen ? "opacity-100" : "opacity-0")} />
             </Button>
             
@@ -148,12 +299,17 @@ const MobileNavbar = () => {
           </div>
           
           <div className="flex items-center gap-2">
-            <Button asChild variant="ghost" size="sm" className="text-regreen-600">
-              <Link to="/dashboard">Dashboard</Link>
-            </Button>
-            <Button asChild className="bg-regreen-600 hover:bg-regreen-700 text-white">
-              <Link to="/register">Sign Up</Link>
-            </Button>
+            <ThemeToggle />
+            {role ? (
+              <div className="flex items-center gap-1 px-2 py-1 rounded-full bg-regreen-100/50 dark:bg-regreen-800/50 text-xs font-medium">
+                {getRoleIcon()}
+                <span className="capitalize">{role}</span>
+              </div>
+            ) : (
+              <Button asChild className="bg-regreen-600 hover:bg-regreen-700 text-white">
+                <Link to="/register">Join</Link>
+              </Button>
+            )}
           </div>
         </div>
         
@@ -180,107 +336,137 @@ const MobileNavbar = () => {
       </nav>
       
       {/* Mobile Menu Sidebar */}
-      <div 
-        ref={menuRef}
-        className={cn(
-          "fixed top-0 left-0 h-full bg-white dark:bg-regreen-900 shadow-xl z-50 overflow-y-auto transition-transform duration-300 ease-in-out w-3/4 max-w-xs",
-          isMenuOpen ? "translate-x-0" : "-translate-x-full"
-        )}
-      >
-        <div className="p-4 border-b border-gray-100 dark:border-regreen-800 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2">
-            <img 
-              src="/lovable-uploads/1319075d-dc28-4353-964e-51a8fbbe3522.png" 
-              alt="ReGreen Logo" 
-              className="w-8 h-8" 
+      <AnimatePresence>
+        {isMenuOpen && (
+          <>
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40"
+              onClick={() => setIsMenuOpen(false)}
             />
-            <span className="text-xl font-semibold text-regreen-800 dark:text-regreen-100">ReGreen</span>
-          </Link>
-          <Button 
-            variant="ghost" 
-            size="sm" 
-            onClick={() => setIsMenuOpen(false)}
-            className="dark:text-white"
-          >
-            <X className="h-5 w-5" />
-          </Button>
-        </div>
-        
-        <div className="py-4">
-          {mainMenuItems.map((item) => (
-            <div key={item.label} className="mb-1">
-              {item.submenu ? (
-                <div>
-                  <button
-                    onClick={() => toggleSubmenu(item.label)}
-                    className={cn(
-                      "flex items-center justify-between w-full px-4 py-3 hover:bg-regreen-50 dark:hover:bg-regreen-800/50 transition-colors",
-                      expandedSubmenu === item.label ? "bg-regreen-50 dark:bg-regreen-800/50" : ""
-                    )}
-                  >
-                    <div className="flex items-center gap-3">
-                      <item.icon className="h-5 w-5 text-regreen-600 dark:text-regreen-400" />
-                      <span className="text-regreen-800 dark:text-regreen-100">{item.label}</span>
-                    </div>
-                    <ChevronRight className={cn(
-                      "h-4 w-4 text-gray-400 transition-transform duration-200",
-                      expandedSubmenu === item.label ? "rotate-90" : ""
-                    )} />
-                  </button>
-                  
-                  <div className={cn(
-                    "overflow-hidden transition-all duration-300 ease-in-out bg-gray-50 dark:bg-regreen-800/30",
-                    expandedSubmenu === item.label ? "max-h-60" : "max-h-0"
-                  )}>
-                    {item.submenu.map((subItem) => (
-                      <Link
-                        key={subItem.path}
-                        to={subItem.path}
-                        className={cn(
-                          "block pl-12 pr-4 py-2 hover:bg-regreen-100 dark:hover:bg-regreen-800/70 transition-colors text-gray-700 dark:text-regreen-200",
-                          location.pathname === subItem.path ? "bg-regreen-100 dark:bg-regreen-800/70 font-medium" : ""
-                        )}
-                      >
-                        {subItem.label}
-                      </Link>
-                    ))}
+            
+            <motion.div 
+              ref={menuRef}
+              initial={{ x: "-100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "-100%" }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              className={`fixed top-0 left-0 h-full shadow-xl z-50 overflow-y-auto w-3/4 max-w-xs ${colors.gradient} text-white`}
+            >
+              <div className="p-4 border-b border-white/10 flex items-center justify-between">
+                <Link to="/" className="flex items-center gap-2">
+                  <img 
+                    src="/lovable-uploads/1319075d-dc28-4353-964e-51a8fbbe3522.png" 
+                    alt="ReGreen Logo" 
+                    className="w-8 h-8" 
+                  />
+                  <span className="text-xl font-semibold text-white">ReGreen</span>
+                </Link>
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  onClick={() => setIsMenuOpen(false)}
+                  className="text-white hover:bg-white/10"
+                >
+                  <X className="h-5 w-5" />
+                </Button>
+              </div>
+              
+              {/* User role indicator */}
+              {role && (
+                <div className="p-4 border-b border-white/10">
+                  <div className="flex items-center gap-2 px-3 py-2 bg-white/10 rounded-md">
+                    {getRoleIcon()}
+                    <span className="capitalize font-medium">{role}</span>
                   </div>
                 </div>
-              ) : (
-                <Link
-                  to={item.path}
-                  className={cn(
-                    "flex items-center gap-3 px-4 py-3 hover:bg-regreen-50 dark:hover:bg-regreen-800/50 transition-colors",
-                    location.pathname === item.path ? "bg-regreen-50 dark:bg-regreen-800/50 font-medium" : ""
-                  )}
-                >
-                  <item.icon className="h-5 w-5 text-regreen-600 dark:text-regreen-400" />
-                  <span className="text-regreen-800 dark:text-regreen-100">{item.label}</span>
-                </Link>
               )}
-            </div>
-          ))}
-          
-          <div className="border-t border-gray-100 dark:border-regreen-800 mt-4 pt-4 px-4">
-            <Link
-              to="/"
-              className="flex items-center gap-3 px-4 py-3 hover:bg-regreen-50 dark:hover:bg-regreen-800/50 rounded-md transition-colors"
-            >
-              <LogOut className="h-5 w-5 text-gray-500 dark:text-gray-400" />
-              <span className="text-gray-700 dark:text-gray-300">Logout</span>
-            </Link>
-          </div>
-        </div>
-      </div>
-      
-      {/* Overlay when menu is open */}
-      <div 
-        className={cn(
-          "fixed inset-0 bg-black/20 backdrop-blur-sm z-40 transition-opacity duration-300",
-          isMenuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+              
+              <div className="py-4">
+                {allMenuItems.map((item) => (
+                  <div key={item.label} className="mb-1">
+                    {item.submenu ? (
+                      <div>
+                        <button
+                          onClick={() => toggleSubmenu(item.label)}
+                          className={cn(
+                            "flex items-center justify-between w-full px-4 py-3 hover:bg-white/10 transition-colors",
+                            expandedSubmenu === item.label ? "bg-white/10" : ""
+                          )}
+                        >
+                          <div className="flex items-center gap-3">
+                            <item.icon className="h-5 w-5 text-white/80" />
+                            <span>{item.label}</span>
+                          </div>
+                          <ChevronRight className={cn(
+                            "h-4 w-4 text-white/60 transition-transform duration-200",
+                            expandedSubmenu === item.label ? "rotate-90" : ""
+                          )} />
+                        </button>
+                        
+                        <AnimatePresence>
+                          {expandedSubmenu === item.label && (
+                            <motion.div
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: "auto", opacity: 1 }}
+                              exit={{ height: 0, opacity: 0 }}
+                              transition={{ duration: 0.3 }}
+                              className="overflow-hidden bg-white/5"
+                            >
+                              {item.submenu.map((subItem) => (
+                                <Link
+                                  key={subItem.path}
+                                  to={subItem.path}
+                                  className={cn(
+                                    "block pl-12 pr-4 py-2.5 hover:bg-white/10 transition-colors",
+                                    location.pathname === subItem.path ? "bg-white/10 font-medium" : ""
+                                  )}
+                                >
+                                  {subItem.label}
+                                </Link>
+                              ))}
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </div>
+                    ) : (
+                      <Link
+                        to={item.path}
+                        className={cn(
+                          "flex items-center gap-3 px-4 py-3 hover:bg-white/10 transition-colors",
+                          location.pathname === item.path ? "bg-white/10 font-medium" : ""
+                        )}
+                      >
+                        <item.icon className="h-5 w-5 text-white/80" />
+                        <span>{item.label}</span>
+                      </Link>
+                    )}
+                  </div>
+                ))}
+                
+                {role && (
+                  <div className="border-t border-white/10 mt-4 pt-4">
+                    <button
+                      onClick={handleLogout}
+                      className="flex items-center gap-3 px-4 py-3 hover:bg-white/10 w-full text-left transition-colors"
+                    >
+                      <LogOut className="h-5 w-5 text-white/80" />
+                      <span>Logout</span>
+                    </button>
+                  </div>
+                )}
+              </div>
+              
+              <div className="p-4 border-t border-white/10 text-center text-white/60 text-sm">
+                ReGreen v1.0 &copy; {new Date().getFullYear()}
+              </div>
+            </motion.div>
+          </>
         )}
-        onClick={() => setIsMenuOpen(false)}
-      />
+      </AnimatePresence>
     </>
   );
 };
