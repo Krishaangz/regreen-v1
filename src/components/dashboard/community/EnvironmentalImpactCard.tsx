@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
-import { LineChart } from '@/components/ui/chart';
+import { LineChart } from '@/components/ui/chart/index';
 
 interface EnvironmentalImpactCardProps {
   data: Array<{

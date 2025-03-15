@@ -1,48 +1,41 @@
 
 import React from 'react';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
-import { LineChart } from '@/components/ui/chart';
-import { DollarSign, User } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
+import { LineChart } from '@/components/ui/chart/index';
 
 const EarningsWidget = () => {
+  // Sample data for earnings chart
   const earningsData = [
-    { name: 'Jan', amount: 1200 },
-    { name: 'Feb', amount: 1350 },
-    { name: 'Mar', amount: 1450 },
-    { name: 'Apr', amount: 1200 },
-    { name: 'May', amount: 1650 },
-    { name: 'Jun', amount: 1800 },
+    { month: 'Jan', amount: 1200 },
+    { month: 'Feb', amount: 1300 },
+    { month: 'Mar', amount: 1150 },
+    { month: 'Apr', amount: 1400 },
+    { month: 'May', amount: 1600 },
+    { month: 'Jun', amount: 1300 },
   ];
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Earnings Overview</CardTitle>
-        <CardDescription>Your payment history for the past 6 months</CardDescription>
+    <Card className="col-span-2">
+      <CardHeader className="flex flex-row items-start justify-between pb-2">
+        <div className="space-y-1">
+          <CardTitle>Earnings</CardTitle>
+          <CardDescription>Your earnings over time</CardDescription>
+        </div>
+        <Badge variant="outline" className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300">
+          +12% from last month
+        </Badge>
       </CardHeader>
       <CardContent>
-        <LineChart 
-          data={earningsData} 
-          categories={['amount']} 
-          index="name"
-          yAxisWidth={40}
-          className="h-[200px]"
-        />
-        <div className="mt-4 grid grid-cols-2 gap-4">
-          <div className="border rounded-md p-3">
-            <div className="flex items-center gap-2">
-              <DollarSign className="h-4 w-4 text-blue-600" />
-              <span className="text-sm font-medium">Hourly Rate</span>
-            </div>
-            <div className="text-xl font-bold mt-1">$22.50</div>
-          </div>
-          <div className="border rounded-md p-3">
-            <div className="flex items-center gap-2">
-              <User className="h-4 w-4 text-blue-600" />
-              <span className="text-sm font-medium">Skill Level</span>
-            </div>
-            <div className="text-xl font-bold mt-1">Advanced</div>
-          </div>
+        <div className="h-[250px]">
+          <LineChart 
+            data={earningsData} 
+            categories={['amount']} 
+            index="month"
+            colors={['#10b981']}
+            yAxisWidth={50}
+            className="h-[250px]"
+          />
         </div>
       </CardContent>
     </Card>
