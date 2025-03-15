@@ -25,8 +25,6 @@ const LandAreaCard = ({ landData }: LandAreaCardProps) => {
         <div className="h-[200px]">
           <PieChart 
             data={landData.distribution} 
-            category="value"
-            index="name"
             className="h-[200px]"
           />
         </div>

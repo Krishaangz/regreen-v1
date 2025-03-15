@@ -23,12 +23,15 @@ const LandownerDashboard = () => {
     { name: 'Jun', biodiversity: 65, soil: 65 },
   ];
 
-  const landDistributionData = [
-    { name: 'Forest', value: 45 },
-    { name: 'Grassland', value: 25 },
-    { name: 'Wetland', value: 15 },
-    { name: 'Other', value: 15 },
-  ];
+  const landData = {
+    totalArea: 100,
+    distribution: [
+      { name: 'Forest', value: 45 },
+      { name: 'Grassland', value: 25 },
+      { name: 'Wetland', value: 15 },
+      { name: 'Other', value: 15 },
+    ]
+  };
 
   const upcomingActivities = [
     { id: 1, title: 'Tree Planting Session', date: 'May 15, 2023', location: 'Oak Valley' },
@@ -50,11 +53,7 @@ const LandownerDashboard = () => {
       </div>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        <LandAreaCard 
-          totalAcres="36.3 acres" 
-          propertyCount={3} 
-          landDistributionData={landDistributionData} 
-        />
+        <LandAreaCard landData={landData} />
         
         <EcosystemHealthCard data={ecosystemHealthData} />
         

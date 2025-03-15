@@ -4,10 +4,11 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/com
 import { LineChart } from '@/components/ui/chart/index';
 
 interface EcosystemHealthCardProps {
-  data: {
-    biodiversity: Array<{ name: string; value: number }>;
-    soilHealth: Array<{ name: string; value: number }>;
-  };
+  data: Array<{
+    name: string;
+    biodiversity: number;
+    soil: number;
+  }>;
 }
 
 const EcosystemHealthCard = ({ data }: EcosystemHealthCardProps) => {
@@ -20,8 +21,8 @@ const EcosystemHealthCard = ({ data }: EcosystemHealthCardProps) => {
       <CardContent>
         <div className="h-[250px]">
           <LineChart 
-            data={data.biodiversity} 
-            categories={['value']} 
+            data={data} 
+            categories={['biodiversity', 'soil']} 
             index="name"
             yAxisWidth={40}
             className="h-[250px]"
