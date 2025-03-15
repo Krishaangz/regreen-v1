@@ -2,7 +2,7 @@
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { LineChart } from '@/components/ui/charts';
+import { LineChart } from '@/components/ui/chart';
 import { Badge } from '@/components/ui/badge';
 import { Clock, MapPin, Calendar, CheckCircle, Timer, DollarSign, User } from 'lucide-react';
 import { Progress } from '@/components/ui/progress';
