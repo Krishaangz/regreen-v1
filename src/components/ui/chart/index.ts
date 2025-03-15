@@ -1,5 +1,5 @@
 
-import LineChart from '@/components/ui/charts/LineChart';
-import PieChart from '@/components/ui/charts/PieChart';
+import LineChart from '../charts/LineChart';
+import PieChart from '../charts/PieChart';
 
 export { LineChart, PieChart };
