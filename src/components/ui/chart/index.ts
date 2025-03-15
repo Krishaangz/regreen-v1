@@ -1,3 +1,5 @@
 
-export { default as LineChart } from '../charts/LineChart';
-export { default as PieChart } from '../charts/PieChart';
+import LineChart from '@/components/ui/charts/LineChart';
+import PieChart from '@/components/ui/charts/PieChart';
+
+export { LineChart, PieChart };
