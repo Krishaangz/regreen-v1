@@ -115,7 +115,7 @@ const Register = () => {
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-regreen-100 to-regreen-50 dark:from-regreen-900/70 dark:to-regreen-950">
       <NavBar />
       
-      <div className="flex-1 flex items-center justify-center p-4 sm:p-6 py-10">
+      <div className="flex-1 flex items-center justify-center p-4 sm:p-6">
         <motion.div
           initial="hidden"
           animate="visible"

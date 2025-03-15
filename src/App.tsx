@@ -24,6 +24,7 @@ import MapView from "./pages/MapView";
 
 // Project pages
 import Projects from "./pages/Projects";
+import LandownerProjects from "./pages/projects/LandownerProjects";
 import TaskView from "./pages/TaskView";
 import Reports from "./pages/Reports";
 
@@ -79,7 +80,8 @@ const App = () => (
                   <Route path="/dashboard/community" element={<RouteGuard roleRequired="community"><CommunityDashboard /></RouteGuard>} />
                   
                   {/* Common routes available to all authenticated users */}
-                  <Route path="/projects" element={<RouteGuard><Projects /></RouteGuard>} />
+                  <Route path="/projects" element={<RouteGuard><LandownerProjects /></RouteGuard>} />
+                  <Route path="/my-properties" element={<RouteGuard roleRequired="landowner"><LandownerProjects /></RouteGuard>} />
                   <Route path="/map" element={<RouteGuard><MapView /></RouteGuard>} />
                   <Route path="/tasks/:taskId" element={<RouteGuard><TaskView /></RouteGuard>} />
                   <Route path="/tasks/current" element={<RouteGuard><TaskView /></RouteGuard>} />
