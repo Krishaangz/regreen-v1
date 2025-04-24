@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { LineChart, PieChart } from '@/components/ui/charts/index';
+import { LineChart, PieChart } from '@/components/ui/chart/index';
 
 const LandownerReports = () => {
   // Mock data for charts
