@@ -22,7 +22,7 @@ const WorkerServices = () => {
         buttonColor="bg-purple-600 hover:bg-purple-700"
         buttonAction={() => {}}
         isLink={true}
-        linkTo="/register"
+        linkTo="/services/worker"
       />
       
       <ServiceCard
@@ -41,7 +41,7 @@ const WorkerServices = () => {
         buttonColor="bg-indigo-600 hover:bg-indigo-700"
         buttonAction={() => {}}
         isLink={true}
-        linkTo="/register"
+        linkTo="/services/worker"
       />
       
       <ServiceCard

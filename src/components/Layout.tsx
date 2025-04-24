@@ -14,6 +14,9 @@ const Layout = () => {
   const isMobile = useIsMobile();
   const { role } = useRole();
   const location = useLocation();
+  
+  // Check if current route is the home page
+  const isHomePage = location.pathname === "/";
 
   return (
     <div className={`min-h-screen flex w-full bg-gradient-to-br ${getBgGradient(role)} transition-colors duration-500 relative ${getBgPattern(role)}`}>
@@ -26,7 +29,7 @@ const Layout = () => {
               <SidebarTrigger />
             </div>
           )}
-          <div className="max-w-7xl mx-auto">
+          <div className={`${isHomePage ? 'w-full' : 'max-w-7xl mx-auto'}`}>
             <Outlet />
           </div>
           <Footer />
