@@ -20,24 +20,22 @@ const Layout = () => {
 
   return (
     <div className={`min-h-screen flex flex-col w-full bg-gradient-to-br ${getBgGradient(role)} transition-colors duration-500 relative ${getBgPattern(role)}`}>
-      <div className="flex flex-1 w-full overflow-hidden">
+      <div className="flex flex-1 w-full h-screen overflow-hidden">
         {!isMobile && <AppSidebar />}
         {isMobile && <MobileNavbar />}
         
         <AnimatePresence mode="wait">
-          <PageTransition locationKey={location.pathname}>
-            <div className={`flex-1 overflow-x-hidden flex flex-col min-h-screen w-full`}>
-              {!isMobile && (
-                <div className="mb-4 md:hidden">
-                  <SidebarTrigger />
-                </div>
-              )}
-              <main className={`flex-1 w-full ${!isHomePage ? 'max-w-full px-6' : ''}`}>
-                <Outlet />
-              </main>
-              <Footer />
-            </div>
-          </PageTransition>
+          <div className="flex-1 overflow-x-hidden flex flex-col min-h-screen w-full">
+            {!isMobile && (
+              <div className="mb-4 md:hidden">
+                <SidebarTrigger />
+              </div>
+            )}
+            <main className="flex-1 w-full h-full overflow-y-auto">
+              <Outlet />
+            </main>
+            <Footer />
+          </div>
         </AnimatePresence>
       </div>
     </div>

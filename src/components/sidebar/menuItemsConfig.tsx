@@ -16,6 +16,8 @@ import {
   BookOpen,
   MapPin,
   Globe,
+  ChevronDown,
+  ChevronRight
 } from "lucide-react";
 import React from "react";
 
@@ -29,58 +31,59 @@ const baseMenuItems = [
   }
 ];
 
-// Common menu items for all roles
-const commonMenuItems = [
-  {
-    label: "Map View",
-    path: "/map",
-    icon: MapPin,
-  },
-  {
-    label: "Projects",
-    path: "/projects",
-    icon: TreeDeciduous,
-  },
-  {
-    label: "Community",
-    path: "/community",
-    icon: Users,
-    submenu: [
-      { label: "Forums", path: "/community/forums" },
-      { label: "Events", path: "/community/events" },
-      { label: "Success Stories", path: "/community/stories" }
-    ]
-  },
-  {
-    label: "Services",
-    path: "/services",
-    icon: FileText,
-    submenu: [
-      { label: "Eco-Restoration", path: "/services/restoration" },
-      { label: "Landowner Services", path: "/services/landowner" },
-      { label: "Worker Programs", path: "/services/worker" }
-    ]
-  },
-  {
-    label: "Help Center",
-    path: "/help",
-    icon: HelpCircle,
-    submenu: [
-      { label: "FAQ", path: "/help/faq" },
-      { label: "Contact Us", path: "/help/contact" },
-      { label: "Support", path: "/help/support" }
-    ]
-  },
-  {
-    label: "Settings",
-    path: "/settings",
-    icon: Settings
-  }
-];
-
 // Function to get menu items based on role
 export const getMenuItems = (role: string | null) => {
   let roleSpecificItems: any[] = [];
+  let sharedItems: any[] = [];
+  
+  // Shared items across all roles but with potential customizations per role
+  sharedItems = [
+    {
+      label: "Map View",
+      path: "/map",
+      icon: MapPin,
+    },
+    {
+      label: "Projects",
+      path: "/projects",
+      icon: TreeDeciduous,
+    },
+    {
+      label: "Community",
+      path: "/community",
+      icon: Users,
+      dropdownItems: [
+        { label: "Forums", path: "/community/forums" },
+        { label: "Events", path: "/community/events" },
+        { label: "Success Stories", path: "/community/stories" }
+      ]
+    },
+    {
+      label: "Services",
+      path: "/services",
+      icon: FileText,
+      dropdownItems: [
+        { label: "Eco-Restoration", path: "/services/restoration" },
+        { label: "Landowner Services", path: "/services/landowner" },
+        { label: "Worker Programs", path: "/services/worker" }
+      ]
+    },
+    {
+      label: "Help Center",
+      path: "/help",
+      icon: HelpCircle,
+      dropdownItems: [
+        { label: "FAQ", path: "/help/faq" },
+        { label: "Contact Us", path: "/help/contact" },
+        { label: "Support", path: "/help/support" }
+      ]
+    },
+    {
+      label: "Settings",
+      path: "/settings",
+      icon: Settings
+    }
+  ];
   
   // Role-specific menu items
   switch(role) {
@@ -97,7 +100,7 @@ export const getMenuItems = (role: string | null) => {
           icon: Building,
         },
         {
-          label: "Reports",
+          label: "Landowner Reports",
           path: "/reports",
           icon: FileSpreadsheet,
         }
@@ -118,7 +121,7 @@ export const getMenuItems = (role: string | null) => {
         },
         {
           label: "Work Schedule",
-          path: "/reports", // Reusing existing page for now
+          path: "/reports", // Same path but different content
           icon: Calendar,
         }
       ];
@@ -130,18 +133,9 @@ export const getMenuItems = (role: string | null) => {
           label: "Community Dashboard",
           path: "/dashboard/community",
           icon: LayoutDashboard,
-        },
-        {
-          label: "Discussion Forums",
-          path: "/community/forums",
-          icon: MessageSquare,
-        },
-        {
-          label: "Events",
-          path: "/community/events",
-          icon: Calendar,
         }
       ];
+      // Don't duplicate forums and events which are already in the Community dropdown
       break;
       
     default:
@@ -150,5 +144,6 @@ export const getMenuItems = (role: string | null) => {
   }
   
   // Combine the menu items in the desired order
-  return [...baseMenuItems, ...roleSpecificItems, ...commonMenuItems];
+  return [...baseMenuItems, ...roleSpecificItems, ...sharedItems];
 };
+

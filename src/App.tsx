@@ -79,7 +79,7 @@ const App = () => (
                 <Route path="/dashboard/community" element={<RouteGuard roleRequired="community"><CommunityDashboard /></RouteGuard>} />
                 
                 {/* Common routes available to all authenticated users */}
-                <Route path="/projects" element={<RouteGuard><LandownerProjects /></RouteGuard>} />
+                <Route path="/projects" element={<RouteGuard><Projects /></RouteGuard>} />
                 <Route path="/my-properties" element={<RouteGuard roleRequired="landowner"><LandownerProjects /></RouteGuard>} />
                 <Route path="/map" element={<RouteGuard><MapView /></RouteGuard>} />
                 <Route path="/tasks/:taskId" element={<RouteGuard><TaskView /></RouteGuard>} />

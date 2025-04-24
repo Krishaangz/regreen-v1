@@ -24,6 +24,8 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
     // Apply theme class to root element
     document.documentElement.classList.remove("theme-green", "theme-blue", "theme-purple", "theme-orange");
     document.documentElement.classList.add(`theme-${colorTheme}`);
+    
+    console.log(`Theme changed to: ${colorTheme}`);
   }, [colorTheme]);
 
   return (

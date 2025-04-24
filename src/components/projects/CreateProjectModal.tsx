@@ -21,7 +21,7 @@ const CreateProjectModal = ({ isOpen, onClose }: CreateProjectModalProps) => {
   const [type, setType] = useState("");
   const [location, setLocation] = useState("");
   const [area, setArea] = useState("");
-  const [description, setDescription] = useState("");
+  const [descriptionText, setDescriptionText] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [status, setStatus] = useState("Planning Phase");
 
@@ -70,7 +70,7 @@ const CreateProjectModal = ({ isOpen, onClose }: CreateProjectModalProps) => {
     setType("");
     setLocation("");
     setArea("");
-    setDescription("");
+    setDescriptionText("");
     setImageUrl("");
     setStatus("Planning Phase");
   };
@@ -166,8 +166,8 @@ const CreateProjectModal = ({ isOpen, onClose }: CreateProjectModalProps) => {
             <Label htmlFor="description">Description</Label>
             <Textarea 
               id="description"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
+              value={descriptionText}
+              onChange={(e) => setDescriptionText(e.target.value)}
               placeholder="Provide details about the property or project..."
               className="min-h-[100px]"
             />
