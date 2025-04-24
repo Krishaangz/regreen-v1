@@ -76,7 +76,7 @@ const CreateProjectModal = ({ isOpen, onClose }: CreateProjectModalProps) => {
   };
 
   const title = role === "landowner" ? "Add New Property" : "Create New Project";
-  const description = role === "landowner" 
+  const modalDescription = role === "landowner" 
     ? "Register your property for ecological restoration services." 
     : "Create a new community initiative for ecological restoration.";
 
@@ -86,7 +86,7 @@ const CreateProjectModal = ({ isOpen, onClose }: CreateProjectModalProps) => {
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>
-            {description}
+            {modalDescription}
           </DialogDescription>
         </DialogHeader>
         

@@ -25,8 +25,8 @@ const Layout = () => {
         {isMobile && <MobileNavbar />}
         
         <AnimatePresence mode="wait">
-          <PageTransition locationKey={location.pathname} className="flex-1 overflow-x-hidden">
-            <div className="flex flex-col min-h-screen w-full">
+          <PageTransition locationKey={location.pathname}>
+            <div className={`flex-1 overflow-x-hidden flex flex-col min-h-screen w-full`}>
               {!isMobile && (
                 <div className="mb-4 md:hidden">
                   <SidebarTrigger />
