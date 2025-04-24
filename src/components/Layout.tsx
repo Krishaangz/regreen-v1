@@ -21,19 +21,19 @@ const Layout = () => {
   const isHomePage = location.pathname === "/";
 
   return (
-    <div className={`min-h-screen flex flex-col w-full bg-gradient-to-br ${getBgGradient(role, colorTheme)} transition-colors duration-500 relative ${getBgPattern(role)}`}>
-      <div className="flex flex-1 w-full h-screen overflow-hidden">
+    <div className={`min-h-screen w-full bg-gradient-to-br ${getBgGradient(role, colorTheme)} transition-colors duration-500 relative ${getBgPattern(role)}`}>
+      <div className="flex h-screen overflow-hidden">
         {!isMobile && <AppSidebar />}
         {isMobile && <MobileNavbar />}
         
         <AnimatePresence mode="wait">
-          <div className="flex-1 overflow-x-hidden flex flex-col min-h-screen w-full">
+          <div className="flex-1 flex flex-col min-h-screen overflow-x-hidden relative">
             {!isMobile && (
-              <div className="mb-4 md:hidden">
+              <div className="absolute top-4 left-4 z-50">
                 <SidebarTrigger />
               </div>
             )}
-            <main className="flex-1 w-full h-full overflow-y-auto">
+            <main className="flex-1 overflow-y-auto p-6 md:p-8 w-full">
               <Outlet />
             </main>
             <Footer />
