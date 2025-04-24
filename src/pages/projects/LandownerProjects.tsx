@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import ProjectBase from '@/components/projects/ProjectBase';
 import ProjectsTabContent from '@/components/projects/landowner/ProjectsTabContent';
 import { useToast } from '@/hooks/use-toast';
@@ -9,15 +9,14 @@ import {
   completedProjects, 
   pendingProjects 
 } from '@/data/landownerProjects';
+import CreateProjectModal from '@/components/projects/CreateProjectModal';
 
 const LandownerProjects = () => {
   const { toast } = useToast();
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   
   const handleNewProject = () => {
-    toast({
-      title: "New Project",
-      description: "The add new project form would open here.",
-    });
+    setIsCreateModalOpen(true);
   };
   
   const tabs = [
@@ -44,14 +43,21 @@ const LandownerProjects = () => {
   ];
   
   return (
-    <ProjectBase
-      title="My Properties"
-      description="Manage your land restoration projects and track progress"
-      tabs={tabs}
-      defaultTab="active"
-      actionLabel="Add Property"
-      onAction={handleNewProject}
-    />
+    <>
+      <ProjectBase
+        title="My Properties"
+        description="Manage your land restoration projects and track progress"
+        tabs={tabs}
+        defaultTab="active"
+        actionLabel="Add Property"
+        onAction={handleNewProject}
+      />
+      
+      <CreateProjectModal 
+        isOpen={isCreateModalOpen}
+        onClose={() => setIsCreateModalOpen(false)}
+      />
+    </>
   );
 };
 

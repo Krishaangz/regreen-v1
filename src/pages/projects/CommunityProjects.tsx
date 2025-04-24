@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import ProjectBase from '@/components/projects/ProjectBase';
 import ProjectsTabContent from '@/components/projects/community/ProjectsTabContent';
 import { useNavigate } from 'react-router-dom';
@@ -10,16 +10,15 @@ import {
   upcomingProjects, 
   savedProjects 
 } from '@/data/communityProjects';
+import CreateEventModal from '@/components/community/CreateEventModal';
 
 const CommunityProjects = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   
   const handleNewInitiative = () => {
-    toast({
-      title: "New Initiative",
-      description: "The form to start a new community initiative would open here.",
-    });
+    setIsCreateModalOpen(true);
   };
   
   const tabs = [
@@ -46,14 +45,21 @@ const CommunityProjects = () => {
   ];
   
   return (
-    <ProjectBase
-      title="Community Projects"
-      description="Discover and participate in local ecological initiatives"
-      tabs={tabs}
-      defaultTab="local"
-      actionLabel="Start Initiative"
-      onAction={handleNewInitiative}
-    />
+    <>
+      <ProjectBase
+        title="Community Projects"
+        description="Discover and participate in local ecological initiatives"
+        tabs={tabs}
+        defaultTab="local"
+        actionLabel="Start Initiative"
+        onAction={handleNewInitiative}
+      />
+      
+      <CreateEventModal 
+        isOpen={isCreateModalOpen}
+        onClose={() => setIsCreateModalOpen(false)}
+      />
+    </>
   );
 };
 

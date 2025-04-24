@@ -11,15 +11,11 @@ import {
   Home,
   Briefcase,
   Building,
-  Camera,
   Calendar,
   MessageSquare,
   BookOpen,
   MapPin,
-  Leaf,
   Globe,
-  Hand,
-  AlertTriangle
 } from "lucide-react";
 import React from "react";
 
@@ -39,6 +35,11 @@ const commonMenuItems = [
     label: "Map View",
     path: "/map",
     icon: MapPin,
+  },
+  {
+    label: "Projects",
+    path: "/projects",
+    icon: TreeDeciduous,
   },
   {
     label: "Community",
@@ -96,11 +97,6 @@ export const getMenuItems = (role: string | null) => {
           icon: Building,
         },
         {
-          label: "Projects",
-          path: "/projects",
-          icon: TreeDeciduous,
-        },
-        {
           label: "Reports",
           path: "/reports",
           icon: FileSpreadsheet,
@@ -121,11 +117,6 @@ export const getMenuItems = (role: string | null) => {
           icon: Briefcase,
         },
         {
-          label: "Available Projects",
-          path: "/projects",
-          icon: TreeDeciduous,
-        },
-        {
           label: "Work Schedule",
           path: "/reports", // Reusing existing page for now
           icon: Calendar,
@@ -141,19 +132,14 @@ export const getMenuItems = (role: string | null) => {
           icon: LayoutDashboard,
         },
         {
-          label: "Local Projects",
-          path: "/projects",
-          icon: TreeDeciduous,
-        },
-        {
           label: "Discussion Forums",
           path: "/community/forums",
           icon: MessageSquare,
         },
         {
-          label: "Success Stories",
-          path: "/community/stories",
-          icon: BookOpen,
+          label: "Events",
+          path: "/community/events",
+          icon: Calendar,
         }
       ];
       break;

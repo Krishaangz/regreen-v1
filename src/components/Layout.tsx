@@ -19,22 +19,27 @@ const Layout = () => {
   const isHomePage = location.pathname === "/";
 
   return (
-    <div className={`min-h-screen flex w-full bg-gradient-to-br ${getBgGradient(role)} transition-colors duration-500 relative ${getBgPattern(role)}`}>
-      {!isMobile && <AppSidebar />}
-      {isMobile && <MobileNavbar />}
-      <AnimatePresence mode="wait">
-        <PageTransition locationKey={location.pathname}>
-          {!isMobile && (
-            <div className="mb-4 md:hidden">
-              <SidebarTrigger />
+    <div className={`min-h-screen flex flex-col w-full bg-gradient-to-br ${getBgGradient(role)} transition-colors duration-500 relative ${getBgPattern(role)}`}>
+      <div className="flex flex-1 w-full overflow-hidden">
+        {!isMobile && <AppSidebar />}
+        {isMobile && <MobileNavbar />}
+        
+        <AnimatePresence mode="wait">
+          <PageTransition locationKey={location.pathname} className="flex-1 overflow-x-hidden">
+            <div className="flex flex-col min-h-screen w-full">
+              {!isMobile && (
+                <div className="mb-4 md:hidden">
+                  <SidebarTrigger />
+                </div>
+              )}
+              <main className={`flex-1 w-full ${!isHomePage ? 'max-w-full px-6' : ''}`}>
+                <Outlet />
+              </main>
+              <Footer />
             </div>
-          )}
-          <div className={`${isHomePage ? 'w-full' : 'max-w-7xl mx-auto'}`}>
-            <Outlet />
-          </div>
-          <Footer />
-        </PageTransition>
-      </AnimatePresence>
+          </PageTransition>
+        </AnimatePresence>
+      </div>
     </div>
   );
 };

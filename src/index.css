@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&family=Montserrat:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
@@ -46,6 +47,57 @@
     --sidebar-ring: 142 10% 95%;
   }
 
+  /* Theme: Blue */
+  .theme-blue {
+    --primary: 210 100% 50%;
+    --primary-foreground: 210 10% 95%;
+
+    --ring: 210 100% 50%;
+
+    --sidebar-background: 210 100% 35%;
+    --sidebar-foreground: 210 10% 95%;
+    --sidebar-primary: 210 10% 95%;
+    --sidebar-primary-foreground: 210 100% 35%;
+    --sidebar-accent: 210 100% 25%;
+    --sidebar-accent-foreground: 210 10% 95%;
+    --sidebar-border: 210 100% 25%;
+    --sidebar-ring: 210 10% 95%;
+  }
+
+  /* Theme: Purple */
+  .theme-purple {
+    --primary: 280 70% 50%;
+    --primary-foreground: 280 10% 95%;
+
+    --ring: 280 70% 50%;
+
+    --sidebar-background: 280 70% 35%;
+    --sidebar-foreground: 280 10% 95%;
+    --sidebar-primary: 280 10% 95%;
+    --sidebar-primary-foreground: 280 70% 35%;
+    --sidebar-accent: 280 70% 25%;
+    --sidebar-accent-foreground: 280 10% 95%;
+    --sidebar-border: 280 70% 25%;
+    --sidebar-ring: 280 10% 95%;
+  }
+
+  /* Theme: Orange */
+  .theme-orange {
+    --primary: 30 100% 50%;
+    --primary-foreground: 30 10% 95%;
+
+    --ring: 30 100% 50%;
+
+    --sidebar-background: 30 100% 35%;
+    --sidebar-foreground: 30 10% 95%;
+    --sidebar-primary: 30 10% 95%;
+    --sidebar-primary-foreground: 30 100% 35%;
+    --sidebar-accent: 30 100% 25%;
+    --sidebar-accent-foreground: 30 10% 95%;
+    --sidebar-border: 30 100% 25%;
+    --sidebar-ring: 30 10% 95%;
+  }
+
   .dark {
     --background: 150 30% 5%;
     --foreground: 150 10% 95%;
@@ -83,6 +135,42 @@
     --sidebar-accent-foreground: 142 10% 95%;
     --sidebar-border: 142 35% 15%;
     --sidebar-ring: 142 10% 95%;
+  }
+
+  /* Dark theme: Blue */
+  .theme-blue.dark {
+    --sidebar-background: 210 70% 15%;
+    --sidebar-foreground: 210 10% 95%;
+    --sidebar-primary: 210 10% 95%;
+    --sidebar-primary-foreground: 210 70% 40%;
+    --sidebar-accent: 210 70% 10%;
+    --sidebar-accent-foreground: 210 10% 95%;
+    --sidebar-border: 210 70% 10%;
+    --sidebar-ring: 210 10% 95%;
+  }
+
+  /* Dark theme: Purple */
+  .theme-purple.dark {
+    --sidebar-background: 280 50% 15%;
+    --sidebar-foreground: 280 10% 95%;
+    --sidebar-primary: 280 10% 95%;
+    --sidebar-primary-foreground: 280 50% 40%;
+    --sidebar-accent: 280 50% 10%;
+    --sidebar-accent-foreground: 280 10% 95%;
+    --sidebar-border: 280 50% 10%;
+    --sidebar-ring: 280 10% 95%;
+  }
+
+  /* Dark theme: Orange */
+  .theme-orange.dark {
+    --sidebar-background: 30 70% 15%;
+    --sidebar-foreground: 30 10% 95%;
+    --sidebar-primary: 30 10% 95%;
+    --sidebar-primary-foreground: 30 70% 40%;
+    --sidebar-accent: 30 70% 10%;
+    --sidebar-accent-foreground: 30 10% 95%;
+    --sidebar-border: 30 70% 10%;
+    --sidebar-ring: 30 10% 95%;
   }
 }
 

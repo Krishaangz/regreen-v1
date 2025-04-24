@@ -14,6 +14,7 @@ import MenuItems from "./sidebar/MenuItems";
 import LogoutButton from "./sidebar/LogoutButton";
 import { getSidebarTheme } from "./sidebar/roleUtils";
 import { getMenuItems } from "./sidebar/menuItemsConfig";
+import { ScrollArea } from "./ui/scroll-area";
 
 const AppSidebar = () => {
   const { role, setRole } = useRole();
@@ -30,7 +31,7 @@ const AppSidebar = () => {
   }, [role]);
   
   return (
-    <Sidebar className={`${getSidebarTheme(role)} text-white`}>
+    <Sidebar className={`${getSidebarTheme(role)} text-white shrink-0 z-20`}>
       <SidebarHeader className="flex items-center p-4">
         <Link to="/" className="flex items-center gap-2 flex-1">
           <img 
@@ -46,9 +47,11 @@ const AppSidebar = () => {
       {/* Role indicator */}
       <RoleIndicator role={role} />
       
-      <SidebarContent>
-        {/* Menu items */}
-        <MenuItems menuItems={menuItems} role={role} />
+      <SidebarContent className="overflow-hidden">
+        <ScrollArea className="h-[calc(100vh-200px)] overflow-y-auto overflow-x-hidden">
+          {/* Menu items */}
+          <MenuItems menuItems={menuItems} role={role} />
+        </ScrollArea>
         
         {/* Logout button */}
         <LogoutButton role={role} onLogout={handleLogout} />
