@@ -1,43 +1,26 @@
+
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { LineChart, PieChart } from '@/components/ui/chart/index';
 
 const LandownerReports = () => {
-  // Mock data for charts
-  const ecosystemHealthData = {
-    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-    datasets: [
-      {
-        label: 'Biodiversity Index',
-        data: [65, 68, 70, 72, 74, 76],
-        borderColor: '#4ade80',
-        backgroundColor: 'rgba(74, 222, 128, 0.1)',
-      },
-      {
-        label: 'Carbon Sequestration',
-        data: [40, 45, 48, 50, 53, 55],
-        borderColor: '#2563eb',
-        backgroundColor: 'rgba(37, 99, 235, 0.1)',
-      },
-    ],
-  };
+  // Mock data transformed for LineChart component
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
+  const lineChartData = months.map((month, index) => ({
+    month: month,
+    'Biodiversity Index': [65, 68, 70, 72, 74, 76][index],
+    'Carbon Sequestration': [40, 45, 48, 50, 53, 55][index],
+  }));
 
-  const speciesData = {
-    labels: ['Birds', 'Mammals', 'Insects', 'Plants', 'Amphibians'],
-    datasets: [
-      {
-        data: [30, 20, 25, 15, 10],
-        backgroundColor: [
-          '#4ade80',
-          '#3b82f6',
-          '#f97316',
-          '#a855f7',
-          '#ec4899',
-        ],
-      },
-    ],
-  };
+  // Mock data transformed for PieChart component
+  const pieChartData = [
+    { name: 'Birds', value: 30 },
+    { name: 'Mammals', value: 20 },
+    { name: 'Insects', value: 25 },
+    { name: 'Plants', value: 15 },
+    { name: 'Amphibians', value: 10 },
+  ];
 
   return (
     <div className="container py-6 max-w-7xl">
@@ -58,7 +41,12 @@ const LandownerReports = () => {
                 <CardDescription>Monthly biodiversity and carbon measurements</CardDescription>
               </CardHeader>
               <CardContent>
-                <LineChart data={ecosystemHealthData} height={300} />
+                <LineChart 
+                  data={lineChartData}
+                  index="month"
+                  categories={['Biodiversity Index', 'Carbon Sequestration']}
+                  className="h-[300px]"
+                />
               </CardContent>
             </Card>
             
@@ -68,7 +56,10 @@ const LandownerReports = () => {
                 <CardDescription>Breakdown of species recovery on your property</CardDescription>
               </CardHeader>
               <CardContent>
-                <PieChart data={speciesData} height={300} />
+                <PieChart 
+                  data={pieChartData}
+                  className="h-[300px]"
+                />
               </CardContent>
             </Card>
           </div>
