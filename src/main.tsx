@@ -12,19 +12,22 @@ import { ThemeProvider } from "@/contexts/ThemeContext";
 
 const queryClient = new QueryClient();
 
+// Check if there's a saved theme preference or use system default
+const savedTheme = localStorage.getItem("ui-theme") || "system";
+
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <ShadcnThemeProvider defaultTheme="system" storageKey="ui-theme">
-      <ThemeProvider>
-        <QueryClientProvider client={queryClient}>
-          <Router>
-            <RoleProvider>
+    <ShadcnThemeProvider defaultTheme={savedTheme as "light" | "dark" | "system"} storageKey="ui-theme">
+      <QueryClientProvider client={queryClient}>
+        <Router>
+          <RoleProvider>
+            <ThemeProvider>
               <App />
               <Toaster />
-            </RoleProvider>
-          </Router>
-        </QueryClientProvider>
-      </ThemeProvider>
+            </ThemeProvider>
+          </RoleProvider>
+        </Router>
+      </QueryClientProvider>
     </ShadcnThemeProvider>
   </React.StrictMode>
 );

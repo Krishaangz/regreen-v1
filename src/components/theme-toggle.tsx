@@ -5,11 +5,11 @@ import { useTheme as useShadcnTheme } from "@/components/theme-provider";
 import { useTheme } from "@/contexts/ThemeContext";
 
 export function ThemeToggle() {
-  const { theme, setTheme } = useShadcnTheme();
-  const { colorTheme } = useTheme();
+  const { theme } = useShadcnTheme();
+  const { colorTheme, toggleDarkMode } = useTheme();
 
   // Apply color-specific styles based on the selected theme
-  const getBgColor = () => {
+  const getIconColor = () => {
     switch(colorTheme) {
       case "blue":
         return theme === "dark" ? "text-blue-400" : "text-blue-600";
@@ -26,11 +26,11 @@ export function ThemeToggle() {
     <Button
       variant="ghost"
       size="icon"
-      onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+      onClick={toggleDarkMode}
       className="btn-interactive transition-all duration-500"
     >
-      <Sun className={`h-5 w-5 transition-all duration-500 rotate-0 scale-100 ${getBgColor()} ${theme === "dark" ? "rotate-90 scale-0" : ""}`} />
-      <Moon className={`absolute h-5 w-5 transition-all duration-500 rotate-90 scale-0 ${getBgColor()} ${theme === "dark" ? "rotate-0 scale-100" : ""}`} />
+      <Sun className={`h-5 w-5 transition-all duration-500 rotate-0 scale-100 ${getIconColor()} ${theme === "dark" ? "rotate-90 scale-0" : ""}`} />
+      <Moon className={`absolute h-5 w-5 transition-all duration-500 rotate-90 scale-0 ${getIconColor()} ${theme === "dark" ? "rotate-0 scale-100" : ""}`} />
       <span className="sr-only">Toggle theme</span>
     </Button>
   );
