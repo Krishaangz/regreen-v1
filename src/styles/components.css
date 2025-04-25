@@ -1,0 +1,54 @@
+
+@layer components {
+  .hero-gradient {
+    @apply bg-gradient-to-br from-regreen-300 via-regreen-500 to-regreen-700;
+  }
+  
+  .card-hover {
+    @apply transition-all duration-300 hover:shadow-xl hover:-translate-y-1;
+  }
+  
+  .before-after-slider {
+    @apply relative overflow-hidden rounded-lg;
+  }
+  
+  .eco-button {
+    @apply rounded-full bg-regreen-600 text-white px-6 py-3 font-medium transition-all hover:bg-regreen-700 focus:ring-2 focus:ring-regreen-300 focus:ring-offset-2;
+  }
+  
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-regreen-600 to-regreen-800;
+  }
+
+  .btn-interactive {
+    @apply transition-transform duration-300 hover:scale-105 active:scale-95;
+  }
+
+  .loading-spinner {
+    @apply animate-spin rounded-full border-4 border-regreen-100 border-t-regreen-600 h-8 w-8;
+  }
+
+  .skeleton {
+    @apply animate-pulse bg-gray-200 dark:bg-gray-700 rounded;
+  }
+
+  .glass {
+    @apply bg-white/80 dark:bg-regreen-900/80 backdrop-blur-md border border-white/20 dark:border-regreen-800/30;
+  }
+  
+  .card-hover-effect {
+    @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:bg-white/90 dark:hover:bg-regreen-800/90;
+  }
+  
+  .gradient-button {
+    @apply bg-gradient-to-r from-regreen-500 to-regreen-600 hover:from-regreen-600 hover:to-regreen-700 text-white transition-all duration-300;
+  }
+  
+  .settings-card {
+    @apply bg-white dark:bg-regreen-900/60 shadow-md rounded-xl overflow-hidden transition-all duration-300 hover:shadow-xl;
+  }
+  
+  .sidebar-enhanced {
+    @apply bg-gradient-to-b from-regreen-700 to-regreen-800 text-white shadow-lg;
+  }
+}

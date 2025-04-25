@@ -1,0 +1,33 @@
+
+@layer utilities {
+  .scrollbar-none {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .gentle-bounce {
+    animation: gentle-bounce 2.5s ease-in-out infinite;
+  }
+  
+  .shimmer {
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.1) 8%, rgba(255, 255, 255, 0.2) 18%, rgba(255, 255, 255, 0.1) 33%);
+    background-size: 800px 104px;
+    animation: shimmer 1.5s infinite linear;
+  }
+  
+  .hover-lift {
+    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-md;
+  }
+  
+  .hover-glow {
+    @apply transition-all duration-300 hover:shadow-[0_0_15px_rgba(80,230,100,0.5)];
+  }
+  
+  .glass-morphism {
+    @apply backdrop-blur-md bg-white/10 dark:bg-black/10 border border-white/20 dark:border-white/5 shadow-lg;
+  }
+}

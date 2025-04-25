@@ -1,0 +1,190 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 150 50% 98%;
+    --foreground: 150 10% 10%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 142 42% 42%;
+    --primary-foreground: 142 10% 95%;
+
+    --secondary: 30 10% 90%;
+    --secondary-foreground: 30 10% 30%;
+
+    --muted: 150 10% 94%;
+    --muted-foreground: 150 10% 40%;
+
+    --accent: 30 30% 85%;
+    --accent-foreground: 30 20% 25%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 150 30% 88%;
+    --input: 150 30% 88%;
+    --ring: 142 42% 42%;
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 142 42% 42%;
+    --sidebar-foreground: 142 10% 95%;
+    --sidebar-primary: 142 10% 95%;
+    --sidebar-primary-foreground: 142 42% 42%;
+    --sidebar-accent: 142 35% 32%;
+    --sidebar-accent-foreground: 142 10% 95%;
+    --sidebar-border: 142 35% 32%;
+    --sidebar-ring: 142 10% 95%;
+  }
+
+  /* Theme: Blue */
+  .theme-blue {
+    --primary: 210 100% 50%;
+    --primary-foreground: 210 10% 95%;
+
+    --ring: 210 100% 50%;
+
+    --sidebar-background: 210 100% 35%;
+    --sidebar-foreground: 210 10% 95%;
+    --sidebar-primary: 210 10% 95%;
+    --sidebar-primary-foreground: 210 100% 35%;
+    --sidebar-accent: 210 100% 25%;
+    --sidebar-accent-foreground: 210 10% 95%;
+    --sidebar-border: 210 100% 25%;
+    --sidebar-ring: 210 10% 95%;
+  }
+
+  /* Theme: Purple */
+  .theme-purple {
+    --primary: 280 70% 50%;
+    --primary-foreground: 280 10% 95%;
+
+    --ring: 280 70% 50%;
+
+    --sidebar-background: 280 70% 35%;
+    --sidebar-foreground: 280 10% 95%;
+    --sidebar-primary: 280 10% 95%;
+    --sidebar-primary-foreground: 280 70% 35%;
+    --sidebar-accent: 280 70% 25%;
+    --sidebar-accent-foreground: 280 10% 95%;
+    --sidebar-border: 280 70% 25%;
+    --sidebar-ring: 280 10% 95%;
+  }
+
+  /* Theme: Orange */
+  .theme-orange {
+    --primary: 30 100% 50%;
+    --primary-foreground: 30 10% 95%;
+
+    --ring: 30 100% 50%;
+
+    --sidebar-background: 30 100% 35%;
+    --sidebar-foreground: 30 10% 95%;
+    --sidebar-primary: 30 10% 95%;
+    --sidebar-primary-foreground: 30 100% 35%;
+    --sidebar-accent: 30 100% 25%;
+    --sidebar-accent-foreground: 30 10% 95%;
+    --sidebar-border: 30 100% 25%;
+    --sidebar-ring: 30 10% 95%;
+  }
+
+  .dark {
+    --background: 150 30% 5%;
+    --foreground: 150 10% 95%;
+
+    --card: 150 30% 8%;
+    --card-foreground: 150 10% 95%;
+
+    --popover: 150 30% 3%;
+    --popover-foreground: 150 10% 95%;
+
+    --primary: 142 42% 42%;
+    --primary-foreground: 142 10% 95%;
+
+    --secondary: 30 15% 20%;
+    --secondary-foreground: 30 10% 90%;
+
+    --muted: 150 30% 15%;
+    --muted-foreground: 150 10% 70%;
+
+    --accent: 30 25% 25%;
+    --accent-foreground: 30 20% 90%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 150 30% 20%;
+    --input: 150 30% 20%;
+    --ring: 142 42% 42%;
+
+    --sidebar-background: 142 35% 20%;
+    --sidebar-foreground: 142 10% 95%;
+    --sidebar-primary: 142 10% 95%;
+    --sidebar-primary-foreground: 142 42% 42%;
+    --sidebar-accent: 142 35% 15%;
+    --sidebar-accent-foreground: 142 10% 95%;
+    --sidebar-border: 142 35% 15%;
+    --sidebar-ring: 142 10% 95%;
+  }
+
+  /* Dark theme: Blue */
+  .theme-blue.dark {
+    --sidebar-background: 210 70% 15%;
+    --sidebar-foreground: 210 10% 95%;
+    --sidebar-primary: 210 10% 95%;
+    --sidebar-primary-foreground: 210 70% 40%;
+    --sidebar-accent: 210 70% 10%;
+    --sidebar-accent-foreground: 210 10% 95%;
+    --sidebar-border: 210 70% 10%;
+    --sidebar-ring: 210 10% 95%;
+  }
+
+  /* Dark theme: Purple */
+  .theme-purple.dark {
+    --sidebar-background: 280 50% 15%;
+    --sidebar-foreground: 280 10% 95%;
+    --sidebar-primary: 280 10% 95%;
+    --sidebar-primary-foreground: 280 50% 40%;
+    --sidebar-accent: 280 50% 10%;
+    --sidebar-accent-foreground: 280 10% 95%;
+    --sidebar-border: 280 50% 10%;
+    --sidebar-ring: 280 10% 95%;
+  }
+
+  /* Dark theme: Orange */
+  .theme-orange.dark {
+    --sidebar-background: 30 70% 15%;
+    --sidebar-foreground: 30 10% 95%;
+    --sidebar-primary: 30 10% 95%;
+    --sidebar-primary-foreground: 30 70% 40%;
+    --sidebar-accent: 30 70% 10%;
+    --sidebar-accent-foreground: 30 10% 95%;
+    --sidebar-border: 30 70% 10%;
+    --sidebar-ring: 30 10% 95%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23e0e0e0' fill-opacity='0.1'%3E%3Cpath opacity='.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z'/%3E%3Cpath d='M6 5V0H5v5H0v1h5v94h1V6h94V5H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    background-attachment: fixed;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display font-medium tracking-tight;
+  }
+}
