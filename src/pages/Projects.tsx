@@ -5,11 +5,9 @@ import LandownerProjects from './projects/LandownerProjects';
 import WorkerProjects from './projects/WorkerProjects';
 import CommunityProjects from './projects/CommunityProjects';
 import PublicProjects from './PublicProjects';
-import CreateProjectModal from '@/components/projects/CreateProjectModal';
 
 const Projects = () => {
   const { role } = useRole();
-  const [showCreateModal, setShowCreateModal] = useState(false);
   
   // Only show public projects if no role is selected
   if (!role) {
@@ -22,14 +20,6 @@ const Projects = () => {
       {role === 'landowner' && <LandownerProjects />}
       {role === 'worker' && <WorkerProjects />}
       {role === 'community' && <CommunityProjects />}
-      
-      {/* Create Project Modal */}
-      {showCreateModal && (
-        <CreateProjectModal 
-          isOpen={showCreateModal}
-          onClose={() => setShowCreateModal(false)}
-        />
-      )}
     </div>
   );
 };

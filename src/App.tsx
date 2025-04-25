@@ -13,6 +13,7 @@ import Index from "./pages/Index";
 import Register from "./pages/Register";
 import NotFound from "./pages/NotFound";
 import Layout from "./components/Layout";
+import About from "./pages/About";
 
 // Role-specific dashboards
 import LandownerDashboard from "./pages/dashboards/LandownerDashboard";
@@ -65,6 +66,7 @@ const App = () => (
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/register" element={<Register />} />
+              <Route path="/about" element={<About />} />
               
               {/* Dynamic dashboard redirect based on role */}
               <Route path="/dashboard" element={<RouteGuard>
@@ -73,6 +75,8 @@ const App = () => (
               
               {/* Layout with authenticated routes */}
               <Route element={<Layout />}>
+                <Route path="/about" element={<About />} />
+                
                 {/* Role-specific dashboards */}
                 <Route path="/dashboard/landowner" element={<RouteGuard roleRequired="landowner"><LandownerDashboard /></RouteGuard>} />
                 <Route path="/dashboard/worker" element={<RouteGuard roleRequired="worker"><WorkerDashboard /></RouteGuard>} />
