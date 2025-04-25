@@ -7,6 +7,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { ThemeProvider } from "@/components/theme-provider";
 import { RoleProvider } from "@/contexts/RoleContext";
+import { ThemeProvider as AppThemeProvider } from "@/contexts/ThemeContext";
 
 // Base pages
 import Index from "./pages/Index";
@@ -42,10 +43,11 @@ import Events from "./pages/community/Events";
 import Stories from "./pages/community/Stories";
 
 // Help pages
-import Help from "./pages/help";
+import Help from "./pages/Help";
 import FAQ from "./pages/help/FAQ";
 import Contact from "./pages/help/Contact";
 import Support from "./pages/help/Support";
+import LandownerGuide from "./pages/help/landowner-guide";
 
 // Settings
 import Settings from "./pages/Settings";
@@ -62,57 +64,60 @@ const App = () => (
         <Toaster />
         <Sonner />
         <RoleProvider>
-          <SidebarProvider>
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="/about" element={<About />} />
-              
-              {/* Dynamic dashboard redirect based on role */}
-              <Route path="/dashboard" element={<RouteGuard>
-                <Navigate to="/dashboard/landowner" replace />
-              </RouteGuard>} />
-              
-              {/* Layout with authenticated routes */}
-              <Route element={<Layout />}>
+          <AppThemeProvider>
+            <SidebarProvider>
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/register" element={<Register />} />
                 <Route path="/about" element={<About />} />
                 
-                {/* Role-specific dashboards */}
-                <Route path="/dashboard/landowner" element={<RouteGuard roleRequired="landowner"><LandownerDashboard /></RouteGuard>} />
-                <Route path="/dashboard/worker" element={<RouteGuard roleRequired="worker"><WorkerDashboard /></RouteGuard>} />
-                <Route path="/dashboard/community" element={<RouteGuard roleRequired="community"><CommunityDashboard /></RouteGuard>} />
+                {/* Dynamic dashboard redirect based on role */}
+                <Route path="/dashboard" element={<RouteGuard>
+                  <Navigate to="/dashboard/landowner" replace />
+                </RouteGuard>} />
                 
-                {/* Common routes available to all authenticated users */}
-                <Route path="/projects" element={<RouteGuard><Projects /></RouteGuard>} />
-                <Route path="/my-properties" element={<RouteGuard roleRequired="landowner"><LandownerProjects /></RouteGuard>} />
-                <Route path="/map" element={<RouteGuard><MapView /></RouteGuard>} />
-                <Route path="/tasks/:taskId" element={<RouteGuard><TaskView /></RouteGuard>} />
-                <Route path="/tasks/current" element={<RouteGuard><TaskView /></RouteGuard>} />
-                <Route path="/reports" element={<RouteGuard><Reports /></RouteGuard>} />
-                <Route path="/settings" element={<RouteGuard><Settings /></RouteGuard>} />
+                {/* Layout with authenticated routes */}
+                <Route element={<Layout />}>
+                  <Route path="/about" element={<About />} />
+                  
+                  {/* Role-specific dashboards */}
+                  <Route path="/dashboard/landowner" element={<RouteGuard roleRequired="landowner"><LandownerDashboard /></RouteGuard>} />
+                  <Route path="/dashboard/worker" element={<RouteGuard roleRequired="worker"><WorkerDashboard /></RouteGuard>} />
+                  <Route path="/dashboard/community" element={<RouteGuard roleRequired="community"><CommunityDashboard /></RouteGuard>} />
+                  
+                  {/* Common routes available to all authenticated users */}
+                  <Route path="/projects" element={<RouteGuard><Projects /></RouteGuard>} />
+                  <Route path="/my-properties" element={<RouteGuard roleRequired="landowner"><LandownerProjects /></RouteGuard>} />
+                  <Route path="/map" element={<RouteGuard><MapView /></RouteGuard>} />
+                  <Route path="/tasks/:taskId" element={<RouteGuard><TaskView /></RouteGuard>} />
+                  <Route path="/tasks/current" element={<RouteGuard><TaskView /></RouteGuard>} />
+                  <Route path="/reports" element={<RouteGuard><Reports /></RouteGuard>} />
+                  <Route path="/settings" element={<RouteGuard><Settings /></RouteGuard>} />
+                  
+                  {/* Community routes */}
+                  <Route path="/community" element={<RouteGuard><Community /></RouteGuard>} />
+                  <Route path="/community/forums" element={<RouteGuard><Forums /></RouteGuard>} />
+                  <Route path="/community/events" element={<RouteGuard><Events /></RouteGuard>} />
+                  <Route path="/community/stories" element={<RouteGuard><Stories /></RouteGuard>} />
+                  
+                  {/* Services routes - with dynamic content based on role */}
+                  <Route path="/services" element={<RouteGuard><Services /></RouteGuard>} />
+                  <Route path="/services/restoration" element={<RouteGuard><Restoration /></RouteGuard>} />
+                  <Route path="/services/landowner" element={<RouteGuard><Landowner /></RouteGuard>} />
+                  <Route path="/services/worker" element={<RouteGuard><Worker /></RouteGuard>} />
+                  
+                  {/* Help routes */}
+                  <Route path="/help" element={<RouteGuard><Help /></RouteGuard>} />
+                  <Route path="/help/faq" element={<RouteGuard><FAQ /></RouteGuard>} />
+                  <Route path="/help/contact" element={<RouteGuard><Contact /></RouteGuard>} />
+                  <Route path="/help/support" element={<RouteGuard><Support /></RouteGuard>} />
+                  <Route path="/help/landowner-guide" element={<RouteGuard><LandownerGuide /></RouteGuard>} />
+                </Route>
                 
-                {/* Community routes */}
-                <Route path="/community" element={<RouteGuard><Community /></RouteGuard>} />
-                <Route path="/community/forums" element={<RouteGuard><Forums /></RouteGuard>} />
-                <Route path="/community/events" element={<RouteGuard><Events /></RouteGuard>} />
-                <Route path="/community/stories" element={<RouteGuard><Stories /></RouteGuard>} />
-                
-                {/* Services routes - with dynamic content based on role */}
-                <Route path="/services" element={<RouteGuard><Services /></RouteGuard>} />
-                <Route path="/services/restoration" element={<RouteGuard><Restoration /></RouteGuard>} />
-                <Route path="/services/landowner" element={<RouteGuard><Landowner /></RouteGuard>} />
-                <Route path="/services/worker" element={<RouteGuard><Worker /></RouteGuard>} />
-                
-                {/* Help routes */}
-                <Route path="/help" element={<RouteGuard><Help /></RouteGuard>} />
-                <Route path="/help/faq" element={<RouteGuard><FAQ /></RouteGuard>} />
-                <Route path="/help/contact" element={<RouteGuard><Contact /></RouteGuard>} />
-                <Route path="/help/support" element={<RouteGuard><Support /></RouteGuard>} />
-              </Route>
-              
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </SidebarProvider>
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </SidebarProvider>
+          </AppThemeProvider>
         </RoleProvider>
       </TooltipProvider>
     </ThemeProvider>

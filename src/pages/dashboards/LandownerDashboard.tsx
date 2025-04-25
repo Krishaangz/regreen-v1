@@ -6,8 +6,15 @@ import LandAreaCard from '@/components/dashboard/landowner/LandAreaCard';
 import EcosystemHealthCard from '@/components/dashboard/landowner/EcosystemHealthCard';
 import UpcomingActivitiesCard from '@/components/dashboard/landowner/UpcomingActivitiesCard';
 import RecentProjectsCard from '@/components/dashboard/landowner/RecentProjectsCard';
+import { useNavigate } from 'react-router-dom';
+import { useAuthStore } from '@/stores/authStore';
+import { useToast } from '@/hooks/use-toast';
 
 const LandownerDashboard = () => {
+  const navigate = useNavigate();
+  const { toast } = useToast();
+  const addProject = useAuthStore((state) => state.addProject);
+  
   // Sample data for landowners
   const recentProjects = [
     { id: 1, name: 'Oak Valley Restoration', status: 'Active', progress: 75, type: 'Forest' },
@@ -39,6 +46,31 @@ const LandownerDashboard = () => {
     { id: 3, title: 'Stakeholder Meeting', date: 'May 30, 2023', location: 'Virtual' },
   ];
 
+  const handleNewProject = () => {
+    // Generate a new project ID
+    const newProjectId = Date.now();
+    
+    // Create new project
+    const newProject = {
+      id: newProjectId,
+      name: `New Project ${newProjectId}`,
+      type: 'Forest Restoration',
+      location: 'Your Location',
+      progress: 0,
+      status: 'Planning',
+      startDate: new Date().toLocaleDateString(),
+    };
+    
+    // Add to store
+    addProject(newProject);
+    
+    // Show success message
+    toast.success('New project created successfully');
+    
+    // Navigate to projects page
+    navigate('/my-properties');
+  };
+
   return (
     <div className="space-y-6 animate-fade-in">
       <div className="flex flex-col sm:flex-row justify-between items-start gap-4">
@@ -46,7 +78,10 @@ const LandownerDashboard = () => {
           <h1 className="text-3xl font-bold">Landowner Dashboard</h1>
           <p className="text-muted-foreground">Manage your properties and restoration projects</p>
         </div>
-        <Button className="bg-regreen-600 hover:bg-regreen-700 text-white">
+        <Button 
+          className="bg-regreen-600 hover:bg-regreen-700 text-white"
+          onClick={handleNewProject}
+        >
           <Plus className="mr-2 h-4 w-4" />
           New Project
         </Button>

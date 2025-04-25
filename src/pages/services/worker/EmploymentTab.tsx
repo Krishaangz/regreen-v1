@@ -1,83 +1,105 @@
 
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { CheckCircle } from "lucide-react";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { CalendarDays, Clock, MapPin, Users } from "lucide-react";
 
-const EmploymentTab = () => {
+interface EmploymentProgram {
+  id: string;
+  title: string;
+  description: string;
+  location: string;
+  duration: string;
+  startDate: string;
+  capacity: number;
+  enrolled: number;
+  prerequisites: string[];
+  benefits: string[];
+  status: "open" | "closed" | "coming-soon";
+  type: "employment";
+  certifications: string[];
+  payRate?: string;
+}
+
+interface EmploymentTabProps {
+  programs: EmploymentProgram[];
+  onViewDetails: (program: EmploymentProgram) => void;
+}
+
+const EmploymentTab = ({ programs, onViewDetails }: EmploymentTabProps) => {
+  const getStatusBadge = (status: string) => {
+    switch (status) {
+      case "open":
+        return <Badge className="bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300">Accepting Applications</Badge>;
+      case "closed":
+        return <Badge className="bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300">Applications Closed</Badge>;
+      case "coming-soon":
+        return <Badge className="bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300">Coming Soon</Badge>;
+      default:
+        return null;
+    }
+  };
+
   return (
     <div className="space-y-8">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="space-y-4">
-          <h2 className="text-2xl font-semibold">Employment Opportunities</h2>
-          <p>
-            ReGreen directly employs restoration workers on projects across the country, offering competitive wages, 
-            benefits, and the opportunity to make a tangible difference in ecological health and climate resilience.
-          </p>
-          <ul className="space-y-2">
-            {[
-              "Full-time, part-time, and seasonal positions available",
-              "Field-based roles with hands-on restoration work",
-              "Opportunities in both rural and urban settings",
-              "Career progression pathways within the organization",
-              "Comprehensive benefits for full-time employees",
-              "Opportunity to work on diverse projects and ecosystems"
-            ].map((item, index) => (
-              <li key={index} className="flex items-start">
-                <CheckCircle className="h-5 w-5 text-regreen-600 mr-2 shrink-0 mt-0.5" />
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
-          <div className="pt-4">
-            <Button className="bg-regreen-600 hover:bg-regreen-700 text-white">View Current Openings</Button>
-          </div>
-        </div>
-        <div className="bg-muted rounded-lg overflow-hidden h-[350px]">
-          <img 
-            src="/placeholder.svg" 
-            alt="Employment Opportunities" 
-            className="w-full h-full object-cover"
-          />
-        </div>
+      <div>
+        <h2 className="text-2xl font-bold mb-4">Employment Opportunities</h2>
+        <p className="text-muted-foreground mb-6">
+          Join our network of skilled workers implementing ecological restoration projects. 
+          We offer competitive wages, flexible schedules, and the chance to make a tangible 
+          environmental impact.
+        </p>
       </div>
       
-      <div className="bg-muted rounded-lg p-6 mt-8">
-        <h3 className="text-xl font-semibold mb-4">Featured Job Openings</h3>
-        <div className="space-y-4">
-          {[
-            {
-              title: "Restoration Field Technician",
-              location: "Portland, OR",
-              type: "Full-time",
-              salary: "$42,000 - $48,000/year"
-            },
-            {
-              title: "Ecological Restoration Specialist",
-              location: "Denver, CO",
-              type: "Full-time",
-              salary: "$52,000 - $65,000/year"
-            },
-            {
-              title: "Seasonal Restoration Crew Member",
-              location: "Multiple Locations",
-              type: "Seasonal (May-October)",
-              salary: "$22 - $25/hour"
-            }
-          ].map((job, index) => (
-            <div key={index} className="bg-background p-4 rounded-md flex justify-between items-center">
-              <div>
-                <h4 className="font-medium">{job.title}</h4>
-                <div className="text-sm text-muted-foreground">
-                  {job.location} • {job.type}
-                </div>
-                <div className="text-sm font-medium text-regreen-600">
-                  {job.salary}
-                </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {programs.map((program) => (
+          <Card key={program.id} className="overflow-hidden neon-card">
+            <CardHeader className="bg-green-50 dark:bg-green-900/20 border-b">
+              <div className="flex justify-between items-start">
+                <CardTitle className="text-xl">{program.title}</CardTitle>
+                {getStatusBadge(program.status)}
               </div>
-              <Button size="sm" className="bg-regreen-600 hover:bg-regreen-700 text-white">Apply</Button>
-            </div>
-          ))}
-        </div>
+              <CardDescription className="mt-2">{program.description}</CardDescription>
+            </CardHeader>
+            <CardContent className="pt-6 space-y-3">
+              <div className="flex items-center gap-2">
+                <MapPin className="h-4 w-4 text-muted-foreground" />
+                <span>{program.location}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Clock className="h-4 w-4 text-muted-foreground" />
+                <span>{program.duration}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <CalendarDays className="h-4 w-4 text-muted-foreground" />
+                <span>Starts: {program.startDate}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Users className="h-4 w-4 text-muted-foreground" />
+                <span>{program.enrolled}/{program.capacity} Enrolled</span>
+              </div>
+              {program.payRate && (
+                <div className="mt-2 font-medium">
+                  Pay Rate: {program.payRate}
+                </div>
+              )}
+            </CardContent>
+            <CardFooter className="border-t pt-4 flex justify-between">
+              <Button variant="outline" onClick={() => onViewDetails(program)}>
+                View Details
+              </Button>
+              <Button 
+                disabled={program.status !== "open"}
+                className="bg-green-600 hover:bg-green-700 text-white"
+                onClick={() => onViewDetails(program)}
+              >
+                {program.status === "open" ? "Apply Now" : 
+                 program.status === "coming-soon" ? "Notify Me" : "Applications Closed"}
+              </Button>
+            </CardFooter>
+          </Card>
+        ))}
       </div>
     </div>
   );

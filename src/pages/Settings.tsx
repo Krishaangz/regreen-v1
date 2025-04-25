@@ -7,6 +7,7 @@ import AccountSettings from "@/components/settings/AccountSettings";
 import PasswordSettings from "@/components/settings/PasswordSettings";
 import AppearanceSettings from "@/components/settings/AppearanceSettings";
 import PrivacySettings from "@/components/settings/PrivacySettings";
+import NotificationsSettings from "@/components/settings/NotificationsSettings";
 import { useToast } from "@/hooks/use-toast";
 
 const Settings = () => {
@@ -108,6 +109,10 @@ const Settings = () => {
 
         <TabsContent value="appearance">
           <AppearanceSettings />
+        </TabsContent>
+
+        <TabsContent value="notifications">
+          <NotificationsSettings />
         </TabsContent>
         
         <TabsContent value="privacy">

@@ -1,0 +1,115 @@
+
+/* Neon card effect */
+.neon-card {
+  box-shadow: 0 0 5px rgba(72, 187, 120, 0.2), 
+              0 0 20px rgba(72, 187, 120, 0.1);
+  transition: all 0.3s ease;
+}
+
+.neon-card:hover {
+  box-shadow: 0 0 10px rgba(72, 187, 120, 0.4), 
+              0 0 30px rgba(72, 187, 120, 0.2), 
+              0 0 50px rgba(72, 187, 120, 0.1);
+}
+
+.dark .neon-card {
+  box-shadow: 0 0 10px rgba(72, 187, 120, 0.3), 
+              0 0 25px rgba(72, 187, 120, 0.2);
+}
+
+.dark .neon-card:hover {
+  box-shadow: 0 0 15px rgba(72, 187, 120, 0.5), 
+              0 0 35px rgba(72, 187, 120, 0.3), 
+              0 0 60px rgba(72, 187, 120, 0.1);
+}
+
+/* Neon buttons */
+.btn-neon {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(72, 187, 120, 0.5);
+}
+
+.btn-neon::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(72, 187, 120, 0.2), transparent);
+  transition: 0.5s;
+}
+
+.btn-neon:hover::before {
+  left: 100%;
+}
+
+/* Neon text */
+.neon-text {
+  text-shadow: 0 0 5px rgba(72, 187, 120, 0.3), 
+               0 0 10px rgba(72, 187, 120, 0.2);
+}
+
+.dark .neon-text {
+  text-shadow: 0 0 8px rgba(72, 187, 120, 0.5), 
+               0 0 15px rgba(72, 187, 120, 0.3);
+}
+
+/* Glowing borders */
+.glow-border {
+  position: relative;
+}
+
+.glow-border::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: transparent;
+  border-radius: inherit;
+  box-shadow: 0 0 10px rgba(72, 187, 120, 0.6);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.glow-border:hover::after {
+  opacity: 1;
+}
+
+/* Pulse animation for buttons and elements */
+@keyframes neonPulse {
+  0% {
+    box-shadow: 0 0 5px rgba(72, 187, 120, 0.5),
+                0 0 10px rgba(72, 187, 120, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(72, 187, 120, 0.8),
+                0 0 20px rgba(72, 187, 120, 0.5);
+  }
+  100% {
+    box-shadow: 0 0 5px rgba(72, 187, 120, 0.5),
+                0 0 10px rgba(72, 187, 120, 0.3);
+  }
+}
+
+.neon-pulse {
+  animation: neonPulse 2s infinite;
+}
+
+/* Gradients */
+.green-gradient-bg {
+  background: linear-gradient(135deg, #48bb78, #38a169);
+}
+
+.green-gradient-text {
+  background: linear-gradient(135deg, #48bb78, #38a169);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}

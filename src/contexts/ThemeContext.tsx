@@ -23,6 +23,22 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
     return (savedTheme as ColorTheme) || "green";
   });
 
+  // When component mounts, ensure shadcn theme state matches actual theme in DOM
+  useEffect(() => {
+    // Check if the root element has "dark" class to determine actual state
+    const isDarkModeActive = document.documentElement.classList.contains("dark");
+    
+    // Synchronize the shadcn theme state with actual DOM state
+    if (isDarkModeActive && shadcnTheme !== "dark") {
+      setShadcnTheme("dark");
+    } else if (!isDarkModeActive && shadcnTheme !== "light") {
+      setShadcnTheme("light");
+    }
+    
+    // Store the theme in localStorage for persistence
+    localStorage.setItem("theme", isDarkModeActive ? "dark" : "light");
+  }, []);
+
   // Apply theme class to root element when color theme changes
   useEffect(() => {
     localStorage.setItem("color-theme", colorTheme);
@@ -39,6 +55,7 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   const toggleDarkMode = () => {
     const newTheme = isDarkMode ? "light" : "dark";
     setShadcnTheme(newTheme);
+    localStorage.setItem("theme", newTheme);
     console.log(`Dark mode toggled to: ${newTheme}`);
   };
 
