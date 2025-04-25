@@ -1,11 +1,12 @@
 
 import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { User, Eye, Bell, ShieldCheck, Lock } from "lucide-react";
+import { User, Eye, Bell, Shield, Lock } from "lucide-react";
 import { motion } from "framer-motion";
 import AccountSettings from "@/components/settings/AccountSettings";
 import PasswordSettings from "@/components/settings/PasswordSettings";
 import AppearanceSettings from "@/components/settings/AppearanceSettings";
+import PrivacySettings from "@/components/settings/PrivacySettings";
 import { useToast } from "@/hooks/use-toast";
 
 const Settings = () => {
@@ -69,7 +70,7 @@ const Settings = () => {
       </div>
 
       <Tabs defaultValue="account" className="space-y-6">
-        <TabsList className="grid grid-cols-2 md:grid-cols-4 w-full">
+        <TabsList className="grid grid-cols-2 md:grid-cols-5 w-full">
           <TabsTrigger value="account">
             <User className="mr-2 h-4 w-4" /> Account
           </TabsTrigger>
@@ -78,6 +79,9 @@ const Settings = () => {
           </TabsTrigger>
           <TabsTrigger value="notifications">
             <Bell className="mr-2 h-4 w-4" /> Notifications
+          </TabsTrigger>
+          <TabsTrigger value="privacy">
+            <Shield className="mr-2 h-4 w-4" /> Privacy
           </TabsTrigger>
           <TabsTrigger value="password">
             <Lock className="mr-2 h-4 w-4" /> Password
@@ -104,6 +108,10 @@ const Settings = () => {
 
         <TabsContent value="appearance">
           <AppearanceSettings />
+        </TabsContent>
+        
+        <TabsContent value="privacy">
+          <PrivacySettings />
         </TabsContent>
       </Tabs>
     </motion.div>
