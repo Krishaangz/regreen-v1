@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -12,7 +11,6 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";
 
-// Color scheme options for the app
 const colorSchemes = [
   { name: "Green", color: "bg-regreen-600", accent: "border-regreen-600" },
   { name: "Blue", color: "bg-blue-600", accent: "border-blue-600" },
@@ -61,7 +59,6 @@ const Settings = () => {
     privacy: { saved: false, loading: false }
   });
   
-  // Simulate fetching user data
   useEffect(() => {
     const timer = setTimeout(() => {
       setInitialLoading(false);
@@ -96,13 +93,11 @@ const Settings = () => {
   };
   
   const saveSection = (section: keyof typeof saveStatus) => {
-    // Update loading state for the specific section
     setSaveStatus(prev => ({
       ...prev,
       [section]: { ...prev[section], loading: true, saved: false }
     }));
     
-    // Simulate API call
     setTimeout(() => {
       setSaveStatus(prev => ({
         ...prev,
@@ -114,7 +109,6 @@ const Settings = () => {
         description: `Your ${section} settings have been saved successfully.`,
       });
       
-      // Reset the saved status after some time
       setTimeout(() => {
         setSaveStatus(prev => ({
           ...prev,
@@ -124,7 +118,6 @@ const Settings = () => {
     }, 1000);
   };
   
-  // Password validation
   const validatePassword = () => {
     if (formData.newPassword !== formData.confirmPassword) {
       toast({
@@ -169,16 +162,8 @@ const Settings = () => {
   };
   
   return (
-    <motion.div 
-      className="animate-fade-in max-w-4xl mx-auto"
-      variants={container}
-      initial="hidden"
-      animate="show"
-    >
-      <motion.div 
-        className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6"
-        variants={item}
-      >
+    <motion.div className="animate-fade-in max-w-4xl mx-auto">
+      <motion.div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
         <div>
           <h1 className="text-3xl font-bold text-regreen-800 dark:text-regreen-100">Settings</h1>
           <p className="text-muted-foreground">Manage your account preferences and app settings</p>
@@ -187,24 +172,23 @@ const Settings = () => {
 
       <Tabs defaultValue="account" className="space-y-6">
         <TabsList className="grid grid-cols-2 md:grid-cols-5 w-full">
-          <TabsTrigger value="account" className="btn-interactive">
-            <User className="mr-2 h-4 w-4 animate-float" /> Account
+          <TabsTrigger value="account">
+            <User className="mr-2 h-4 w-4" /> Account
           </TabsTrigger>
-          <TabsTrigger value="appearance" className="btn-interactive">
-            <Eye className="mr-2 h-4 w-4 animate-float" /> Appearance
+          <TabsTrigger value="appearance">
+            <Eye className="mr-2 h-4 w-4" /> Appearance
           </TabsTrigger>
-          <TabsTrigger value="notifications" className="btn-interactive">
-            <Bell className="mr-2 h-4 w-4 animate-float" /> Notifications
+          <TabsTrigger value="notifications">
+            <Bell className="mr-2 h-4 w-4" /> Notifications
           </TabsTrigger>
-          <TabsTrigger value="privacy" className="btn-interactive">
-            <ShieldCheck className="mr-2 h-4 w-4 animate-float" /> Privacy
+          <TabsTrigger value="privacy">
+            <ShieldCheck className="mr-2 h-4 w-4" /> Privacy
           </TabsTrigger>
-          <TabsTrigger value="password" className="btn-interactive">
-            <Lock className="mr-2 h-4 w-4 animate-float" /> Password
+          <TabsTrigger value="password">
+            <Lock className="mr-2 h-4 w-4" /> Password
           </TabsTrigger>
         </TabsList>
 
-        {/* Account Settings Tab */}
         <TabsContent value="account" className="space-y-4">
           <motion.div variants={item}>
             <Card className="settings-card">
@@ -313,7 +297,6 @@ const Settings = () => {
           </motion.div>
         </TabsContent>
 
-        {/* Password Tab */}
         <TabsContent value="password" className="space-y-4">
           <motion.div variants={item}>
             <Card className="settings-card">
@@ -379,18 +362,17 @@ const Settings = () => {
           </motion.div>
         </TabsContent>
 
-        {/* Appearance Tab */}
         <TabsContent value="appearance" className="space-y-4">
           <motion.div variants={item}>
             <Card className="settings-card">
               <CardHeader>
                 <CardTitle>Theme Settings</CardTitle>
-                <CardDescription>Customize the appearance of the app</CardDescription>
+                <CardDescription>Choose between light and dark mode</CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="flex items-center justify-between">
                   <div className="space-y-0.5">
-                    <Label htmlFor="theme-toggle">Dark Mode</Label>
+                    <Label>Dark Mode</Label>
                     <p className="text-sm text-muted-foreground">
                       Toggle between light and dark themes
                     </p>
@@ -398,58 +380,18 @@ const Settings = () => {
                   <div className="flex items-center space-x-2">
                     <Sun className="h-5 w-5 text-muted-foreground" />
                     <Switch 
-                      id="theme-toggle" 
                       checked={theme === "dark"}
                       onCheckedChange={(checked) => setTheme(checked ? "dark" : "light")}
-                      className="btn-interactive data-[state=checked]:bg-regreen-600"
+                      className="data-[state=checked]:bg-regreen-600"
                     />
                     <Moon className="h-5 w-5 text-muted-foreground" />
                   </div>
                 </div>
-
-                <div className="space-y-4">
-                  <Label>Color Scheme</Label>
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    {colorSchemes.map((scheme) => (
-                      <div 
-                        key={scheme.name}
-                        className={`p-4 rounded-lg border-2 cursor-pointer transition-all hover:shadow-md btn-interactive ${
-                          formData.colorScheme === scheme.name 
-                            ? scheme.accent + " bg-regreen-50 dark:bg-regreen-900/30" 
-                            : "border-transparent hover:border-gray-300"
-                        }`}
-                        onClick={() => handleColorSchemeChange(scheme.name)}
-                      >
-                        <div className={`h-8 rounded mb-2 ${scheme.color}`} />
-                        <p className="text-center font-medium">{scheme.name}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <Button 
-                  className="bg-regreen-600 hover:bg-regreen-700 btn-interactive"
-                  onClick={() => saveSection("appearance")}
-                  disabled={saveStatus.appearance.loading}
-                >
-                  {saveStatus.appearance.loading ? (
-                    <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Saving...
-                    </>
-                  ) : saveStatus.appearance.saved ? (
-                    <>
-                      <Check className="mr-2 h-4 w-4" /> Preferences Saved!
-                    </>
-                  ) : (
-                    "Save Preferences"
-                  )}
-                </Button>
               </CardContent>
             </Card>
           </motion.div>
         </TabsContent>
 
-        {/* Notifications Tab */}
         <TabsContent value="notifications" className="space-y-4">
           <motion.div variants={item}>
             <Card className="settings-card">
@@ -520,7 +462,6 @@ const Settings = () => {
           </motion.div>
         </TabsContent>
 
-        {/* Privacy Tab */}
         <TabsContent value="privacy" className="space-y-4">
           <motion.div variants={item}>
             <Card className="settings-card">
