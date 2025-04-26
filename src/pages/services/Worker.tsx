@@ -10,8 +10,44 @@ import WorkerSuccessStories from "./worker/WorkerSuccessStories";
 import WorkerCTA from "./worker/WorkerCTA";
 import WorkerProgramDetails from "./worker/WorkerProgramDetails";
 
+// Define strongly typed interfaces for our program types
+interface BaseProgram {
+  id: string;
+  title: string;
+  description: string;
+  location: string;
+  duration: string;
+  startDate: string;
+  capacity: number;
+  enrolled: number;
+  prerequisites: string[];
+  benefits: string[];
+  status: "open" | "closed" | "coming-soon";
+  type: "training" | "employment" | "career";
+  certifications: string[];
+}
+
+interface EmploymentProgram extends BaseProgram {
+  type: "employment";
+  payRate: string;
+}
+
+interface TrainingProgram extends BaseProgram {
+  type: "training";
+  skillsGained: string[];
+}
+
+interface CareerProgram extends BaseProgram {
+  type: "career";
+  skillsGained: string[];
+}
+
 // Mock data for worker programs
-const programData = {
+const programData: {
+  training: TrainingProgram[];
+  employment: EmploymentProgram[];
+  career: CareerProgram[];
+} = {
   training: [
     {
       id: "train1",
@@ -198,10 +234,10 @@ const programData = {
 
 const Worker = () => {
   const [activeTab, setActiveTab] = useState("employment");
-  const [selectedProgram, setSelectedProgram] = useState<any>(null);
+  const [selectedProgram, setSelectedProgram] = useState<BaseProgram | null>(null);
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
 
-  const handleOpenDetails = (program: any) => {
+  const handleOpenDetails = (program: BaseProgram) => {
     setSelectedProgram(program);
     setIsDetailsOpen(true);
   };

@@ -32,7 +32,11 @@ const WorkerProgramDetails = ({ isOpen, onClose, program }: ProgramDetailsProps)
   const { toast } = useToast();
 
   const handleApply = () => {
-    toast.success(`Application submitted for ${program.title}`);
+    toast({
+      title: "Success",
+      description: `Application submitted for ${program.title}`,
+      variant: "default",
+    });
     onClose();
   };
 

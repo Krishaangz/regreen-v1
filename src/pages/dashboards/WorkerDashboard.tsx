@@ -34,7 +34,11 @@ const WorkerDashboard = () => {
     });
     
     // Show toast confirmation
-    toast.success(`Successfully logged ${hours} hours`);
+    toast({
+      title: "Success",
+      description: `Successfully logged ${hours} hours`,
+      variant: "default",
+    });
     
     // Close dialog
     setIsDialogOpen(false);

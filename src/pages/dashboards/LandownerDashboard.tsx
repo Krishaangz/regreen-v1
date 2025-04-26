@@ -65,7 +65,11 @@ const LandownerDashboard = () => {
     addProject(newProject);
     
     // Show success message
-    toast.success('New project created successfully');
+    toast({
+      title: "Success",
+      description: "New project created successfully",
+      variant: "default",
+    });
     
     // Navigate to projects page
     navigate('/my-properties');

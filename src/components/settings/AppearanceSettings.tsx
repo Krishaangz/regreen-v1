@@ -16,7 +16,11 @@ const AppearanceSettings = () => {
   const { toast } = useToast();
   
   const handleSaveTheme = () => {
-    toast.success("Theme preferences saved successfully");
+    toast({
+      title: "Success",
+      description: "Theme preferences saved successfully",
+      variant: "default",
+    });
   };
   
   return (
