@@ -1,5 +1,5 @@
 
-import { TipCard } from "@/components/help/tips/TipCard";
+import TipCard from "@/components/help/tips/TipCard";
 
 const Tips = () => {
   const tipCategories = [

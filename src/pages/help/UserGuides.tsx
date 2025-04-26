@@ -1,5 +1,5 @@
 
-import { GuideCard } from "@/components/help/guides/GuideCard";
+import GuideCard from "@/components/help/guides/GuideCard";
 
 const UserGuides = () => {
   const guideCategories = [
