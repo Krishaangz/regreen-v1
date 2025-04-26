@@ -14,12 +14,21 @@ const LandownerDashboard = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const addProject = useAuthStore((state) => state.addProject);
+  const projects = useAuthStore((state) => state.projects);
   
   // Sample data for landowners
-  const recentProjects = [
-    { id: 1, name: 'Oak Valley Restoration', status: 'Active', progress: 75, type: 'Forest' },
-    { id: 2, name: 'Meadow Ridge Revival', status: 'Planning', progress: 15, type: 'Grassland' },
-  ];
+  const recentProjects = projects.length > 0 ? 
+    projects.slice(0, 2).map(p => ({
+      id: p.id,
+      name: p.name,
+      status: p.status,
+      progress: p.progress,
+      type: p.type
+    })) : 
+    [
+      { id: 1, name: 'Oak Valley Restoration', status: 'Active', progress: 75, type: 'Forest' },
+      { id: 2, name: 'Meadow Ridge Revival', status: 'Planning', progress: 15, type: 'Grassland' },
+    ];
 
   const ecosystemHealthData = [
     { name: 'Jan', biodiversity: 30, soil: 40 },
@@ -72,7 +81,11 @@ const LandownerDashboard = () => {
     });
     
     // Navigate to projects page
-    navigate('/my-properties');
+    navigate('/projects');
+  };
+
+  const viewAllProjects = () => {
+    navigate('/projects');
   };
 
   return (
@@ -97,6 +110,11 @@ const LandownerDashboard = () => {
         <EcosystemHealthCard data={ecosystemHealthData} />
         
         <UpcomingActivitiesCard activities={upcomingActivities} />
+      </div>
+
+      <div className="flex justify-between items-center">
+        <h2 className="text-2xl font-bold">Recent Projects</h2>
+        <Button variant="outline" onClick={viewAllProjects}>View All Projects</Button>
       </div>
 
       <RecentProjectsCard projects={recentProjects} />

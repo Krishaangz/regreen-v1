@@ -1,127 +1,188 @@
 
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { Routes, Route, Navigate } from "react-router-dom";
-import { SidebarProvider } from "@/components/ui/sidebar";
-import { ThemeProvider } from "@/components/theme-provider";
-import { RoleProvider } from "@/contexts/RoleContext";
-import { ThemeProvider as AppThemeProvider } from "@/contexts/ThemeContext";
+import { Routes, Route } from 'react-router-dom';
+import Layout from './components/Layout';
+import Index from './pages/Index';
+import Dashboard from './pages/Dashboard';
+import NotFound from './pages/NotFound';
+import Register from './pages/Register';
+import MapView from './pages/MapView';
+import About from './pages/About';
+import Help from './pages/Help';
+import TaskView from './pages/TaskView';
+import Reports from './pages/Reports';
+import Settings from './pages/Settings';
+import Projects from './pages/Projects';
+import Community from './pages/Community';
+import GroupFormation from './pages/GroupFormation';
+import RouteGuard from './components/RouteGuard';
+import LandownerDashboard from './pages/dashboards/LandownerDashboard';
+import WorkerDashboard from './pages/dashboards/WorkerDashboard';
+import CommunityDashboard from './pages/dashboards/CommunityDashboard';
+import LandownerProjects from './pages/projects/LandownerProjects';
+import WorkerProjects from './pages/projects/WorkerProjects';
+import CommunityProjects from './pages/projects/CommunityProjects';
+import LandownerMapView from './pages/maps/LandownerMapView';
+import WorkerMapView from './pages/maps/WorkerMapView';
+import CommunityMapView from './pages/maps/CommunityMapView';
+import LandownerReports from './pages/reports/LandownerReports';
+import WorkerSchedule from './pages/reports/WorkerSchedule';
+import ThemeSettings from './pages/settings/ThemeSettings';
+import Forums from './pages/community/Forums';
+import Events from './pages/community/Events';
+import Stories from './pages/community/Stories';
+import FAQ from './pages/help/FAQ';
+import Contact from './pages/help/Contact';
+import Support from './pages/help/Support';
+import ServicesSummary from './pages/services';
+import LandownerServices from './pages/services/Landowner';
+import RestorationServices from './pages/services/Restoration';
+import WorkerServices from './pages/services/Worker';
+import LandownerGuide from './pages/help/landowner-guide';
+import PropertyRegistrationGuide from './pages/help/landowners/PropertyRegistration';
+import Wallet from './pages/Wallet';
 
-// Base pages
-import Index from "./pages/Index";
-import Register from "./pages/Register";
-import NotFound from "./pages/NotFound";
-import Layout from "./components/Layout";
-import About from "./pages/About";
-
-// Role-specific dashboards
-import LandownerDashboard from "./pages/dashboards/LandownerDashboard";
-import WorkerDashboard from "./pages/dashboards/WorkerDashboard";
-import CommunityDashboard from "./pages/dashboards/CommunityDashboard";
-
-// Role-specific map views
-import MapView from "./pages/MapView";
-
-// Project pages
-import Projects from "./pages/Projects";
-import LandownerProjects from "./pages/projects/LandownerProjects";
-import TaskView from "./pages/TaskView";
-import Reports from "./pages/Reports";
-
-// Services pages
-import Services from "./pages/services";
-import Restoration from "./pages/services/Restoration";
-import Landowner from "./pages/services/Landowner";
-import Worker from "./pages/services/Worker";
-
-// Community pages
-import Community from "./pages/community";
-import Forums from "./pages/community/Forums";
-import Events from "./pages/community/Events";
-import Stories from "./pages/community/Stories";
-
-// Help pages
-import Help from "./pages/Help";
-import FAQ from "./pages/help/FAQ";
-import Contact from "./pages/help/Contact";
-import Support from "./pages/help/Support";
-import LandownerGuide from "./pages/help/landowner-guide";
-
-// Settings
-import Settings from "./pages/Settings";
-
-// RouteGuard component
-import RouteGuard from "./components/RouteGuard";
-
-const queryClient = new QueryClient();
-
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <ThemeProvider defaultTheme="light" storageKey="regreen-theme">
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <RoleProvider>
-          <AppThemeProvider>
-            <SidebarProvider>
-              <Routes>
-                <Route path="/" element={<Index />} />
-                <Route path="/register" element={<Register />} />
-                <Route path="/about" element={<About />} />
-                
-                {/* Dynamic dashboard redirect based on role */}
-                <Route path="/dashboard" element={<RouteGuard>
-                  <Navigate to="/dashboard/landowner" replace />
-                </RouteGuard>} />
-                
-                {/* Layout with authenticated routes */}
-                <Route element={<Layout />}>
-                  <Route path="/about" element={<About />} />
-                  
-                  {/* Role-specific dashboards */}
-                  <Route path="/dashboard/landowner" element={<RouteGuard roleRequired="landowner"><LandownerDashboard /></RouteGuard>} />
-                  <Route path="/dashboard/worker" element={<RouteGuard roleRequired="worker"><WorkerDashboard /></RouteGuard>} />
-                  <Route path="/dashboard/community" element={<RouteGuard roleRequired="community"><CommunityDashboard /></RouteGuard>} />
-                  
-                  {/* Common routes available to all authenticated users */}
-                  <Route path="/projects" element={<RouteGuard><Projects /></RouteGuard>} />
-                  <Route path="/my-properties" element={<RouteGuard roleRequired="landowner"><LandownerProjects /></RouteGuard>} />
-                  <Route path="/map" element={<RouteGuard><MapView /></RouteGuard>} />
-                  <Route path="/tasks/:taskId" element={<RouteGuard><TaskView /></RouteGuard>} />
-                  <Route path="/tasks/current" element={<RouteGuard><TaskView /></RouteGuard>} />
-                  <Route path="/reports" element={<RouteGuard><Reports /></RouteGuard>} />
-                  <Route path="/settings" element={<RouteGuard><Settings /></RouteGuard>} />
-                  
-                  {/* Community routes */}
-                  <Route path="/community" element={<RouteGuard><Community /></RouteGuard>} />
-                  <Route path="/community/forums" element={<RouteGuard><Forums /></RouteGuard>} />
-                  <Route path="/community/events" element={<RouteGuard><Events /></RouteGuard>} />
-                  <Route path="/community/stories" element={<RouteGuard><Stories /></RouteGuard>} />
-                  
-                  {/* Services routes - with dynamic content based on role */}
-                  <Route path="/services" element={<RouteGuard><Services /></RouteGuard>} />
-                  <Route path="/services/restoration" element={<RouteGuard><Restoration /></RouteGuard>} />
-                  <Route path="/services/landowner" element={<RouteGuard><Landowner /></RouteGuard>} />
-                  <Route path="/services/worker" element={<RouteGuard><Worker /></RouteGuard>} />
-                  
-                  {/* Help routes */}
-                  <Route path="/help" element={<RouteGuard><Help /></RouteGuard>} />
-                  <Route path="/help/faq" element={<RouteGuard><FAQ /></RouteGuard>} />
-                  <Route path="/help/contact" element={<RouteGuard><Contact /></RouteGuard>} />
-                  <Route path="/help/support" element={<RouteGuard><Support /></RouteGuard>} />
-                  <Route path="/help/landowner-guide" element={<RouteGuard><LandownerGuide /></RouteGuard>} />
-                </Route>
-                
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </SidebarProvider>
-          </AppThemeProvider>
-        </RoleProvider>
-      </TooltipProvider>
-    </ThemeProvider>
-  </QueryClientProvider>
-);
+function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Index />} />
+        <Route path="register" element={<Register />} />
+        <Route path="about" element={<About />} />
+        <Route path="help" element={<Help />} />
+        <Route path="help/faq" element={<FAQ />} />
+        <Route path="help/contact" element={<Contact />} />
+        <Route path="help/support" element={<Support />} />
+        <Route path="help/landowner-guide" element={<LandownerGuide />} />
+        <Route path="help/landowners/registration" element={<PropertyRegistrationGuide />} />
+        <Route path="services" element={<ServicesSummary />} />
+        <Route path="services/landowner" element={<LandownerServices />} />
+        <Route path="services/restoration" element={<RestorationServices />} />
+        <Route path="services/worker" element={<WorkerServices />} />
+        <Route path="wallet" element={<Wallet />} />
+        
+        <Route path="dashboard" element={
+          <RouteGuard>
+            <Dashboard />
+          </RouteGuard>
+        } />
+        
+        <Route path="landowner-dashboard" element={
+          <RouteGuard>
+            <LandownerDashboard />
+          </RouteGuard>
+        } />
+        
+        <Route path="worker-dashboard" element={
+          <RouteGuard>
+            <WorkerDashboard />
+          </RouteGuard>
+        } />
+        
+        <Route path="community-dashboard" element={
+          <RouteGuard>
+            <CommunityDashboard />
+          </RouteGuard>
+        } />
+        
+        <Route path="map" element={
+          <RouteGuard>
+            <MapView />
+          </RouteGuard>
+        } />
+        
+        <Route path="landowner-map" element={
+          <RouteGuard>
+            <LandownerMapView />
+          </RouteGuard>
+        } />
+        
+        <Route path="worker-map" element={
+          <RouteGuard>
+            <WorkerMapView />
+          </RouteGuard>
+        } />
+        
+        <Route path="community-map" element={
+          <RouteGuard>
+            <CommunityMapView />
+          </RouteGuard>
+        } />
+        
+        <Route path="tasks" element={
+          <RouteGuard>
+            <TaskView />
+          </RouteGuard>
+        } />
+        
+        <Route path="reports" element={
+          <RouteGuard>
+            <Reports />
+          </RouteGuard>
+        } />
+        
+        <Route path="landowner-reports" element={
+          <RouteGuard>
+            <LandownerReports />
+          </RouteGuard>
+        } />
+        
+        <Route path="worker-schedule" element={
+          <RouteGuard>
+            <WorkerSchedule />
+          </RouteGuard>
+        } />
+        
+        <Route path="settings" element={
+          <RouteGuard>
+            <Settings />
+          </RouteGuard>
+        } />
+        
+        <Route path="theme-settings" element={
+          <RouteGuard>
+            <ThemeSettings />
+          </RouteGuard>
+        } />
+        
+        <Route path="projects" element={
+          <RouteGuard>
+            <Projects />
+          </RouteGuard>
+        } />
+        
+        <Route path="my-properties" element={
+          <RouteGuard>
+            <LandownerProjects />
+          </RouteGuard>
+        } />
+        
+        <Route path="worker-projects" element={
+          <RouteGuard>
+            <WorkerProjects />
+          </RouteGuard>
+        } />
+        
+        <Route path="community-projects" element={
+          <RouteGuard>
+            <CommunityProjects />
+          </RouteGuard>
+        } />
+        
+        <Route path="group-formation" element={
+          <RouteGuard>
+            <GroupFormation />
+          </RouteGuard>
+        } />
+        
+        <Route path="community" element={<Community />} />
+        <Route path="community/forums" element={<Forums />} />
+        <Route path="community/events" element={<Events />} />
+        <Route path="community/stories" element={<Stories />} />
+        
+        <Route path="*" element={<NotFound />} />
+      </Route>
+    </Routes>
+  );
+}
 
 export default App;

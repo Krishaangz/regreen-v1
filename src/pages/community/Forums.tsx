@@ -3,334 +3,401 @@ import { useState } from "react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Separator } from "@/components/ui/separator";
-import { Link } from "react-router-dom";
-import { MessageSquare, User2, Leaf, Droplets, Calendar, Clock, ArrowUp, MessageCircle, Eye, Pin, Briefcase as BriefcaseIcon, Search as SearchIcon } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Search, MessageSquare, Users, PlusCircle } from "lucide-react";
+import { useAuthStore } from "@/stores/authStore";
+import CreateForumTopicModal from "@/components/community/CreateForumTopicModal";
 
 const Forums = () => {
-  const [searchQuery, setSearchQuery] = useState("");
-  
-  const forumTopics = [
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const forumTopics = useAuthStore((state) => state.forumTopics) || [
     {
       id: 1,
-      title: "Urban Garden Design Ideas",
-      author: "GreenThumb",
-      category: "Land Restoration",
-      replies: 28,
-      views: 342,
-      lastActivity: "2 hours ago",
-      isPinned: true,
-      tags: ["Urban Gardens", "Design", "Community"]
+      title: "Best practices for wetland restoration in drought conditions",
+      category: "restoration",
+      author: "Elena Martinez",
+      authorId: "user123",
+      date: "2023-06-15T12:00:00Z",
+      content: "I'm working on a wetland restoration project in an area that's experiencing prolonged drought. Has anyone had success with specific plants or techniques that are resilient in these conditions?",
+      replies: [
+        {
+          id: 101,
+          author: "Michael Chen",
+          authorId: "user456",
+          date: "2023-06-15T14:30:00Z",
+          content: "We've had good results with sedges and rushes that are native to your region but have wider hydrological tolerance. Look for species that can handle both saturated soils and periodic dry conditions."
+        },
+        {
+          id: 102,
+          author: "Sarah Johnson",
+          authorId: "user789",
+          date: "2023-06-15T16:45:00Z",
+          content: "Consider installing a simple water control structure if possible. This helped us maintain minimum water levels during drought periods, which made a huge difference for establishment."
+        }
+      ],
+      likes: 24,
+      views: 156
     },
     {
       id: 2,
-      title: "Best Native Plants for Water Filtration",
-      author: "WaterWizard",
-      category: "Waterbody Restoration",
-      replies: 15,
-      views: 187,
-      lastActivity: "6 hours ago",
-      isPinned: true,
-      tags: ["Aquatic Plants", "Water Quality", "Native Species"]
+      title: "Funding sources for community forest restoration",
+      category: "funding",
+      author: "James Wilson",
+      authorId: "user234",
+      date: "2023-06-10T09:15:00Z",
+      content: "Our neighborhood association is looking to restore a small urban forest parcel. Does anyone have recommendations for grants or funding sources that specifically support community-led projects?",
+      replies: [
+        {
+          id: 201,
+          author: "Patricia Lopez",
+          authorId: "user567",
+          date: "2023-06-10T11:20:00Z",
+          content: "Check with your state's department of natural resources. Many have urban forestry grants specifically for community groups."
+        }
+      ],
+      likes: 18,
+      views: 97
     },
     {
       id: 3,
-      title: "How to Encourage Local Wildlife in Your Restoration Project",
-      author: "BioDiversifier",
-      category: "Biodiversity",
-      replies: 32,
-      views: 276,
-      lastActivity: "1 day ago",
-      isPinned: false,
-      tags: ["Wildlife", "Habitat", "Ecosystem"]
-    },
-    {
-      id: 4,
-      title: "Tips for Soil Remediation in Former Industrial Areas",
-      author: "SoilScientist",
-      category: "Land Restoration",
-      replies: 24,
-      views: 198,
-      lastActivity: "2 days ago",
-      isPinned: false,
-      tags: ["Soil Health", "Remediation", "Urban Renewal"]
-    },
-    {
-      id: 5,
-      title: "Community Engagement Strategies for Eco-Restoration",
-      author: "CommunityBuilder",
-      category: "Engagement",
-      replies: 45,
-      views: 412,
-      lastActivity: "3 days ago",
-      isPinned: false,
-      tags: ["Community", "Outreach", "Volunteers"]
-    },
-    {
-      id: 6,
-      title: "Rainwater Harvesting Systems for Small Urban Spaces",
-      author: "RainCollector",
-      category: "Water Management",
-      replies: 19,
-      views: 231,
-      lastActivity: "4 days ago",
-      isPinned: false,
-      tags: ["Rainwater", "Urban", "Conservation"]
-    },
-    {
-      id: 7,
-      title: "Success Stories: Before/After Transformation Projects",
-      author: "TransformationPro",
-      category: "Success Stories",
-      replies: 53,
-      views: 621,
-      lastActivity: "5 days ago",
-      isPinned: false,
-      tags: ["Success", "Transformation", "Inspiration"]
-    },
-    {
-      id: 8,
-      title: "Overcoming Challenges in Stream Restoration",
-      author: "StreamRestorer",
-      category: "Waterbody Restoration",
-      replies: 31,
-      views: 289,
-      lastActivity: "1 week ago",
-      isPinned: false,
-      tags: ["Streams", "Erosion Control", "Aquatic Habitat"]
+      title: "Managing invasive species in grassland restoration",
+      category: "restoration",
+      author: "David Kim",
+      authorId: "user345",
+      date: "2023-06-05T15:45:00Z",
+      content: "We're in year two of our prairie restoration and struggling with persistent invasive species despite regular removal efforts. Any strategies that have worked for long-term control?",
+      replies: [
+        {
+          id: 301,
+          author: "Amanda Taylor",
+          authorId: "user678",
+          date: "2023-06-05T16:30:00Z",
+          content: "We found success with a combination of targeted herbicide application followed by dense seeding of native quick-establishing species. The competition helped suppress regrowth."
+        },
+        {
+          id: 302,
+          author: "Robert Johnson",
+          authorId: "user890",
+          date: "2023-06-06T10:15:00Z",
+          content: "Don't underestimate prescribed burning if your site and regulations allow for it. It was a game-changer for our grassland restoration."
+        },
+        {
+          id: 303,
+          author: "Lisa Chen",
+          authorId: "user901",
+          date: "2023-06-07T09:00:00Z",
+          content: "Consider the timing of your management activities. We adjusted our mowing schedule to hit invasives when they were most vulnerable and that improved our results dramatically."
+        }
+      ],
+      likes: 35,
+      views: 210
     }
   ];
-  
-  const categories = [
-    { name: "Land Restoration", icon: <Leaf className="h-4 w-4" />, count: 156 },
-    { name: "Waterbody Restoration", icon: <Droplets className="h-4 w-4" />, count: 123 },
-    { name: "Community Engagement", icon: <User2 className="h-4 w-4" />, count: 98 },
-    { name: "Success Stories", icon: <MessageSquare className="h-4 w-4" />, count: 87 },
-    { name: "Events & Workshops", icon: <Calendar className="h-4 w-4" />, count: 64 },
-    { name: "Worker Resources", icon: <BriefcaseIcon className="h-4 w-4" />, count: 52 }
-  ];
-  
-  const topContributors = [
-    { username: "GreenThumb", posts: 142, joined: "1 year ago" },
-    { username: "EcoInnovator", posts: 128, joined: "10 months ago" },
-    { username: "WaterWizard", posts: 115, joined: "1 year ago" },
-    { username: "EarthDefender", posts: 97, joined: "8 months ago" },
-    { username: "BioDiversifier", posts: 86, joined: "6 months ago" }
-  ];
-  
-  const filteredTopics = forumTopics.filter(topic => 
-    topic.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    topic.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    topic.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()))
-  );
-  
+
+  const handleCreateTopic = () => {
+    setIsCreateModalOpen(true);
+  };
+
   return (
-    <div className="max-w-6xl mx-auto py-8 px-4 animate-fade-in">
+    <div className="container mx-auto py-8 animate-fade-in">
       <div className="text-center mb-8">
-        <Badge variant="outline" className="bg-regreen-50 text-regreen-800 dark:bg-regreen-900 dark:text-regreen-100">
-          Community
-        </Badge>
-        <h1 className="text-3xl md:text-4xl font-bold mt-2 text-regreen-800 dark:text-regreen-100">
-          ReGreen Forums
-        </h1>
-        <p className="text-muted-foreground mt-2 max-w-2xl mx-auto">
-          Connect with the ReGreen community to share ideas, ask questions, and learn from others' experiences in eco-restoration.
+        <Badge variant="outline" className="mb-2">Community</Badge>
+        <h1 className="text-3xl font-bold">ReGreen Forums</h1>
+        <p className="text-muted-foreground max-w-2xl mx-auto mt-2">
+          Connect with fellow restoration enthusiasts to ask questions, share knowledge, and discuss environmental restoration topics.
         </p>
       </div>
       
-      <div className="flex flex-col md:flex-row gap-8">
-        <div className="md:w-3/4">
-          <div className="flex flex-col sm:flex-row justify-between gap-4 mb-6">
-            <div className="flex-1 relative">
-              <Input
-                placeholder="Search topics, categories, or tags..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full"
-              />
-              <SearchIcon className="h-4 w-4 text-muted-foreground absolute right-3 top-3" />
-            </div>
-            <Button className="bg-regreen-600 hover:bg-regreen-700">Create New Topic</Button>
-          </div>
-          
-          <Tabs defaultValue="all" className="w-full mb-6">
-            <TabsList>
+      <div className="flex items-center justify-between gap-4 mb-8">
+        <div className="relative flex-1">
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" />
+          <Input 
+            placeholder="Search forums..." 
+            className="pl-10 py-2 pr-4"
+          />
+        </div>
+        <Button 
+          className="bg-regreen-600 hover:bg-regreen-700 text-white"
+          onClick={handleCreateTopic}
+        >
+          <PlusCircle className="mr-2 h-4 w-4" />
+          New Topic
+        </Button>
+      </div>
+      
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+        <div className="lg:col-span-3">
+          <Tabs defaultValue="all">
+            <TabsList className="mb-4">
               <TabsTrigger value="all">All Topics</TabsTrigger>
               <TabsTrigger value="popular">Popular</TabsTrigger>
               <TabsTrigger value="recent">Recent</TabsTrigger>
               <TabsTrigger value="unanswered">Unanswered</TabsTrigger>
             </TabsList>
             
-            <TabsContent value="all" className="mt-4">
-              <Card>
-                <CardContent className="p-0">
-                  <div className="divide-y">
-                    {filteredTopics.map((topic) => (
-                      <div key={topic.id} className="p-4 hover:bg-slate-50 dark:hover:bg-slate-900/10 transition-colors">
-                        <div className="flex items-start">
-                          <div className="flex-1">
-                            <div className="flex items-center gap-2 mb-1">
-                              {topic.isPinned && (
-                                <Badge variant="outline" className="text-regreen-600 bg-regreen-50 dark:bg-regreen-950 dark:text-regreen-400 text-xs px-1 py-0 h-5">
-                                  <Pin className="h-3 w-3 mr-1" />
-                                  Pinned
-                                </Badge>
-                              )}
-                              <Badge variant="outline" className="text-xs px-1.5 py-0 h-5">
-                                {topic.category}
-                              </Badge>
-                            </div>
-                            <Link to={`/community/forums/topic/${topic.id}`} className="font-medium text-lg hover:text-regreen-600 transition-colors">
-                              {topic.title}
-                            </Link>
-                            <div className="text-sm text-muted-foreground mt-1">
-                              Started by <span className="font-medium text-regreen-600">{topic.author}</span>
-                            </div>
-                            <div className="flex flex-wrap gap-1 mt-2">
-                              {topic.tags.map((tag, idx) => (
-                                <Badge key={idx} variant="secondary" className="text-xs font-normal">
-                                  {tag}
-                                </Badge>
-                              ))}
-                            </div>
+            <TabsContent value="all" className="space-y-4">
+              {forumTopics.map((topic) => (
+                <Card key={topic.id} className="hover:shadow-md transition-shadow duration-200">
+                  <CardHeader className="pb-2">
+                    <div className="flex justify-between">
+                      <Badge className="mb-2 bg-regreen-600 text-white">{topic.category}</Badge>
+                      <div className="text-xs text-muted-foreground">
+                        {new Date(topic.date).toLocaleDateString('en-US', { 
+                          year: 'numeric', 
+                          month: 'short', 
+                          day: 'numeric' 
+                        })}
+                      </div>
+                    </div>
+                    <CardTitle className="text-xl hover:text-regreen-600 cursor-pointer transition-colors">
+                      {topic.title}
+                    </CardTitle>
+                    <CardDescription className="line-clamp-2 mt-1">{topic.content}</CardDescription>
+                  </CardHeader>
+                  <CardContent className="pt-0">
+                    <div className="flex justify-between items-center">
+                      <div className="flex items-center space-x-2">
+                        <Avatar className="h-6 w-6">
+                          <AvatarImage src={`https://ui-avatars.com/api/?name=${topic.author}&background=random`} />
+                          <AvatarFallback>{topic.author.substring(0, 2)}</AvatarFallback>
+                        </Avatar>
+                        <span className="text-sm">{topic.author}</span>
+                      </div>
+                      <div className="flex space-x-4 text-sm text-muted-foreground">
+                        <div className="flex items-center">
+                          <MessageSquare className="h-4 w-4 mr-1" />
+                          {topic.replies ? topic.replies.length : 0} replies
+                        </div>
+                        <div>
+                          <Users className="h-4 w-4 mr-1 inline" />
+                          {topic.views} views
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </TabsContent>
+            
+            <TabsContent value="popular" className="space-y-4">
+              {forumTopics
+                .sort((a, b) => b.likes - a.likes)
+                .map((topic) => (
+                  <Card key={topic.id} className="hover:shadow-md transition-shadow duration-200">
+                    <CardHeader className="pb-2">
+                      <div className="flex justify-between">
+                        <Badge className="mb-2 bg-regreen-600 text-white">{topic.category}</Badge>
+                        <div className="text-xs text-muted-foreground">
+                          {new Date(topic.date).toLocaleDateString('en-US', { 
+                            year: 'numeric', 
+                            month: 'short', 
+                            day: 'numeric' 
+                          })}
+                        </div>
+                      </div>
+                      <CardTitle className="text-xl hover:text-regreen-600 cursor-pointer transition-colors">
+                        {topic.title}
+                      </CardTitle>
+                      <CardDescription className="line-clamp-2 mt-1">{topic.content}</CardDescription>
+                    </CardHeader>
+                    <CardContent className="pt-0">
+                      <div className="flex justify-between items-center">
+                        <div className="flex items-center space-x-2">
+                          <Avatar className="h-6 w-6">
+                            <AvatarImage src={`https://ui-avatars.com/api/?name=${topic.author}&background=random`} />
+                            <AvatarFallback>{topic.author.substring(0, 2)}</AvatarFallback>
+                          </Avatar>
+                          <span className="text-sm">{topic.author}</span>
+                        </div>
+                        <div className="flex space-x-4 text-sm text-muted-foreground">
+                          <div className="flex items-center">
+                            <MessageSquare className="h-4 w-4 mr-1" />
+                            {topic.replies ? topic.replies.length : 0} replies
                           </div>
-                          <div className="hidden sm:flex flex-col items-end text-sm text-muted-foreground space-y-1">
-                            <div className="flex items-center">
-                              <MessageCircle className="h-3.5 w-3.5 mr-1" />
-                              {topic.replies} replies
-                            </div>
-                            <div className="flex items-center">
-                              <Eye className="h-3.5 w-3.5 mr-1" />
-                              {topic.views} views
-                            </div>
-                            <div className="flex items-center">
-                              <Clock className="h-3.5 w-3.5 mr-1" />
-                              {topic.lastActivity}
-                            </div>
+                          <div>
+                            <Users className="h-4 w-4 mr-1 inline" />
+                            {topic.views} views
                           </div>
                         </div>
                       </div>
-                    ))}
-                  </div>
-                </CardContent>
-                <CardFooter className="flex justify-between items-center px-4 py-3 border-t">
-                  <div className="text-sm text-muted-foreground">
-                    Showing {filteredTopics.length} of {forumTopics.length} topics
-                  </div>
-                  <Button variant="outline" size="sm">
-                    Load More
-                  </Button>
-                </CardFooter>
-              </Card>
+                    </CardContent>
+                  </Card>
+                ))}
             </TabsContent>
             
-            <TabsContent value="popular" className="mt-4">
-              <Card>
-                <CardContent className="p-4 text-center">
-                  <p className="text-muted-foreground">Popular topics shown here based on views and engagement.</p>
-                </CardContent>
-              </Card>
+            <TabsContent value="recent" className="space-y-4">
+              {forumTopics
+                .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+                .map((topic) => (
+                  <Card key={topic.id} className="hover:shadow-md transition-shadow duration-200">
+                    <CardHeader className="pb-2">
+                      <div className="flex justify-between">
+                        <Badge className="mb-2 bg-regreen-600 text-white">{topic.category}</Badge>
+                        <div className="text-xs text-muted-foreground">
+                          {new Date(topic.date).toLocaleDateString('en-US', { 
+                            year: 'numeric', 
+                            month: 'short', 
+                            day: 'numeric' 
+                          })}
+                        </div>
+                      </div>
+                      <CardTitle className="text-xl hover:text-regreen-600 cursor-pointer transition-colors">
+                        {topic.title}
+                      </CardTitle>
+                      <CardDescription className="line-clamp-2 mt-1">{topic.content}</CardDescription>
+                    </CardHeader>
+                    <CardContent className="pt-0">
+                      <div className="flex justify-between items-center">
+                        <div className="flex items-center space-x-2">
+                          <Avatar className="h-6 w-6">
+                            <AvatarImage src={`https://ui-avatars.com/api/?name=${topic.author}&background=random`} />
+                            <AvatarFallback>{topic.author.substring(0, 2)}</AvatarFallback>
+                          </Avatar>
+                          <span className="text-sm">{topic.author}</span>
+                        </div>
+                        <div className="flex space-x-4 text-sm text-muted-foreground">
+                          <div className="flex items-center">
+                            <MessageSquare className="h-4 w-4 mr-1" />
+                            {topic.replies ? topic.replies.length : 0} replies
+                          </div>
+                          <div>
+                            <Users className="h-4 w-4 mr-1 inline" />
+                            {topic.views} views
+                          </div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
             </TabsContent>
             
-            <TabsContent value="recent" className="mt-4">
-              <Card>
-                <CardContent className="p-4 text-center">
-                  <p className="text-muted-foreground">Most recently active topics shown here.</p>
-                </CardContent>
-              </Card>
-            </TabsContent>
-            
-            <TabsContent value="unanswered" className="mt-4">
-              <Card>
-                <CardContent className="p-4 text-center">
-                  <p className="text-muted-foreground">Topics with no replies shown here.</p>
-                </CardContent>
-              </Card>
+            <TabsContent value="unanswered" className="space-y-4">
+              {forumTopics
+                .filter(topic => !topic.replies || topic.replies.length === 0)
+                .map((topic) => (
+                  <Card key={topic.id} className="hover:shadow-md transition-shadow duration-200">
+                    <CardHeader className="pb-2">
+                      <div className="flex justify-between">
+                        <Badge className="mb-2 bg-regreen-600 text-white">{topic.category}</Badge>
+                        <div className="text-xs text-muted-foreground">
+                          {new Date(topic.date).toLocaleDateString('en-US', { 
+                            year: 'numeric', 
+                            month: 'short', 
+                            day: 'numeric' 
+                          })}
+                        </div>
+                      </div>
+                      <CardTitle className="text-xl hover:text-regreen-600 cursor-pointer transition-colors">
+                        {topic.title}
+                      </CardTitle>
+                      <CardDescription className="line-clamp-2 mt-1">{topic.content}</CardDescription>
+                    </CardHeader>
+                    <CardContent className="pt-0">
+                      <div className="flex justify-between items-center">
+                        <div className="flex items-center space-x-2">
+                          <Avatar className="h-6 w-6">
+                            <AvatarImage src={`https://ui-avatars.com/api/?name=${topic.author}&background=random`} />
+                            <AvatarFallback>{topic.author.substring(0, 2)}</AvatarFallback>
+                          </Avatar>
+                          <span className="text-sm">{topic.author}</span>
+                        </div>
+                        <div className="flex space-x-4 text-sm text-muted-foreground">
+                          <div className="flex items-center">
+                            <MessageSquare className="h-4 w-4 mr-1" />
+                            0 replies
+                          </div>
+                          <div>
+                            <Users className="h-4 w-4 mr-1 inline" />
+                            {topic.views} views
+                          </div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              {forumTopics.filter(topic => !topic.replies || topic.replies.length === 0).length === 0 && (
+                <p className="text-center text-muted-foreground py-8">
+                  No unanswered topics found. Great job, community!
+                </p>
+              )}
             </TabsContent>
           </Tabs>
         </div>
         
-        <div className="md:w-1/4 space-y-6">
+        <div className="space-y-6">
           <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-lg">Categories</CardTitle>
+            <CardHeader>
+              <CardTitle>Forum Categories</CardTitle>
             </CardHeader>
-            <CardContent className="p-0">
-              <div className="divide-y">
-                {categories.map((category, idx) => (
-                  <Link 
-                    key={idx} 
-                    to={`/community/forums/category/${category.name.toLowerCase().replace(/\s+/g, '-')}`}
-                    className="flex items-center justify-between px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-900/10 transition-colors"
-                  >
-                    <div className="flex items-center gap-2">
-                      <div className="text-regreen-600">
-                        {category.icon}
-                      </div>
-                      <span>{category.name}</span>
-                    </div>
-                    <Badge variant="secondary" className="text-xs">{category.count}</Badge>
-                  </Link>
+            <CardContent>
+              <ul className="space-y-2">
+                {['General', 'Technical', 'Restoration', 'Wildlife', 'Funding', 'Success'].map((category) => (
+                  <li key={category} className="flex items-center justify-between">
+                    <span 
+                      className="cursor-pointer hover:text-regreen-600 transition-colors"
+                    >
+                      {category}
+                    </span>
+                    <Badge variant="outline">{Math.floor(Math.random() * 20) + 5}</Badge>
+                  </li>
                 ))}
-              </div>
+              </ul>
             </CardContent>
           </Card>
           
           <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-lg">Top Contributors</CardTitle>
+            <CardHeader>
+              <CardTitle>Top Contributors</CardTitle>
             </CardHeader>
-            <CardContent className="p-0">
-              <div className="divide-y">
-                {topContributors.map((contributor, idx) => (
-                  <div key={idx} className="px-4 py-2.5 flex items-center justify-between">
-                    <div>
-                      <div className="font-medium text-sm">{contributor.username}</div>
-                      <div className="text-xs text-muted-foreground">Joined {contributor.joined}</div>
+            <CardContent>
+              <div className="space-y-4">
+                {['Elena Martinez', 'David Kim', 'Sarah Johnson', 'Michael Chen', 'James Wilson'].map((name, i) => (
+                  <div key={name} className="flex items-center justify-between">
+                    <div className="flex items-center">
+                      <Avatar className="h-8 w-8 mr-2">
+                        <AvatarImage src={`https://ui-avatars.com/api/?name=${name}&background=random`} />
+                        <AvatarFallback>{name.substring(0, 2)}</AvatarFallback>
+                      </Avatar>
+                      <div>
+                        <div className="font-medium">{name}</div>
+                        <div className="text-xs text-muted-foreground">{['Restoration Expert', 'Ecologist', 'Landowner', 'Botanist', 'Community Leader'][i]}</div>
+                      </div>
                     </div>
-                    <Badge variant="outline">{contributor.posts} posts</Badge>
+                    <span className="text-sm text-muted-foreground">{30 - i * 5}+ posts</span>
                   </div>
                 ))}
               </div>
             </CardContent>
-            <CardFooter className="border-t px-4 py-3">
-              <Button variant="ghost" size="sm" className="w-full text-xs">View All Contributors</Button>
-            </CardFooter>
           </Card>
           
           <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-lg">Forum Guidelines</CardTitle>
+            <CardHeader>
+              <CardTitle>Forum Guidelines</CardTitle>
             </CardHeader>
-            <CardContent className="p-4 text-sm">
-              <ul className="space-y-2">
-                <li className="flex items-start gap-2">
-                  <ArrowUp className="h-4 w-4 text-regreen-600 flex-shrink-0 mt-0.5" />
-                  <span>Be respectful to all community members</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <ArrowUp className="h-4 w-4 text-regreen-600 flex-shrink-0 mt-0.5" />
-                  <span>Share knowledge and personal experiences</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <ArrowUp className="h-4 w-4 text-regreen-600 flex-shrink-0 mt-0.5" />
-                  <span>Stay on topic and use appropriate categories</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <ArrowUp className="h-4 w-4 text-regreen-600 flex-shrink-0 mt-0.5" />
-                  <span>Use the search before posting a new topic</span>
-                </li>
+            <CardContent>
+              <ul className="space-y-2 text-sm">
+                <li>• Be respectful and constructive</li>
+                <li>• Stay on topic</li>
+                <li>• No promotional content</li>
+                <li>• Share scientific information when possible</li>
+                <li>• Respect others' intellectual property</li>
               </ul>
-              
-              <Button variant="link" className="p-0 h-auto text-xs text-regreen-600 mt-2">
-                Read Full Guidelines
-              </Button>
             </CardContent>
+            <CardFooter>
+              <Button variant="ghost" className="w-full">
+                View Full Guidelines
+              </Button>
+            </CardFooter>
           </Card>
         </div>
       </div>
+      
+      <CreateForumTopicModal 
+        isOpen={isCreateModalOpen}
+        onClose={() => setIsCreateModalOpen(false)}
+      />
     </div>
   );
 };
