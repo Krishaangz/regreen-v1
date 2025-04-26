@@ -22,7 +22,7 @@ const Layout = () => {
 
   return (
     <div className={`min-h-screen w-full bg-gradient-to-br ${getBgGradient(role, colorTheme)} transition-colors duration-500 relative ${getBgPattern(role)}`}>
-      <div className="flex h-screen overflow-hidden">
+      <div className="flex h-screen overflow-hidden w-full">
         {!isMobile && <AppSidebar />}
         {isMobile && <MobileNavbar />}
         

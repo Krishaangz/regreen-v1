@@ -40,6 +40,7 @@ import WorkerServices from './pages/services/Worker';
 import LandownerGuide from './pages/help/landowner-guide';
 import PropertyRegistrationGuide from './pages/help/landowners/PropertyRegistration';
 import Wallet from './pages/Wallet';
+import WorkerTasks from './pages/worker/Tasks';
 
 function App() {
   return (
@@ -60,25 +61,26 @@ function App() {
         <Route path="services/worker" element={<WorkerServices />} />
         <Route path="wallet" element={<Wallet />} />
         
+        {/* Dashboard routes - make direct paths for each role dashboard */}
         <Route path="dashboard" element={
           <RouteGuard>
             <Dashboard />
           </RouteGuard>
         } />
         
-        <Route path="landowner-dashboard" element={
+        <Route path="dashboard/landowner" element={
           <RouteGuard>
             <LandownerDashboard />
           </RouteGuard>
         } />
         
-        <Route path="worker-dashboard" element={
+        <Route path="dashboard/worker" element={
           <RouteGuard>
             <WorkerDashboard />
           </RouteGuard>
         } />
         
-        <Route path="community-dashboard" element={
+        <Route path="dashboard/community" element={
           <RouteGuard>
             <CommunityDashboard />
           </RouteGuard>
@@ -108,9 +110,16 @@ function App() {
           </RouteGuard>
         } />
         
+        {/* Worker Tasks route */}
         <Route path="tasks" element={
           <RouteGuard>
             <TaskView />
+          </RouteGuard>
+        } />
+
+        <Route path="tasks/current" element={
+          <RouteGuard>
+            <WorkerTasks />
           </RouteGuard>
         } />
         

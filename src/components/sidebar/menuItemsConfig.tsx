@@ -13,11 +13,7 @@ import {
   Building,
   Calendar,
   MessageSquare,
-  BookOpen,
-  MapPin,
-  Globe,
-  ChevronDown,
-  ChevronRight
+  Wallet
 } from "lucide-react";
 import React from "react";
 
@@ -40,12 +36,16 @@ export const getMenuItems = (role: string | null) => {
   sharedItems = [
     {
       label: "Map View",
-      path: "/map",
-      icon: MapPin,
+      path: role === 'landowner' ? "/landowner-map" : 
+            role === 'worker' ? "/worker-map" : 
+            role === 'community' ? "/community-map" : "/map",
+      icon: Map,
     },
     {
       label: "Projects",
-      path: "/projects",
+      path: role === 'landowner' ? "/projects" : 
+            role === 'worker' ? "/worker-projects" : 
+            role === 'community' ? "/community-projects" : "/projects",
       icon: TreeDeciduous,
     },
     {
@@ -67,6 +67,11 @@ export const getMenuItems = (role: string | null) => {
         { label: "Landowner Services", path: "/services/landowner" },
         { label: "Worker Programs", path: "/services/worker" }
       ]
+    },
+    {
+      label: "Wallet",
+      path: "/wallet",
+      icon: Wallet
     },
     {
       label: "Help Center",
@@ -101,7 +106,7 @@ export const getMenuItems = (role: string | null) => {
         },
         {
           label: "Landowner Reports",
-          path: "/reports",
+          path: "/landowner-reports",
           icon: FileSpreadsheet,
         }
       ];
@@ -121,7 +126,7 @@ export const getMenuItems = (role: string | null) => {
         },
         {
           label: "Work Schedule",
-          path: "/reports", // Same path but different content
+          path: "/worker-schedule", 
           icon: Calendar,
         }
       ];
@@ -133,9 +138,13 @@ export const getMenuItems = (role: string | null) => {
           label: "Community Dashboard",
           path: "/dashboard/community",
           icon: LayoutDashboard,
+        },
+        {
+          label: "Community Forum",
+          path: "/community/forums",
+          icon: MessageSquare,
         }
       ];
-      // Don't duplicate forums and events which are already in the Community dropdown
       break;
       
     default:
@@ -146,4 +155,3 @@ export const getMenuItems = (role: string | null) => {
   // Combine the menu items in the desired order
   return [...baseMenuItems, ...roleSpecificItems, ...sharedItems];
 };
-
