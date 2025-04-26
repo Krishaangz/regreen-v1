@@ -9,6 +9,7 @@ import { RoleProvider } from "@/contexts/RoleContext";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/contexts/ThemeContext"; 
+import { SidebarProvider } from "@/components/ui/sidebar";
 
 const queryClient = new QueryClient();
 
@@ -22,8 +23,10 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         <Router>
           <RoleProvider>
             <ThemeProvider>
-              <App />
-              <Toaster />
+              <SidebarProvider>
+                <App />
+                <Toaster />
+              </SidebarProvider>
             </ThemeProvider>
           </RoleProvider>
         </Router>
