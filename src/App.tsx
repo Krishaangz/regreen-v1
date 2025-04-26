@@ -1,4 +1,3 @@
-
 import { Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
 import Index from './pages/Index';
@@ -41,6 +40,8 @@ import LandownerGuide from './pages/help/landowner-guide';
 import PropertyRegistrationGuide from './pages/help/landowners/PropertyRegistration';
 import Wallet from './pages/Wallet';
 import WorkerTasks from './pages/worker/Tasks';
+import UserGuides from './pages/help/UserGuides';
+import Tips from './pages/help/Tips';
 
 function App() {
   return (
@@ -50,6 +51,8 @@ function App() {
         <Route path="register" element={<Register />} />
         <Route path="about" element={<About />} />
         <Route path="help" element={<Help />} />
+        <Route path="help/guides" element={<UserGuides />} />
+        <Route path="help/tips" element={<Tips />} />
         <Route path="help/faq" element={<FAQ />} />
         <Route path="help/contact" element={<Contact />} />
         <Route path="help/support" element={<Support />} />
@@ -61,7 +64,6 @@ function App() {
         <Route path="services/worker" element={<WorkerServices />} />
         <Route path="wallet" element={<Wallet />} />
         
-        {/* Dashboard routes - make direct paths for each role dashboard */}
         <Route path="dashboard" element={
           <RouteGuard>
             <Dashboard />
@@ -110,13 +112,12 @@ function App() {
           </RouteGuard>
         } />
         
-        {/* Worker Tasks route */}
         <Route path="tasks" element={
           <RouteGuard>
             <TaskView />
           </RouteGuard>
         } />
-
+        
         <Route path="tasks/current" element={
           <RouteGuard>
             <WorkerTasks />

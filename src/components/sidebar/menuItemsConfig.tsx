@@ -1,4 +1,3 @@
-
 import { 
   LayoutDashboard, 
   Map, 
@@ -32,6 +31,14 @@ export const getMenuItems = (role: string | null) => {
   let roleSpecificItems: any[] = [];
   let sharedItems: any[] = [];
   
+  // Show wallet only for landowner and worker roles
+  const walletItem = {
+    label: "Wallet",
+    path: "/wallet",
+    icon: Wallet,
+    hidden: role === 'community'
+  };
+  
   // Shared items across all roles but with potential customizations per role
   sharedItems = [
     {
@@ -48,6 +55,8 @@ export const getMenuItems = (role: string | null) => {
             role === 'community' ? "/community-projects" : "/projects",
       icon: TreeDeciduous,
     },
+    // Wallet item position based on role
+    ...(role !== 'community' ? [walletItem] : []),
     {
       label: "Community",
       path: "/community",
@@ -69,17 +78,13 @@ export const getMenuItems = (role: string | null) => {
       ]
     },
     {
-      label: "Wallet",
-      path: "/wallet",
-      icon: Wallet
-    },
-    {
       label: "Help Center",
       path: "/help",
       icon: HelpCircle,
       dropdownItems: [
         { label: "FAQ", path: "/help/faq" },
-        { label: "Contact Us", path: "/help/contact" },
+        { label: "User Guides", path: "/help/guides" },
+        { label: "Tips & Best Practices", path: "/help/tips" },
         { label: "Support", path: "/help/support" }
       ]
     },
@@ -153,5 +158,5 @@ export const getMenuItems = (role: string | null) => {
   }
   
   // Combine the menu items in the desired order
-  return [...baseMenuItems, ...roleSpecificItems, ...sharedItems];
+  return [...baseMenuItems, ...roleSpecificItems, ...sharedItems].filter(item => !item.hidden);
 };
