@@ -1,8 +1,15 @@
 
-import GuideCard from "@/components/help/guides/GuideCard";
 import { motion } from "framer-motion";
+import GuideCard from "@/components/help/guides/GuideCard";
+import HelpPageLayout from "@/components/help/layout/HelpPageLayout";
+import { useStaggeredAnimation } from "@/hooks/use-staggered-animation";
 
 const UserGuides = () => {
+  const { containerVariants, itemVariants } = useStaggeredAnimation({
+    delayChildren: 0.3,
+    staggerChildren: 0.15
+  });
+  
   const guideCategories = [
     {
       title: "Getting Started",
@@ -33,49 +40,24 @@ const UserGuides = () => {
     }
   ];
 
-  const container = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2
-      }
-    }
-  };
-
   return (
-    <div className="container mx-auto py-8 px-4 sm:px-6 lg:px-8">
+    <HelpPageLayout 
+      title="User Guides"
+      description="Explore our comprehensive guides to make the most of the ReGreen platform"
+    >
       <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="text-center mb-12"
-      >
-        <h1 className="text-4xl font-bold text-gradient-primary mb-4">
-          User Guides
-        </h1>
-        <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-          Explore our comprehensive guides to make the most of the ReGreen platform
-        </p>
-      </motion.div>
-
-      <motion.div
-        variants={container}
+        variants={containerVariants}
         initial="hidden"
         animate="show"
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
       >
         {guideCategories.map((category, idx) => (
-          <motion.div
-            key={idx}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: idx * 0.1 }}
-          >
+          <motion.div key={idx} variants={itemVariants} custom={idx}>
             <GuideCard {...category} />
           </motion.div>
         ))}
       </motion.div>
-    </div>
+    </HelpPageLayout>
   );
 };
 

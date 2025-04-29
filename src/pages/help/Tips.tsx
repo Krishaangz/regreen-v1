@@ -1,7 +1,15 @@
 
+import { motion } from "framer-motion";
 import TipCard from "@/components/help/tips/TipCard";
+import HelpPageLayout from "@/components/help/layout/HelpPageLayout";
+import { useStaggeredAnimation } from "@/hooks/use-staggered-animation";
 
 const Tips = () => {
+  const { containerVariants, itemVariants } = useStaggeredAnimation({
+    delayChildren: 0.3,
+    staggerChildren: 0.15
+  });
+  
   const tipCategories = [
     {
       title: "Project Management",
@@ -36,14 +44,23 @@ const Tips = () => {
   ];
 
   return (
-    <div className="container mx-auto py-8">
-      <h1 className="text-3xl font-bold mb-8">Tips & Best Practices</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <HelpPageLayout 
+      title="Tips & Best Practices" 
+      description="Expert advice to make the most of your eco-restoration efforts"
+    >
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        animate="show"
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+      >
         {tipCategories.map((category, idx) => (
-          <TipCard key={idx} {...category} />
+          <motion.div key={idx} variants={itemVariants} custom={idx}>
+            <TipCard {...category} />
+          </motion.div>
         ))}
-      </div>
-    </div>
+      </motion.div>
+    </HelpPageLayout>
   );
 };
 
